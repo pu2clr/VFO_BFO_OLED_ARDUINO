@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:micro",
+    "programmer": "AVR ISP",
+    "sketch": "source/si5351_vfobfo.ino"
+}

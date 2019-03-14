@@ -1,5 +1,5 @@
-# VFO e BFO Si5351, OLED e Arduino 
-
+#Frequency Synthesizer on the Si5351
+#VFO e BFO Si5351, OLED e Arduino 
 
 English:
 Signal Generetor with Si5351, OLED and Arduino.
