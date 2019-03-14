@@ -44,36 +44,57 @@ SSD1306AsciiAvrI2c display;
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
 #define MIN_ELAPSED_TIME 20
 
+// I'm using in this project the Adafruit Si5351A
 Si5351 si5351;
 
 Encoder rotaryEncoder(ENCONDER_PIN_A, ENCONDER_PIN_B);
 
+// Structure for Bands database
 typedef struct
 {
   char *name;
-  uint64_t minFreq;
-  uint64_t maxFreq;
+  uint64_t minFreq; // Frequency min value for the band (unit 0.01Hz)
+  uint64_t maxFreq; // Frequency max value for the band (unit 0.01Hz)
 } Band;
 
-// Band information: See  https://en.wikipedia.org/wiki/Radio_spectrum
+// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
 Band band[] = {
-    {"AM ", 53500000LU, 170000000LU},
-    {"SW1", 170000001LU, 400000000LU},
-    {"SW2", 400000001LU, 900000000LU},
-    {"SW3", 900000001LU, 1300000000LU},
-    {"SW4", 1300000001LU, 2000000000LU},
-    {"SW5", 2100000001LU, 3000000000LU}
-    // {"VHF", 3000000001LU, 15000000000LU}
-};
+    {"AM   ",   53500000LLU,   170000000LLU},   // 535KHz to 1700KHz
+    {"SW1  ",  170000001LLU,   350000000LLU},   
+    {"SW2  ",  350000000LLU,   400000001LLU},
+    {"SW2  ",  400000001LLU,   700000000LLU},
+    {"SW4A ",  700000000LLU,   730000000LLU},   // 7MHz to 7.3 MHz  (Amateur 40m)
+    {"SW5  ",  730000000LLU,   900000001LLU},   // 41m 
+    {"SW6  ",  900000000LLU,   1000000000LLU},  // 31m 
+    {"SW7A ",  1000000000LLU,  1100000000LLU},  // 10 MHz to 11 MHz (Amateur 30m)
+    {"SW8  ",  1100000000LLU,  1400000001LLU},  // 25 and 22 meters
+    {"SW9A ",  1400000000LLU,  1500000000LLU},  // 14MHz to 15Mhz (Amateur 20m)
+    {"SW10 ",  1500000000LLU,  1700000000LLU},  // 19m
+    {"SW11 ",  1700000000LLU,  1800000000LLU},  // 16m
+    {"SW12A",  1800000000LLU,  2000000000LLU},  // 18MHz to 20Mhz (Amateur and comercial 15m)
+    {"SW13A",  2000000000LLU,  2135000000LLU},  // 20MHz to 22Mhz (Amateur and comercial 15m/13m) 
+    {"SW14 ",  2135000000LLU,  2200000000LLU},
+    {"SW15 ",  2235000000LLU,  2498000000LLU},
+    {"SW16A",  2488000000LLU,  2499000000LLU},  // 24.88MHz to 24.99MHz (Amateur 12m)
+    {"SW17 ",  2499000000LLU,  2600000000LLU},
+    {"SW18C",  2600000000LLU,  2800000000LLU},
+    {"SW19A",  2800000000LLU,  3000000000LLU},  // 28MHz to 30MHz (Amateur 10M)
+    {"VHF  ",  3000000001LLU,  5000000000LLU},
+    {"VHF2A",  5000000001LLU,  5400000000LLU},
+    {"VHF3 ",  5400000001LLU,  8600000000LLU},   
+    {"FM   ",  8600000000LLU, 10800000000LLU},  // Comercial FM
+    {"VHF3 ", 10800000000LLU, 16000000000LLU},  // 108MHz to 160MHz       
+    };
 
-// Calculate the last element position of the array band
-volatile int lastBand = 5;    //sizeof band / sizeof(Band);
-volatile int currentBand = 0; // AM is the current band
+// Last element position of the array band
+volatile int lastBand = 24;    //sizeof band / sizeof(Band);
+volatile int currentBand = 0;  // AM is the current band
 
+// Struct for step database
 typedef struct
 {
-  char *name; // step name: 100Hz, 500Hz, 1KHz, 5KHz
-  long value; // Frequency to increment or decrement
+  char *name; // step name: 100Hz, 500Hz, 1KHz, 5KHz, 10KHz and 500KHz
+  long value; // Frequency value (unit 0.01Hz See documentation) to increment or decrement
 } Step;
 
 Step step[] = {
@@ -82,13 +103,16 @@ Step step[] = {
     {"1KHz  ", 100000},
     {"2.5KHz", 250000},
     {"5KHz  ", 500000},
-    {"10KHz ", 1000000}};
+    {"10KHz ", 1000000},
+    {"100KHz", 10000000},
+    {"500KHz", 50000000}};
 
-volatile int lastStep = 5;
+volatile int lastStepVFO = 7;
+volatile int lastStepBFO = 3;         // Max increment or decrement for BFO is 2.5KHz 
 volatile long currentStep = 0;
 
 volatile boolean isFreqChanged = false;
-volatile boolean clearDisplay  = false;
+volatile boolean clearDisplay = false;
 
 // AM is the default band
 volatile uint64_t vfoFreq = band[currentBand].minFreq; // VFO starts on AM
@@ -186,8 +210,8 @@ void fastClear()
 //
 void displayDial()
 {
-  unsigned long vfo = vfoFreq / 10000;
-  unsigned long bfo = bfoFreq / 10000;
+  double vfo = vfoFreq / 100000.0;
+  double bfo = bfoFreq / 100000.0;
 
   // display.setCursor(0,0)
   // display.clear();
@@ -196,7 +220,7 @@ void displayDial()
   display.print("VFO:");
   display.print(vfo);
 
-   display.print("\nBFO:");
+  display.print("\nBFO:");
   display.print(bfo);
 
   display.set1X();
@@ -204,14 +228,11 @@ void displayDial()
   display.print("\n\n\nBand: ");
   display.print(band[currentBand].name);
 
-   display.print("\nStep: ");
+  display.print("\nStep: ");
   display.print(step[currentStep].name);
 
-
   display.print("\n\nCtrl: ");
-  display.print( (currentClock)? "BFO": "VFO");
-
-
+  display.print((currentClock) ? "BFO" : "VFO");
 }
 
 // Change the frequency (increment or decrement)
@@ -245,8 +266,11 @@ void changeStep()
 {
   if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
     return;                                                       // nothing to do if the time less than MIN_ELAPSED_TIME milisecounds
-  cli();                                                          // disable global interrupts:
-  currentStep = (currentStep < lastStep) ? (currentStep + 1) : 0; // Increment the step or go back to the first
+  cli();    //// disable global interrupts:
+  if (currentClock == 0 )     // Is VFO                                                
+       currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0;     // Increment the step or go back to the first
+  else      // Is BFO
+       currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
   isFreqChanged = true;
   clearDisplay = true;
   elapsedTimeInterrupt = millis();
@@ -273,6 +297,7 @@ void switchVFOBFO()
     return; // nothing to do if the time less than 11 milisecounds
   cli();    //  disable global interrupts:
   currentClock = !currentClock;
+  currentStep = 0;   // go back to first Step (100Hz)
   clearDisplay = true;
   elapsedTimeInterrupt = millis();
   sei(); // enable interrupts
@@ -292,10 +317,10 @@ void loop()
       changeFreq((enconderCurrentPosition < enconderPosition) ? -1 : 1);
       enconderPosition = enconderCurrentPosition;
     }
-    elapsedTimeEncoder = millis();  // keep elapsedTimeEncoder updated
+    elapsedTimeEncoder = millis(); // keep elapsedTimeEncoder updated
   }
   // check if some action changed the frequency
-  if (isFreqChanged)  
+  if (isFreqChanged)
   {
     if (currentClock == 0)
     {
@@ -307,7 +332,9 @@ void loop()
     }
     isFreqChanged = false;
     displayDial();
-  } else if ( clearDisplay ) {
+  }
+  else if (clearDisplay)
+  {
     display.clear();
     displayDial();
     clearDisplay = false;
