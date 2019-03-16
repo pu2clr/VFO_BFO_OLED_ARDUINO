@@ -21,8 +21,8 @@
 #include "SSD1306AsciiAvrI2c.h"
 
 // Enconder constants
-#define ENCONDER_PIN_A 5 // Arduino  D5
-#define ENCONDER_PIN_B 6 // Arduino  D6
+#define ENCONDER_PIN_A 8 // Arduino  D8
+#define ENCONDER_PIN_B 9 // Arduino  D9
 
 // OLED Diaplay constants
 // 0X3C+SA0 - 0x3C or 0x3D
@@ -34,7 +34,7 @@
 SSD1306AsciiAvrI2c display;
 
 // Local constants
-#define CORRECTION_FACTOR -180000 // See how to calibrate your si5351 (0 if you do not want)
+#define CORRECTION_FACTOR 80231 // See how to calibrate your si5351 (0 if you do not want)
 
 #define BUTTON_STEP 0    // Control the frequency increment and decrement
 #define BUTTON_BAND 1    // Controls the band
@@ -42,7 +42,7 @@ SSD1306AsciiAvrI2c display;
 
 #define STATUS_LED 10 // Arduino status LED
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
-#define MIN_ELAPSED_TIME 20
+#define MIN_ELAPSED_TIME 300
 
 // I'm using in this project the Adafruit Si5351A
 Si5351 si5351;
@@ -59,36 +59,36 @@ typedef struct
 
 // Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
 Band band[] = {
-    {"AM   ",   53500000LLU,   170000000LLU},   // 535KHz to 1700KHz
-    {"SW1  ",  170000001LLU,   350000000LLU},   
-    {"SW2  ",  350000000LLU,   400000001LLU},
-    {"SW2  ",  400000001LLU,   700000000LLU},
-    {"SW4A ",  700000000LLU,   730000000LLU},   // 7MHz to 7.3 MHz  (Amateur 40m)
-    {"SW5  ",  730000000LLU,   900000001LLU},   // 41m 
-    {"SW6  ",  900000000LLU,   1000000000LLU},  // 31m 
-    {"SW7A ",  1000000000LLU,  1100000000LLU},  // 10 MHz to 11 MHz (Amateur 30m)
-    {"SW8  ",  1100000000LLU,  1400000001LLU},  // 25 and 22 meters
-    {"SW9A ",  1400000000LLU,  1500000000LLU},  // 14MHz to 15Mhz (Amateur 20m)
-    {"SW10 ",  1500000000LLU,  1700000000LLU},  // 19m
-    {"SW11 ",  1700000000LLU,  1800000000LLU},  // 16m
-    {"SW12A",  1800000000LLU,  2000000000LLU},  // 18MHz to 20Mhz (Amateur and comercial 15m)
-    {"SW13A",  2000000000LLU,  2135000000LLU},  // 20MHz to 22Mhz (Amateur and comercial 15m/13m) 
-    {"SW14 ",  2135000000LLU,  2200000000LLU},
-    {"SW15 ",  2235000000LLU,  2498000000LLU},
-    {"SW16A",  2488000000LLU,  2499000000LLU},  // 24.88MHz to 24.99MHz (Amateur 12m)
-    {"SW17 ",  2499000000LLU,  2600000000LLU},
-    {"SW18C",  2600000000LLU,  2800000000LLU},
-    {"SW19A",  2800000000LLU,  3000000000LLU},  // 28MHz to 30MHz (Amateur 10M)
-    {"VHF  ",  3000000001LLU,  5000000000LLU},
-    {"VHF2A",  5000000001LLU,  5400000000LLU},
-    {"VHF3 ",  5400000001LLU,  8600000000LLU},   
-    {"FM   ",  8600000000LLU, 10800000000LLU},  // Comercial FM
-    {"VHF3 ", 10800000000LLU, 16000000000LLU},  // 108MHz to 160MHz       
-    };
+    {"AM   ", 53500000LLU, 170000000LLU}, // 535KHz to 1700KHz
+    {"SW1  ", 170000001LLU, 350000000LLU},
+    {"SW2  ", 350000000LLU, 400000001LLU},
+    {"SW3  ", 400000001LLU, 700000000LLU},
+    {"SW4A ", 700000000LLU, 730000000LLU},   // 7MHz to 7.3 MHz  (Amateur 40m)
+    {"SW5  ", 730000000LLU, 900000001LLU},   // 41m
+    {"SW6  ", 900000000LLU, 1000000000LLU},  // 31m
+    {"SW7A ", 1000000000LLU, 1100000000LLU}, // 10 MHz to 11 MHz (Amateur 30m)
+    {"SW8  ", 1100000000LLU, 1400000001LLU}, // 25 and 22 meters
+    {"SW9A ", 1400000000LLU, 1500000000LLU}, // 14MHz to 15Mhz (Amateur 20m)
+    {"SW10 ", 1500000000LLU, 1700000000LLU}, // 19m
+    {"SW11 ", 1700000000LLU, 1800000000LLU}, // 16m
+    {"SW12A", 1800000000LLU, 2000000000LLU}, // 18MHz to 20Mhz (Amateur and comercial 15m)
+    {"SW13A", 2000000000LLU, 2135000000LLU}, // 20MHz to 22Mhz (Amateur and comercial 15m/13m)
+    {"SW14 ", 2135000000LLU, 2200000000LLU},
+    {"SW15 ", 2235000000LLU, 2498000000LLU},
+    {"SW16A", 2488000000LLU, 2499000000LLU}, // 24.88MHz to 24.99MHz (Amateur 12m)
+    {"SW17 ", 2499000000LLU, 2600000000LLU},
+    {"SW18C", 2600000000LLU, 2800000000LLU},
+    {"SW19A", 2800000000LLU, 3000000000LLU}, // 28MHz to 30MHz (Amateur 10M)
+    {"VHF1 ", 3000000001LLU, 5000000000LLU},
+    {"VHF2A", 5000000001LLU, 5400000000LLU},
+    {"VHF3 ", 5400000001LLU, 8600000000LLU},
+    {"FM   ", 8600000000LLU, 10800000000LLU},  // Comercial FM
+    {"VHF4 ", 10800000000LLU, 16000000000LLU}, // 108MHz to 160MHz
+};
 
 // Last element position of the array band
-volatile int lastBand = 24;    //sizeof band / sizeof(Band);
-volatile int currentBand = 0;  // AM is the current band
+volatile int lastBand = 24;   //sizeof band / sizeof(Band);
+volatile int currentBand = 0; // AM is the current band
 
 // Struct for step database
 typedef struct
@@ -108,7 +108,7 @@ Step step[] = {
     {"500KHz", 50000000}};
 
 volatile int lastStepVFO = 7;
-volatile int lastStepBFO = 3;         // Max increment or decrement for BFO is 2.5KHz 
+volatile int lastStepBFO = 3; // Max increment or decrement for BFO is 2.5KHz
 volatile long currentStep = 0;
 
 volatile boolean isFreqChanged = false;
@@ -136,7 +136,7 @@ void setup()
   blinkLed(STATUS_LED, 100);
   STATUSLED(LOW);
 
-  // ***** Initiating the OLED Display
+  // Initiating the OLED Display
   display.begin(&Adafruit128x64, I2C_ADDRESS);
 
   display.setFont(Adafruit5x7);
@@ -148,16 +148,14 @@ void setup()
 
   displayDial();
 
-  // ***** Initiating the Signal Generator (si5351)
+  // Initiating the Signal Generator (si5351)
   si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 0);
-  //Adjusting the frequency (see how to calibrate the Si5351
+  // Adjusting the frequency (see how to calibrate the Si5351 - example si5351_calibration.ino)
   si5351.set_correction(CORRECTION_FACTOR, SI5351_PLL_INPUT_XO);
 
   si5351.set_pll(SI5351_PLL_FIXED, SI5351_PLLA);
-
-  si5351.set_freq(vfoFreq, SI5351_CLK0);
-  si5351.set_freq(bfoFreq, SI5351_CLK1);
-
+  si5351.set_freq(vfoFreq, SI5351_CLK0);          // Start CLK0 (VFO)
+  si5351.set_freq(bfoFreq, SI5351_CLK1);          // Start CLK1 (BFO)
   si5351.update_status();
 
   // Stop what Arduino is doing and call changeStep() whenever the pin state (BUTTON_STEP) goes from LOW to HIGH
@@ -207,7 +205,6 @@ void fastClear()
 
 // Show Signal Generator Information
 // Verificar setCursor() em https://github.com/greiman/SSD1306Ascii/issues/53
-//
 void displayDial()
 {
   double vfo = vfoFreq / 100000.0;
@@ -217,15 +214,15 @@ void displayDial()
   // display.clear();
   display.set2X();
   display.setCursor(0, 0);
-  display.print("VFO:");
+  display.print(" ");
   display.print(vfo);
-
-  display.print("\nBFO:");
-  display.print(bfo);
+  display.print(" ");
 
   display.set1X();
+  display.print("\n\n\nBFO.: ");
+  display.print(bfo);
 
-  display.print("\n\n\nBand: ");
+  display.print("\nBand: ");
   display.print(band[currentBand].name);
 
   display.print("\nStep: ");
@@ -265,16 +262,16 @@ void changeFreq(int direction)
 void changeStep()
 {
   if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
-    return;                                                       // nothing to do if the time less than MIN_ELAPSED_TIME milisecounds
-  cli();    //// disable global interrupts:
-  if (currentClock == 0 )     // Is VFO                                                
-       currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0;     // Increment the step or go back to the first
-  else      // Is BFO
-       currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
+    return;                                                            // nothing to do if the time less than MIN_ELAPSED_TIME milisecounds
+  noInterrupts();                                                      //// disable global interrupts:
+  if (currentClock == 0)                                               // Is VFO
+    currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0; // Increment the step or go back to the first
+  else                                                                 // Is BFO
+    currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
   isFreqChanged = true;
   clearDisplay = true;
   elapsedTimeInterrupt = millis();
-  sei(); // enable interrupts
+  interrupts(); // enable interrupts
 }
 
 // Change band
@@ -282,25 +279,25 @@ void changeBand()
 {
   if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
     return;                                                       // nothing to do if the time less than 11 milisecounds
-  cli();                                                          //  disable global interrupts:
+  noInterrupts();                                                 //  disable global interrupts:
   currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
   vfoFreq = band[currentBand].minFreq;
   isFreqChanged = true;
   elapsedTimeInterrupt = millis();
-  sei(); // enable interrupts
+  interrupts(); // enable interrupts
 }
 
 // Switch the Encoder control from VFO to BFO and virse versa.
 void switchVFOBFO()
 {
   if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
-    return; // nothing to do if the time less than 11 milisecounds
-  cli();    //  disable global interrupts:
+    return;       // nothing to do if the time less than 11 milisecounds
+  noInterrupts(); //  disable global interrupts:
   currentClock = !currentClock;
-  currentStep = 0;   // go back to first Step (100Hz)
+  currentStep = 0; // go back to first Step (100Hz)
   clearDisplay = true;
   elapsedTimeInterrupt = millis();
-  sei(); // enable interrupts
+  interrupts(); // enable interrupts
 }
 
 // main loop
@@ -308,16 +305,19 @@ void loop()
 {
   // Read the Encoder
   // Next Enconder action can be processed after 5 milisecounds
-  if (1) //(millis() - elapsedTimeEncoder) > 5)
+
+  if ((millis() - elapsedTimeEncoder) > 10)
   {
     enconderCurrentPosition = rotaryEncoder.read();
+    noInterrupts();
     if (enconderCurrentPosition != enconderPosition)
     {
       // change the frequency - clockwise (1) or counter-clockwise (-1)
       changeFreq((enconderCurrentPosition < enconderPosition) ? -1 : 1);
-      enconderPosition = enconderCurrentPosition;
     }
+    enconderPosition = enconderCurrentPosition;
     elapsedTimeEncoder = millis(); // keep elapsedTimeEncoder updated
+    interrupts();
   }
   // check if some action changed the frequency
   if (isFreqChanged)
