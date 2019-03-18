@@ -2,11 +2,9 @@
 
 <H2>By PU2CLR</H2>
 
-<B>English:</B> Signal Generetor with Si5351, OLED and Arduino. This project is about a construction of a VFO (530KHz to 160MHz) and a BFO (400KHz to 500KHz)
+<P><B>English:</B> Signal Generetor with Si5351, OLED and Arduino. This project is about a construction of a VFO (530KHz to 160MHz) and a BFO (400KHz to 500KHz). See Doc/En for English documentation.</P> 
 
-<B>Português:</B> Gerador de Sinal com Si5341, OLED and Arduino Este projeto é sobre a construção de um VFO (530KHz to 160MHz) e um BFO (400KHz to 500KHz)
-
-See documentation in English on Doc/En Veja a documentação em Português em Do/Pt
+<P><B>Português:</B> Gerador de Sinal com Si5341, OLED and Arduino Este projeto é sobre a construção de um VFO (530KHz to 160MHz) e um BFO (400KHz to 500KHz). Veja a pasta /Doc/Pt para documentação em Português.</P>
 
 
 <H2>About Si5351</H2>
@@ -21,4 +19,5 @@ See documentation in English on Doc/En Veja a documentação em Português em Do
 More information Silicon Labs: https://www.silabs.com/documents/public/data-sheets/Si5351-B.pdf</P>
 
 
-Sellers: Adafruit: https://www.adafruit.com/product/2045 Etherkit: https://www.etherkit.com/rf-modules/si5351a-breakout-board.html You can find it on eBay, Aliepress and Amazon
+<H3>Sellers</H3>
+<P>Adafruit: https://www.adafruit.com/product/2045 Etherkit: https://www.etherkit.com/rf-modules/si5351a-breakout-board.html You can find it on eBay, Aliepress and Amazon.</P>
