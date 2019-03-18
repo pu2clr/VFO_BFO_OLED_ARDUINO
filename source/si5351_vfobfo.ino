@@ -128,44 +128,41 @@ int enconderPosition = 0;
 
 void setup()
 {
-
-  Serial.begin(9600);
-
+  // LED Pin
   pinMode(STATUS_LED, OUTPUT);
-
+  // Encoder pins
+  pinMode(ENCONDER_PIN_A, INPUT);
+  pinMode(ENCONDER_PIN_B, INPUT);
+  // Si5351 contrtolers pins
+  pinMode(BUTTON_BAND, INPUT);
+  pinMode(BUTTON_STEP, INPUT);
+  pinMode(BUTTON_VFO_BFO, INPUT);
+  // The sistem is alive
   blinkLed(STATUS_LED, 100);
   STATUSLED(LOW);
-
   // Initiating the OLED Display
   display.begin(&Adafruit128x64, I2C_ADDRESS);
-
   display.setFont(Adafruit5x7);
   display.set2X();
   display.clear();
-  display.println("PU2CLR");
-  delay(3000);
-  display.clear();
-
-  displayDial();
-
+  display.print("\n\n   PU2CLR");
   // Initiating the Signal Generator (si5351)
   si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 0);
   // Adjusting the frequency (see how to calibrate the Si5351 - example si5351_calibration.ino)
   si5351.set_correction(CORRECTION_FACTOR, SI5351_PLL_INPUT_XO);
-
   si5351.set_pll(SI5351_PLL_FIXED, SI5351_PLLA);
   si5351.set_freq(vfoFreq, SI5351_CLK0);          // Start CLK0 (VFO)
   si5351.set_freq(bfoFreq, SI5351_CLK1);          // Start CLK1 (BFO)
   si5351.update_status();
-
-  // Stop what Arduino is doing and call changeStep() whenever the pin state (BUTTON_STEP) goes from LOW to HIGH
-  attachInterrupt(digitalPinToInterrupt(BUTTON_STEP), changeStep, RISING);
-  // Same idea before. In this case, call changeBand() whenever BUTTON_BAND is pressed
-  attachInterrupt(digitalPinToInterrupt(BUTTON_BAND), changeBand, RISING);
-  // Same idea before. In this case, call switchVFOBFO() whenever BUTTON_VFO_BFO is pressed
-  attachInterrupt(digitalPinToInterrupt(BUTTON_VFO_BFO), switchVFOBFO, RISING);
-
-  // delay(1000);
+  // Show the initial system information
+  display.clear();
+  displayDial();
+  // Will stop what Arduino is doing and call changeStep(), changeBand() or switchVFOBFO 
+  attachInterrupt(digitalPinToInterrupt(BUTTON_STEP), changeStep, RISING);      // whenever the BUTTON_STEP goes from LOW to HIGH
+  attachInterrupt(digitalPinToInterrupt(BUTTON_BAND), changeBand, RISING);      // whenever the BUTTON_BAND goes from LOW to HIGH
+  attachInterrupt(digitalPinToInterrupt(BUTTON_VFO_BFO), switchVFOBFO, RISING); // whenever the BUTTON_VFO_BFO goes from LOW to HIGH
+  // wait for 4 seconds and the system will be ready.
+  delay(4000);
 }
 
 // Blink the STATUS LED
