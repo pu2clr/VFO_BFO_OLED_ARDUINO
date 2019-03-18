@@ -1,10 +1,14 @@
-<H1>VFO e BFO Si5351, OLED e Arduino</H1>
+<H1>VFO and BFO with Si5351, OLED and Arduino</H1>
 
-<H2>By PU2CLR</H2>
+<H2>By PU2CLR - Ricardo Lima Caratti - March 18th, 2019</H2>
 
 <P><B>English:</B> Signal Generetor with Si5351, OLED and Arduino. This project is about a construction of a VFO (530KHz to 160MHz) and a BFO (400KHz to 500KHz). See <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Doc/En">Doc/En</a> folder for English documentation.</P> 
 
 <P><B>Português:</B> Gerador de Sinal com Si5341, OLED and Arduino Este projeto é sobre a construção de um VFO (530KHz to 160MHz) e um BFO (400KHz to 500KHz). Veja a pasta <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Doc/Pt">Doc/Pt</a> para documentação em Português.</P>
+
+<H2>About the Arduino that I'm using in this project</H2>
+
+I'm using the Arduino ATmega32U4 (Known as Arduino Micro) with a built-in USB.  The ATmega32U4 has 5 pins (0,1,2, 3 and 7) that allow the developer to use for handling external interrupts. This feature is very useful in this project. See more about Arduino Micro (ATmega32U4) <a href="https://store.arduino.cc/usa/arduino-micro">here</a></P>
 
 
 <H2>About Si5351</H2>
