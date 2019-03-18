@@ -328,7 +328,8 @@ void loop()
   }
   else if (clearDisplay)
   {
-    display.clear();
+    // display.clear();
+    fastClear();
     displayDial();
     clearDisplay = false;
   }
