@@ -1,12 +1,12 @@
-# VFO e BFO Si5351, OLED e Arduino 
+<H1>About the VFO and BFO with Si5351A and Arduino project</H1>
 
 
-English:
-Signal Generetor with Si5351, OLED and Arduino.
+<P>
+The Si5351 is an I2C configurable clock generator that is very appropriate for receivers and transceivers projects in amateur radio applications. It is also suited for replacing crystal oscillators. It has three outputs that you can get three distinct frequencies at the same time. A great feature of the Si5351A is the possibility of using it with a microcontroller like Arduino, PIC family and others. <B>This project is about a VFO and BFO that you can control two clock outputs of the Si5351A by using the Arduino Micro.  The VFO (CLK 0) can oscillate from 535KHz to 160MHz and the second (CLK1) can oscillate from 400KHz to 500KHz.</B> 
+</P>
+
 
 Under construction...
-
-You can use this project to build a receiver for shortwave and VHF. For example, you can use the VFO and BFO to work together with a SA605D Chip (Configured as a Superheterodyne Receiver).
 
 
 References:
