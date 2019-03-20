@@ -13,7 +13,7 @@ The <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/s
 The user can control the Si5351A by using three buttons and an encoder. 
 <ul>
 	<li><p><span style="font-variant: normal"> </span><span lang="en-US">The
-	button <B>Band</B> changes the band. See band table
+	button <B>Band</B> changes the band. This project divides the range from 535KHz to 160MHz in 27 bands. See band table
 	below; </span>
 	</p>
 	<li><p><span style="font-variant: normal"> </span><span lang="en-US">The
@@ -22,7 +22,7 @@ The user can control the Si5351A by using three buttons and an encoder.
 	500KHz; </span>
 	</p>
 	<li><p><span lang="en-US">The button <B>VFO/BFO</B>
-	switches from VFO to BFO and vice-versa; &nbsp;</span></p>
+	switches from VFO to BFO and vice-versa. It allows the user to control the VFO or BFO by using the same encoder.</span></p>
 	<li><p><span lang="en-US">The encoder is used to increment or
 	decrement the current frequency by using the step value as a
 	reference.</span></p>
