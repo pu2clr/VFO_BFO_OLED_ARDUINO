@@ -17,8 +17,8 @@
 #include "SSD1306AsciiAvrI2c.h"
 
 // Enconder constants
-#define ENCONDER_PIN_A 8 // Arduino  D8
-#define ENCONDER_PIN_B 9 // Arduino  D9
+#define ENCONDER_PIN_A 16 // Arduino  D8
+#define ENCONDER_PIN_B 14 // Arduino  D9
 
 // OLED Diaplay constants
 // 0X3C+SA0 - 0x3C or 0x3D
@@ -30,11 +30,15 @@
 SSD1306AsciiAvrI2c display;
 
 // Local constants
-#define CORRECTION_FACTOR 80231 // See how to calibrate your si5351 (0 if you do not want)
+#define CORRECTION_FACTOR 80000 // See how to calibrate your si5351 (0 if you do not want)
 
 #define BUTTON_STEP 0    // Control the frequency increment and decrement
 #define BUTTON_BAND 1    // Controls the band
 #define BUTTON_VFO_BFO 7 // Switch VFO to BFO
+
+#define MAX_BFO     50000000LU    // BFO max. frequency
+#define CENTER_BFO  45500000LU    // BFO center frequency
+#define MIN_BFO     40000000LU    // BFO min. frequency
 
 #define STATUS_LED 10 // Arduino status LED
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
@@ -79,11 +83,12 @@ Band band[] = {
     {"VHF2A", 5000000001LLU, 5400000000LLU},
     {"VHF3 ", 5400000001LLU, 8600000000LLU},
     {"FM   ", 8600000000LLU, 10800000000LLU},  // Comercial FM
-    {"VHF4 ", 10800000000LLU, 16000000000LLU}, // 108MHz to 160MHz
-};
+    {"VHF4 ", 10800000000LLU, 12000000000LLU}, // 108MHz to 160MHz
+    {"VHF5 ", 12000000000LLU, 13500000000LLU},
+    {"VHF6 ", 13500000000LLU, 16000000000LLU}};
 
 // Last element position of the array band
-volatile int lastBand = 24;   //sizeof band / sizeof(Band);
+volatile int lastBand = 26;   //sizeof band / sizeof(Band);
 volatile int currentBand = 0; // AM is the current band
 
 // Struct for step database
@@ -141,7 +146,10 @@ void setup()
   display.setFont(Adafruit5x7);
   display.set2X();
   display.clear();
-  display.print("\n\n   PU2CLR");
+  display.print("\n PU2CLR");
+  delay(3000);
+  display.clear();
+  displayDial();
   // Initiating the Signal Generator (si5351)
   si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 0);
   // Adjusting the frequency (see how to calibrate the Si5351 - example si5351_calibration.ino)
@@ -151,14 +159,13 @@ void setup()
   si5351.set_freq(bfoFreq, SI5351_CLK1);          // Start CLK1 (BFO)
   si5351.update_status();
   // Show the initial system information
-  display.clear();
-  displayDial();
+  delay(500);
   // Will stop what Arduino is doing and call changeStep(), changeBand() or switchVFOBFO 
   attachInterrupt(digitalPinToInterrupt(BUTTON_STEP), changeStep, RISING);      // whenever the BUTTON_STEP goes from LOW to HIGH
   attachInterrupt(digitalPinToInterrupt(BUTTON_BAND), changeBand, RISING);      // whenever the BUTTON_BAND goes from LOW to HIGH
   attachInterrupt(digitalPinToInterrupt(BUTTON_VFO_BFO), switchVFOBFO, RISING); // whenever the BUTTON_VFO_BFO goes from LOW to HIGH
   // wait for 4 seconds and the system will be ready.
-  delay(4000);
+  delay(500);
 }
 
 // Blink the STATUS LED
@@ -171,29 +178,6 @@ void blinkLed(int pinLed, int blinkDelay)
     STATUSLED(LOW);
     delay(blinkDelay);
   }
-}
-
-// Considere utilizar este código para limpar o OLED mais rápido
-// ref: https://github.com/greiman/SSD1306Ascii/issues/38
-void fastClear()
-{
-  for (uint8_t r = 0; r < 8; r++)
-  {
-    // set row to clear
-    display.setCursor(0, r);
-    // Wire has 32 byte buffer so send 8 packets of 17 bytes.
-    for (uint8_t b = 0; b < 8; b++)
-    {
-      Wire.beginTransmission(I2C_ADDRESS);
-      Wire.write(0X40);
-      for (uint8_t i = 0; i < 16; i++)
-      {
-        Wire.write(0);
-      }
-      Wire.endTransmission();
-    }
-  }
-  display.setCursor(0, 0);
 }
 
 // Show Signal Generator Information
@@ -241,12 +225,9 @@ void changeFreq(int direction)
   else
   {
     bfoFreq += step[currentStep].value * direction; // currentStep * direction;
-
     // Check the BFO limits
-    if (bfoFreq > 56000000LU) // Max. BFO: 560KHz
-      bfoFreq = 35000000LU;
-    else if (bfoFreq < 35000000LU) // Min. BFO: 350KHz
-      bfoFreq = 56000000LU;
+    if (bfoFreq > MAX_BFO || bfoFreq < MIN_BFO) // BFO goes to center if it is out of the limits
+      bfoFreq = CENTER_BFO;
   }
   isFreqChanged = true;
 }
@@ -328,8 +309,7 @@ void loop()
   }
   else if (clearDisplay)
   {
-    // display.clear();
-    fastClear();
+    display.clear();
     displayDial();
     clearDisplay = false;
   }
