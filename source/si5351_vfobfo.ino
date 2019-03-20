@@ -30,7 +30,8 @@
 SSD1306AsciiAvrI2c display;
 
 // Local constants
-#define CORRECTION_FACTOR 80000 // See how to calibrate your si5351 (0 if you do not want)
+#define CORRECTION_FACTOR 80000 // Change this value to 0 if you do not know the correction factor of your Si5351A. 
+                                // See how to calibrate your Si5351A (0 if you do not want).
 
 #define BUTTON_STEP 0    // Control the frequency increment and decrement
 #define BUTTON_BAND 1    // Controls the band
