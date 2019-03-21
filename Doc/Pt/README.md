@@ -221,7 +221,7 @@ Para este projeto foi utilizado o Arduino Micro, baseado no Atmega32u4. A princi
 <P>O dispositivo Si5351A é ligado nos pinos D2 e D3. Você deve ficar atendo às descrições SDA (pin D2) e SCL (pin D3). A inversão dessas conexões fará com que o dispositivo não funcione. </P>
 
 <H4>OLED Display SSD1306 - 128 x 64/0.96</H4>
-<P>OLED Display também é ligado nos pinos D2 e D3 obedecendo as mesmas orientações do Si5351A.</P>  
+<P>OLED Display também é ligado aos pinos D2 e D3 obedecendo as mesmas orientações do Si5351A.</P>  
 
 <H4>Encoder</H4>
 <P>O encoder é conectado ao Arduino Micro da seguinte forma: terminal A no pino D8 e terminal B no pino D9.</P> 
