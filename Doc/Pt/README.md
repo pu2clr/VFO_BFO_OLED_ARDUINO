@@ -201,9 +201,18 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 	</tr>
 </table>
 
+
+
+
+<H2>Esquema Elétrico</H2>
+
+<P> A figura a seguir ilustra o esquema elétrico envolvendo os componentes utilizados no projeto. </P>
+
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
+
 <P>
 <B>
 Observação: Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
 </B>
-...
 </P>
+
