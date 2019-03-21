@@ -203,6 +203,7 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 
 <P>
 <B>
-Observação: Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes. 
+Observação: Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
 </B>
+...
 </P>
