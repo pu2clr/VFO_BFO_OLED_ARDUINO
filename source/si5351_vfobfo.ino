@@ -14,7 +14,7 @@
 #include "SSD1306Ascii.h"
 #include "SSD1306AsciiAvrI2c.h"
 
-// Enconder constants
+// Enconder PINs
 #define ENCONDER_PIN_A 14 // Arduino  D8
 #define ENCONDER_PIN_B 16 // Arduino  D9
 

@@ -18,7 +18,7 @@ The user can control the Si5351A by using three buttons and an encoder.
 	</p>
 	<li><p><span style="font-variant: normal"> </span><span lang="en-US">The
 	button <B>Step</B> changes the increment and decrement
-	step. It can be 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz and
+	step. It can be 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz and
 	500KHz; </span>
 	</p>
 	<li><p><span lang="en-US">The button <B>VFO/BFO</B>
