@@ -210,6 +210,44 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
 
+
+
+
+<H3>Sobre o esquema e conexões</H3>
+<P>
+Para este projeto foi utilizado o Arduino Micro, baseado no Atmega32u4. A principal razão pela escolha desta versão do Arduino foi pelo fato dele possibilitar o uso de até 5 interrupções externas (pinos 0, 1, 2, 3, 7). Este recurso foi utilizado para implementar o funcionamento dos botões Band, Setp e switch VFO / BFO. No entanto, com poucos ajustes no projeto, é possível adaptá-lo para um Arduino UNO ou similar. 
+</P>
+<H4>Si5351A</H4>
+<P>O dispositivo Si5351A é ligado nos pinos D2 e D3. Você deve ficar atendo às descrições SDA (pin D2) e SCL (pin D3). A inversão dessas conexões fará com que o dispositivo não funcione. </P>
+
+<H4>OLED Display SSD1306 - 128 x 64/0.96</H4>
+<P>OLED Display também é ligado nos pinos D2 e D3 obedecendo as mesmas orientações do Si5351A.</P>  
+
+<H4>Encoder</H4>
+<P>O encoder é conectado ao Arduino Micro da seguinte forma: terminal A no pino D8 e terminal B no pino D9.</P> 
+
+<H4>Botão de Banda (Band)</H4>
+<P>
+O Push Button Band é conectado ao pino D0/Rx conforme mostra a figura anterior. Este botão permite a seleção de 27 bandas.</P> 
+
+<H4>Botão de Passo (Step)</H4>
+<P>
+O Push Button Step é conectado ao pino D1/TX. 
+Este botão permite a seleção do passo de incremento e decremento da frequência quando o encoder for girado. </P>
+
+<H4>Botão VFO/BFO</H4>
+<P>
+O Push Button VFO/BFO é conectado ao pino D7. 
+Este botão alterna o controle da frequência do VFO para BFO e vice-versa. </P>
+
+<BR>
+<BR>
+<P>
+<B>
+É importante ter em mente que, no caso do Arduino Micro, os pinos D2 e D3 são os que implementam o DAS e o SCL respectivamente. Outras versões de Arduino utilizam outros pinos para essas funções. 
+</B>
+</P>
+
 <P>
 <B>
 Observação: Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
