@@ -96,6 +96,7 @@ typedef struct
 } Step;
 
 Step step[] = {
+    {"50Hz  ", 5000},
     {"100Hz ", 10000},
     {"500Hz ", 50000},
     {"1KHz  ", 100000},
@@ -105,7 +106,7 @@ Step step[] = {
     {"100KHz", 10000000},
     {"500KHz", 50000000}};
 
-volatile int lastStepVFO = 7;
+volatile int lastStepVFO = 8;
 volatile int lastStepBFO = 3; // Max increment or decrement for BFO is 2.5KHz
 volatile long currentStep = 0;
 
@@ -280,21 +281,18 @@ void switchVFOBFO()
 // main loop
 void loop()
 {
-  // Read the Encoder
-  // Next Enconder action can be processed after 5 milisecounds
-
-  if ( (millis() - elapsedTimeEncoder) > 10) {
-    encoder_pin_a = digitalRead(ENCONDER_PIN_A);
+  // Enconder action can be processed after 5 milisecounds 
+  if ( (millis() - elapsedTimeEncoder) > 5) {
+    encoder_pin_a = digitalRead(ENCONDER_PIN_A); 
     encoder_pin_b = digitalRead(ENCONDER_PIN_B);
-    // has ENCONDER_PIN_A gone from high to low
-    if ( (!encoder_pin_a) && (encoder_prev) )
-    { // if B high then clockwise (1) else counter-clockwise (-1)
+    if ((!encoder_pin_a) && (encoder_prev)) // has ENCONDER_PIN_A gone from high to low?
+    { // if so,  check ENCONDER_PIN_B. It is high then clockwise (1) else counter-clockwise (-1)
       changeFreq( ((encoder_pin_b)? 1:-1) );
     }
     encoder_prev = encoder_pin_a;
     elapsedTimeEncoder = millis(); // keep elapsedTimeEncoder updated
   }
-    // check if some action changed the frequency
+  // check if some action changed the frequency
   if (isFreqChanged)
   {
     if (currentClock == 0)
