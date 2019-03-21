@@ -1,7 +1,7 @@
 
 /*
   Program to control the "Adafruit Si5351A Clock Generator" or similar via Arduino.
-  This program control the frequencies os two clocks (CLK) output of the Si5351A
+  This program control the frequencies of two clocks (CLK) output of the Si5351A
   The CLK 0 can be used as a VFO (2MHz to 150MHz)
   The CLK 1 can be used as a BFO (440KHz to 460KHz)
   See on https://github.com/etherkit/Si5351Arduino  and know how to calibrate your Si5351
@@ -20,15 +20,10 @@
 
 // OLED Diaplay constants
 #define I2C_ADDRESS 0x3C
-// Define proper RST_PIN if required.
-#define RST_PIN -1
+#define RST_PIN -1 // Define proper RST_PIN if required.
 
-// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
-SSD1306AsciiAvrI2c display;
-
-// Local constants
-#define CORRECTION_FACTOR 80000 // Change this value to 0 if you do not know the correction factor of your Si5351A. 
-                                // See how to calibrate your Si5351A (0 if you do not want).
+// Change this value below  (CORRECTION_FACTOR) to 0 if you do not know the correction factor of your Si5351A.
+#define CORRECTION_FACTOR 80000 // See how to calibrate your Si5351A (0 if you do not want).
 
 #define BUTTON_STEP 0    // Control the frequency increment and decrement
 #define BUTTON_BAND 1    // Controls the band
@@ -38,9 +33,12 @@ SSD1306AsciiAvrI2c display;
 #define CENTER_BFO  45500000LU    // BFO center frequency
 #define MIN_BFO     40000000LU    // BFO min. frequency
 
-#define STATUS_LED 10 // Arduino status LED
+#define STATUS_LED 10 // Arduino status LED Pin 10
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
 #define MIN_ELAPSED_TIME 300
+
+// OLED - Declaration for a SSD1306 display connected to I2C (SDA, SCL pins)
+SSD1306AsciiAvrI2c display;
 
 // I'm using in this project the Adafruit Si5351A
 Si5351 si5351;
@@ -49,8 +47,8 @@ Si5351 si5351;
 typedef struct
 {
   char *name;
-  uint64_t minFreq; // Frequency min value for the band (unit 0.01Hz)
-  uint64_t maxFreq; // Frequency max value for the band (unit 0.01Hz)
+  uint64_t minFreq; // Min. frequency value for the band (unit 0.01Hz)
+  uint64_t maxFreq; // Max. frequency value for the band (unit 0.01Hz)
 } Band;
 
 // Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
@@ -107,7 +105,7 @@ Step step[] = {
 
 volatile int lastStepVFO = 8;   // index for max increment / decrement for VFO
 volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO is 1KHz
-volatile long currentStep = 0;
+volatile long currentStep = 0;  // it stores the current step index
 
 volatile boolean isFreqChanged = false;
 volatile boolean clearDisplay = false;
@@ -130,8 +128,6 @@ unsigned char encoder_pin_b;
 
 void setup()
 {
-
-  // Serial.begin(9600); 
   // LED Pin
   pinMode(STATUS_LED, OUTPUT);
   // Encoder pins
@@ -141,7 +137,6 @@ void setup()
   pinMode(BUTTON_BAND, INPUT);
   pinMode(BUTTON_STEP, INPUT);
   pinMode(BUTTON_VFO_BFO, INPUT);
-
   // The sistem is alive
   blinkLed(STATUS_LED, 100);
   STATUSLED(LOW);
