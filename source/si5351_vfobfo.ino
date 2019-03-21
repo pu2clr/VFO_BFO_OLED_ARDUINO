@@ -9,16 +9,14 @@
   Author: Ricardo Lima Caratti (PU2CLR) -   2019/03/07
 */
 
-// #include <SPI.h>
-#include <Encoder.h>
 #include <si5351.h>
 #include <Wire.h>
 #include "SSD1306Ascii.h"
 #include "SSD1306AsciiAvrI2c.h"
 
 // Enconder constants
-#define ENCONDER_PIN_A 16 // Arduino  D8
-#define ENCONDER_PIN_B 14 // Arduino  D9
+#define ENCONDER_PIN_A 14 // Arduino  D8
+#define ENCONDER_PIN_B 16 // Arduino  D9
 
 // OLED Diaplay constants
 // 0X3C+SA0 - 0x3C or 0x3D
@@ -47,8 +45,6 @@ SSD1306AsciiAvrI2c display;
 
 // I'm using in this project the Adafruit Si5351A
 Si5351 si5351;
-
-Encoder rotaryEncoder(ENCONDER_PIN_A, ENCONDER_PIN_B);
 
 // Structure for Bands database
 typedef struct
@@ -125,11 +121,15 @@ volatile int currentClock = 0; // If 0, the clock 0 (VFO) will be controlled els
 long volatile elapsedTimeInterrupt = millis(); // will control the minimum time to process an interrupt action
 long elapsedTimeEncoder = millis();
 
-int enconderCurrentPosition = 0;
-int enconderPosition = 0;
+
+unsigned char encoder_pin_a;
+unsigned char encoder_prev = 0;
+unsigned char encoder_pin_b;
 
 void setup()
 {
+
+  // Serial.begin(9600); 
   // LED Pin
   pinMode(STATUS_LED, OUTPUT);
   // Encoder pins
@@ -139,6 +139,8 @@ void setup()
   pinMode(BUTTON_BAND, INPUT);
   pinMode(BUTTON_STEP, INPUT);
   pinMode(BUTTON_VFO_BFO, INPUT);
+
+
   // The sistem is alive
   blinkLed(STATUS_LED, 100);
   STATUSLED(LOW);
@@ -281,20 +283,18 @@ void loop()
   // Read the Encoder
   // Next Enconder action can be processed after 5 milisecounds
 
-  if ((millis() - elapsedTimeEncoder) > 10)
-  {
-    enconderCurrentPosition = rotaryEncoder.read();
-    noInterrupts();
-    if (enconderCurrentPosition != enconderPosition)
-    {
-      // change the frequency - clockwise (1) or counter-clockwise (-1)
-      changeFreq((enconderCurrentPosition < enconderPosition) ? -1 : 1);
+  if ( (millis() - elapsedTimeEncoder) > 10) {
+    encoder_pin_a = digitalRead(ENCONDER_PIN_A);
+    encoder_pin_b = digitalRead(ENCONDER_PIN_B);
+    // has ENCONDER_PIN_A gone from high to low
+    if ( (!encoder_pin_a) && (encoder_prev) )
+    { // if B high then clockwise (1) else counter-clockwise (-1)
+      changeFreq( ((encoder_pin_b)? 1:-1) );
     }
-    enconderPosition = enconderCurrentPosition;
+    encoder_prev = encoder_pin_a;
     elapsedTimeEncoder = millis(); // keep elapsedTimeEncoder updated
-    interrupts();
   }
-  // check if some action changed the frequency
+    // check if some action changed the frequency
   if (isFreqChanged)
   {
     if (currentClock == 0)
