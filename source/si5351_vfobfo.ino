@@ -91,23 +91,23 @@ volatile int currentBand = 0; // AM is the current band
 // Struct for step database
 typedef struct
 {
-  char *name; // step name: 100Hz, 500Hz, 1KHz, 5KHz, 10KHz and 500KHz
+  char *name; // step label: 50Hz, 100Hz, 500Hz, 1KHz, 5KHz, 10KHz and 500KHz
   long value; // Frequency value (unit 0.01Hz See documentation) to increment or decrement
 } Step;
 
 Step step[] = {
-    {"50Hz  ", 5000},
+    {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
     {"100Hz ", 10000},
     {"500Hz ", 50000},
-    {"1KHz  ", 100000},
+    {"1KHz  ", 100000},       // BFO max. increment / decrement
     {"2.5KHz", 250000},
     {"5KHz  ", 500000},
     {"10KHz ", 1000000},
     {"100KHz", 10000000},
-    {"500KHz", 50000000}};
+    {"500KHz", 50000000}};    // VFO max. increment / decrement
 
-volatile int lastStepVFO = 8;
-volatile int lastStepBFO = 3; // Max increment or decrement for BFO is 2.5KHz
+volatile int lastStepVFO = 8;   // index for max increment / decrement for VFO
+volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO is 1KHz
 volatile long currentStep = 0;
 
 volatile boolean isFreqChanged = false;
@@ -117,12 +117,14 @@ volatile boolean clearDisplay = false;
 volatile uint64_t vfoFreq = band[currentBand].minFreq; // VFO starts on AM
 volatile uint64_t bfoFreq = 45500000LU;                // 455 KHz -  BFO
 
-volatile int currentClock = 0; // If 0, the clock 0 (VFO) will be controlled else the clock 1 (BFO) will be
+// VFO is the Si5351A CLK0 
+// BFO is the Si5351A CLK1
+volatile int currentClock = 0; // If 0, then VFO will be controlled else the BFO will be
 
 long volatile elapsedTimeInterrupt = millis(); // will control the minimum time to process an interrupt action
 long elapsedTimeEncoder = millis();
 
-
+// Encoder variable control
 unsigned char encoder_pin_a;
 unsigned char encoder_prev = 0;
 unsigned char encoder_pin_b;
@@ -140,7 +142,6 @@ void setup()
   pinMode(BUTTON_BAND, INPUT);
   pinMode(BUTTON_STEP, INPUT);
   pinMode(BUTTON_VFO_BFO, INPUT);
-
 
   // The sistem is alive
   blinkLed(STATUS_LED, 100);

@@ -8,6 +8,23 @@ O Si5351A é um gerador de sinal configurável excelente para experimentações 
 O Si5351A permite operações com alta frequência. Assim, o VFO deste projeto pode oscilar entre 535KHz até 160MHz dividido em 27 bandas que podem ser mudadas via o pressionamento de um botão (veja tabela a seguir). Um enconder permite que você mude a frequência dentro de uma banda. Quanto ao  BFO, foi projetado para oscilar entre 400KHz e 500KHz.  Um outro botão alterna o controle entre o VFO e o BFO. A frequência do BFO pode ser alterada pelo encoder.  O <B>programa em Arduino  está disponível</B> na pasta <B>source</B> deste repositório ou diretamente por este <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">link</a> e poderá ser adaptado conforme a sua necessidade.  A documentação do código fonte foi escrita no idioma Inglês, porém, não creio que isso será um problema para a maioria dos desenvolvedores. Qualquer dúvida ou problema poderá ser postado via a aba <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a> .
 </P>
 
+
+
+<P>
+O operador poderá controlar o Si5351A por três botões e um encoder
+<ul>
+	<li><p><span style="font-variant: normal"> </span><span lang="en-US">O
+	botão <B>Band</B> muda a faixa de freqência. Este projeto divide o VFO em 27 faixas. Veja a tabela de bandas a seguir.</span>
+	</p>
+	<li><p><span style="font-variant: normal"> </span><span lang="en-US">O
+	botão <B>Step</B> muda o passo de incremento e decremento. Pode ser 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz e 500KHz; </span>
+	</p>
+	<li><p><span lang="en-US">O botão <B>VFO/BFO</B>
+	alterna o controle entre o VFO e o BFO.</span></p>
+	<li><p><span lang="en-US">O encoder é utilizado para controlar a frequência do VFO ou BFO.</span></p>
+</ul>
+</P>
+
 <H2>Tabela de divisão de Bandas Utilizadas no Projeto</H2>
 <table cellspacing="0" border="0">
 	<colgroup width="37"></colgroup>
