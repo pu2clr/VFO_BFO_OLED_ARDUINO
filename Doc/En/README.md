@@ -236,6 +236,13 @@ The user can control the Si5351A by using three buttons and an encoder.
 </table> 
 
 
+<H2>Schematic</H2>
+
+<P>The schematic below shows the Arduino and components wire up.</P>
+
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
+
+
 
 Under construction...
 ...
