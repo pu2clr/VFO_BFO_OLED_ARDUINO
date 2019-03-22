@@ -32,3 +32,17 @@ Adafruit: https://www.adafruit.com/product/2045 Etherkit: https://www.etherkit.c
 <P>
 <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">Arduino source here</a>.
 </P>
+
+
+<H4>SCHEMATIC</H4>
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
+
+<H4> Photo 01</H4>
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_01.jpg" alt="Prototype01">
+
+<H4> Photo 02</H4>
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_02.jpg" alt="Prototype02">
+
+ <H4> Photo 03</H4>
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_03.jpg" alt="Prototype03">
+ 
