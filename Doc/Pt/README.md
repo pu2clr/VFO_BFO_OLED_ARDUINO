@@ -51,7 +51,7 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="3" sdnum="1046;">3</td>
-		<td align="left">SW2A </td>
+		<td align="left">SW2  </td>
 		<td align="left"> 3.5 MHz</td>
 		<td align="left"> 4.0 MHz</td>
 	</tr>
@@ -63,7 +63,7 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="5" sdnum="1046;">5</td>
-		<td align="left">SW4A </td>
+		<td align="left">SW4  </td>
 		<td align="left"> 7.0 MHz</td>
 		<td align="left"> 7.3 MHz</td>
 	</tr>
@@ -81,7 +81,7 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="8" sdnum="1046;">8</td>
-		<td align="left">SW7A </td>
+		<td align="left">SW7  </td>
 		<td align="left"> 10.0 MHz</td>
 		<td align="left"> 11.0 MHz</td>
 	</tr>
@@ -93,7 +93,7 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="10" sdnum="1046;">10</td>
-		<td align="left">SW9A </td>
+		<td align="left">SW9  </td>
 		<td align="left"> 14.0 Mhz</td>
 		<td align="left"> 15.0 MHz</td>
 	</tr>
@@ -111,13 +111,13 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="13" sdnum="1046;">13</td>
-		<td align="left">SW12A</td>
+		<td align="left">SW12 </td>
 		<td align="left"> 18.0 MHz</td>
 		<td align="left"> 20.0 MHz</td>
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="14" sdnum="1046;">14</td>
-		<td align="left">SW13A</td>
+		<td align="left">SW13 </td>
 		<td align="left"> 20.0 MHz</td>
 		<td align="left"> 21.35 MHz</td>
 	</tr>
@@ -135,7 +135,7 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="17" sdnum="1046;">17</td>
-		<td align="left">SW16A</td>
+		<td align="left">SW16 </td>
 		<td align="left"> 24.88 MHz</td>
 		<td align="left"> 24.99 MHz</td>
 	</tr>
@@ -147,13 +147,13 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="19" sdnum="1046;">19</td>
-		<td align="left">SW18C</td>
+		<td align="left">SW18 </td>
 		<td align="left"> 26.0 MHz</td>
 		<td align="left"> 28.0 MHz</td>
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="20" sdnum="1046;">20</td>
-		<td align="left">SW19A</td>
+		<td align="left">SW19 </td>
 		<td align="left"> 28.0 MHz</td>
 		<td align="left"> 30.0 MHz</td>
 	</tr>
@@ -165,7 +165,7 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="22" sdnum="1046;">22</td>
-		<td align="left">VHF2A</td>
+		<td align="left">VHF2 </td>
 		<td align="left"> 50.0 MHz</td>
 		<td align="left"> 54.0 MHz</td>
 	</tr>
