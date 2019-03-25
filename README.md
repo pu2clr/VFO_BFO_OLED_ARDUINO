@@ -8,7 +8,7 @@
 
 <h2>Video</H2>
 
-[![Alt text](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg)](https://youtu.be/pFDvcIk5EAk)
+[![Alt text](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_03.jpg)](https://youtu.be/pFDvcIk5EAk)
 
 
 <H2>About the Arduino that I'm using in this project</H2>
