@@ -244,7 +244,7 @@ Este botão alterna o controle da frequência do VFO para BFO e vice-versa. </P>
 <BR>
 <P>
 <B>
-É importante ter em mente que, no caso do Arduino Micro, os pinos D2 e D3 são os que implementam o DAS e o SCL respectivamente. Outras versões de Arduino utilizam outros pinos para essas funções. 
+É importante ter em mente que, no caso do Arduino Micro, os pinos D2 e D3 são os que implementam o SDA e o SCL respectivamente. Outras versões de Arduino utilizam outros pinos para essas funções. 
 </B>
 </P>
 
@@ -255,7 +255,7 @@ Este botão alterna o controle da frequência do VFO para BFO e vice-versa. </P>
 O programa Arduino <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">disponível neste projeto</a>, pode ser baixado, modificado e utilizado por qualquer um que tenha interesse em desenvolver um projeto similar.  
 </P>
 <P>
-Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas utilizadas pelo VFO  e faixa de freqência para o BFO. Por exemplo:</P> 
+Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas utilizadas pelo VFO  e faixa de freqência para o BFO, oor exemplo.</P> 
 <BR>
 Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar as constantes definidas:
 
@@ -291,6 +291,17 @@ Os valores do passo de incremento e decremento, bem como as faixas utilizadas po
 
 <BR>// Last element position of the array band
 <BR>volatile int lastBand = 26;   // (sizeof band / sizeof(Band));	
+
+<BR>Step step[] = {
+<BR>    {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
+<BR>    {"100Hz ", 10000},
+<BR>	.
+<BR>	.
+<BR>	{"500KHz", 50000000}};    // VFO max. increment / decrement
+
+<BR>volatile int lastStepVFO = 8;   // index for max increment / decrement for VFO
+<BR>volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO is 1KHz
+
 </B>
 <BR>
 <BR>

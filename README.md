@@ -30,16 +30,18 @@ I'm using the Arduino ATmega32U4 (Known as Arduino Micro) with a built-in USB.  
 <P>XO replacement HDTV, DVD/Blu-ray, set-top box Audio/video equipment, gaming Printers, scanners, projectors Handheld Instrumentation Residential gateways Networking/communication Servers, storage
 More information Silicon Labs  <a href="https://www.silabs.com/documents/public/data-sheets/Si5351-B.pdf">here</a></P>
 
-
+<BR>
 <H3>Sellers</H3>
 <P>
-Adafruit: https://www.adafruit.com/product/2045 Etherkit: https://www.etherkit.com/rf-modules/si5351a-breakout-board.html You can find it on eBay, Aliepress and Amazon.</P>
+<BR>Adafruit: https://www.adafruit.com/product/2045 
+<BR>Etherkit: https://www.etherkit.com/rf-modules/si5351a-breakout-board.html 
+<BR>You can also find it on eBay, Aliepress and Amazon.
+</P>
 
 <H3>Arduino source code</H3>
 <P>
 <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">Arduino source here</a>.
 </P>
-
 
 <H4>SCHEMATIC</H4>
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
