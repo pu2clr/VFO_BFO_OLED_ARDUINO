@@ -262,7 +262,10 @@ O programa Arduino <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/
 <P>
 Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas utilizadas pelo VFO  e faixa de freqência para o BFO, oor exemplo.</P> 
 <BR>
+<P>
 Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar as constantes definidas:
+</P>
+<BR>
 <B>
 <BR>#define MAX_BFO      990000000LU    // BFO max. frequency
 <BR>#define CENTER_BFO  1000000000LU    // BFO center frequency
