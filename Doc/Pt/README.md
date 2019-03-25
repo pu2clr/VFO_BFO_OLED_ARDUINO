@@ -1,26 +1,20 @@
-# Sobre o Projeto do VFO e BFO com Si5351A e Arduino</
+# Sobre o Projeto do VFO e BFO com Si5351A e Arduino
 
 
 O Si5351A é um gerador de sinal configurável excelente para experimentações em radioamadorismo. Ele possui três saídas de sinal que podem ser configuradas de forma  independente. Isto é, cada saída pode oscilar em uma frequência distinta da outra. Esta característica permite, por exemplo, a construção de um VFO e um VFO no mesmo ambiente, simplificando circuitos em receptores e  transmissores. 
 
 O Si5351A permite operações com alta frequência. Assim, o VFO deste projeto pode oscilar entre 535KHz até 160MHz dividido em 27 bandas que podem ser mudadas via o pressionamento de um botão (veja tabela a seguir). Um enconder permite que você mude a frequência dentro de uma banda. Quanto ao  BFO, foi projetado para oscilar entre 400KHz e 500KHz.  Um outro botão alterna o controle entre o VFO e o BFO. A frequência do BFO pode ser alterada pelo encoder.  O <B>programa em Arduino  está disponível</B> na pasta <B>source</B> deste repositório ou diretamente por este <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">link</a> e poderá ser adaptado conforme a sua necessidade.  A documentação do código fonte foi escrita no idioma Inglês, porém, não creio que isso será um problema para a maioria dos desenvolvedores. Qualquer dúvida ou problema poderá ser postado via a aba <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a> .
 
-<P>
-O operador poderá controlar o Si5351A por três botões e um encoder
-<ul>
-	<li><p><span style="font-variant: normal"> </span><span lang="en-US">O
-	botão <B>Band</B> muda a faixa de freqência. Este projeto divide o VFO em 27 faixas. Veja a tabela de bandas a seguir.</span>
-	</p>
-	<li><p><span style="font-variant: normal"> </span><span lang="en-US">O
-	botão <B>Step</B> muda o passo de incremento e decremento. Pode ser 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz e 500KHz; </span>
-	</p>
-	<li><p><span lang="en-US">O botão <B>VFO/BFO</B>
-	alterna o controle entre o VFO e o BFO.</span></p>
-	<li><p><span lang="en-US">O encoder é utilizado para controlar a frequência do VFO ou BFO.</span></p>
-</ul>
-</P>
 
-<H2>Tabela de divisão de Bandas Utilizadas no Projeto</H2>
+O usuário poderá controlar o Si5351A por três botões e um encoder
+
+- O	botão **Band** muda a faixa de freqência. Este projeto divide o VFO em 27 faixas. Veja a tabela de bandas a seguir;
+- O botão **VFO/BFO** alterna o controle entre o VFO e o BFO.
+- O botão **Step** muda o passo de incremento e decremento. Pode ser 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz e 500KHz;
+- O **Encoder** é utilizado para controlar a frequência do VFO ou BFO.
+
+
+## Tabela de divisão de Bandas Utilizadas no Projeto
 <table cellspacing="0" border="0">
 	<colgroup width="37"></colgroup>
 	<colgroup width="91"></colgroup>
@@ -208,74 +202,61 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 
 
 
-<H3>Sobre o esquema e conexões</H3>
-<P>
+### Sobre o esquema e conexões
+
 Para este projeto foi utilizado o Arduino Micro, baseado no Atmega32u4. A principal razão pela escolha desta versão do Arduino foi pelo fato dele possibilitar o uso de até 5 interrupções externas (pinos 0, 1, 2, 3, 7). Este recurso foi utilizado para implementar o funcionamento dos botões Band, Setp e switch VFO / BFO. No entanto, com poucos ajustes no projeto, é possível adaptá-lo para um Arduino UNO ou similar. 
-</P>
-<H4>Si5351A</H4>
-<P>O dispositivo Si5351A é ligado nos pinos D2 e D3. Você deve ficar atendo às descrições SDA (pin D2) e SCL (pin D3). A inversão dessas conexões fará com que o dispositivo não funcione. </P>
 
-<H4>OLED Display SSD1306 - 128 x 64/0.96</H4>
-<P>OLED Display também é ligado aos pinos D2 e D3 obedecendo as mesmas orientações do Si5351A.</P>  
+#### Si5351A
+O dispositivo Si5351A é ligado nos pinos D2 e D3. Você deve ficar atendo às descrições SDA (pin D2) e SCL (pin D3). A inversão dessas conexões fará com que o dispositivo não funcione. 
 
-<H4>Encoder</H4>
-<P>O encoder é conectado ao Arduino Micro da seguinte forma: terminal A no pino D8 e terminal B no pino D9.</P> 
+#### OLED Display SSD1306 - 128 x 64/0.96
+OLED Display também é ligado aos pinos D2 e D3 obedecendo as mesmas orientações do Si5351A. 
 
-<H4>Botão de Banda (Band)</H4>
-<P>
-O Push Button Band é conectado ao pino D0/Rx conforme mostra a figura anterior. Este botão permite a seleção de 27 bandas.</P> 
+### Encoder
+O encoder é conectado ao Arduino Micro da seguinte forma: terminal A no pino D8 e terminal B no pino D9.
 
-<H4>Botão de Passo (Step)</H4>
-<P>
+#### Botão de Banda (Band)
+
+O Push Button Band é conectado ao pino D0/Rx conforme mostra a figura anterior. Este botão permite a seleção de 27 bandas.
+
+#### Botão de Passo (Step)
+
 O Push Button Step é conectado ao pino D1/TX. 
-Este botão permite a seleção do passo de incremento e decremento da frequência quando o encoder for girado. </P>
+Este botão permite a seleção do passo de incremento e decremento da frequência quando o encoder for girado. 
 
-<H4>Botão VFO/BFO</H4>
-<P>
+#### Botão VFO/BFO
+
 O Push Button VFO/BFO é conectado ao pino D7. 
-Este botão alterna o controle da frequência do VFO para BFO e vice-versa. </P>
+Este botão alterna o controle da frequência do VFO para BFO e vice-versa.
 
-<BR>
-<BR>
-<P>
-<B>
 É importante ter em mente que, no caso do Arduino Micro, os pinos D2 e D3 são os que implementam o SDA e o SCL respectivamente. Outras versões de Arduino utilizam outros pinos para essas funções. 
-</B>
-</P>
 
-<BR>
-<BR>
-<H2>Sobre o programa Arduino</H2>
 
-<P>
+
+## Sobre o programa Arduino
+
 Para controlar o Si53551A via Arduino foi utilizado a <a href="https://github.com/etherkit/Si5351Arduino">biblioteca Etherkit (Si5351 Library for Arduino)</a> desenvolvida pelo radioamador NTS7. Esta biblioteca oferece uma documentação muito rica e  várias facilidades se comparadas a outras bibliotecas para o Si5351. 
-</P>
 
-<P>
+
+
 O programa Arduino <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">disponível neste projeto</a>, pode ser baixado, modificado e utilizado por qualquer um que tenha interesse em desenvolver um projeto similar.  
-</P>
-<P>
-Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas utilizadas pelo VFO  e faixa de freqência para o BFO, oor exemplo.</P> 
-<BR>
-<P>
+
+
+Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas utilizadas pelo VFO  e faixa de freqência para o BFO, oor exemplo.
+
 Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar as constantes definidas:
-</P>
-<BR>
+
 
 ```cpp
 #define MAX_BFO      990000000LU    // BFO max. frequency
 #define CENTER_BFO  1000000000LU    // BFO center frequency
 #define MIN_BFO     1100000000LU    // BFO min. frequency 
 ```
-<BR>
-<P>
+
 O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz).
-</P> 
-<BR>
-<P>
+
 Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do arduino que não os utilizado neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
-</P>
-<B>
+
 
 ```cpp
 #define ENCONDER_PIN_A 8 // Arduino  D8
@@ -286,9 +267,7 @@ Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pi
 #define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 ```
 
-<P>
 Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
-</P>
 
 ```cpp
 // Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
@@ -313,16 +292,7 @@ Step step[] = {
 volatile int lastStepVFO = 8;   // index for max increment / decrement for VFO
 volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO is 1KHz
 ```
-</B>
-<BR>
-<BR>
-<P>
+
 O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">código-fonte </a> deste projeto está com uma documentação bem rica que busca dirimir dúvidas quanto ao uso e configuração do Si5351, OLED Display, botões, Encoder e LED. A <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a>, logo acima desta página, poderá ser utilizado para a publicação de dúvidas ou defeitos encontrados neste projeto.    
-</P>
 
-<P>
-<B>
 Observação: Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
-</B>
-</P>
-
