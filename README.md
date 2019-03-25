@@ -8,9 +8,9 @@
 <BR>
 <BR>
 <h2>Video</H2>
+<P>There is a video about this project on my Youtube Channel (PU2CLR). </P>
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_01.jpg" alt="Prototype01" height="414" width="520">
 
- <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_01.jpg" alt="Prototype01" height="214" width="300">
-There is some videos about this project on my Youtube Channel (PU2CLR). 
 Click <a href="https://youtu.be/pFDvcIk5EAk"  target="_blank"> here </a> to see the video.
 
 <BR>
