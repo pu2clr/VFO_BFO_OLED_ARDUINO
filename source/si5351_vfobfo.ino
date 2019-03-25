@@ -2,8 +2,8 @@
 /*
   Program to control the "Adafruit Si5351A Clock Generator" or similar via Arduino.
   This program control the frequencies of two clocks (CLK) output of the Si5351A
-  The CLK 0 can be used as a VFO (2MHz to 150MHz)
-  The CLK 1 can be used as a BFO (440KHz to 460KHz)
+  The CLK 0 can be used as a VFO (535KHz to 160MHz)
+  The CLK 1 can be used as a BFO (400KHz to 500KHz)
   See on https://github.com/etherkit/Si5351Arduino  and know how to calibrate your Si5351
   See also the example Etherkit/si5251_calibration
   Author: Ricardo Lima Caratti (PU2CLR) -   2019/03/07
@@ -51,7 +51,8 @@ typedef struct
   uint64_t maxFreq; // Max. frequency value for the band (unit 0.01Hz)
 } Band;
 
-// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
+// Band database. You can change the band ranges if you need.
+// The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
     {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
     {"SW1  ", 170000001LLU, 350000000LLU},
@@ -81,9 +82,9 @@ Band band[] = {
     {"VHF5 ", 12000000000LLU, 13500000000LLU},
     {"VHF6 ", 13500000000LLU, 16000000000LLU}};
 
-// Last element position of the array band
-volatile int lastBand = 26;   //sizeof band / sizeof(Band);
-volatile int currentBand = 0; // AM is the current band
+// Calculate the last element position (index) of the array band 
+const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
+volatile int currentBand = 0; // First band. For this case, AM is the current band.
 
 // Struct for step database
 typedef struct
@@ -92,6 +93,7 @@ typedef struct
   long value; // Frequency value (unit 0.01Hz See documentation) to increment or decrement
 } Step;
 
+// Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
     {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
     {"100Hz ", 10000},
@@ -102,10 +104,10 @@ Step step[] = {
     {"10KHz ", 1000000},
     {"100KHz", 10000000},
     {"500KHz", 50000000}};    // VFO max. increment / decrement
-
-volatile int lastStepVFO = 8;   // index for max increment / decrement for VFO
-volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO is 1KHz
-volatile long currentStep = 0;  // it stores the current step index
+// Calculate the index of last position of step[] array (in this case will be 8)
+const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
+volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO. In this case will be is 1KHz
+volatile long currentStep = 0;  // it stores the current step index (50Hz in this case)
 
 volatile boolean isFreqChanged = false;
 volatile boolean clearDisplay = false;
@@ -192,7 +194,7 @@ void displayDial()
   display.setCursor(0, 0);
   display.print(" ");
   display.print(vfo);
-  display.print(" ");
+  display.print("    ");
 
   display.set1X();
   display.print("\n\n\nBFO.: ");
