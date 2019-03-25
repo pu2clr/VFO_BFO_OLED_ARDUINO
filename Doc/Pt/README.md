@@ -266,7 +266,7 @@ Alguns parâmetros utilizados no código-fonte podem ser alterados para atender 
 Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar as constantes definidas:
 </P>
 <BR>
-```C
+```C++
 #define MAX_BFO      990000000LU    // BFO max. frequency
 #define CENTER_BFO  1000000000LU    // BFO center frequency
 #define MIN_BFO     1100000000LU    // BFO min. frequency 
@@ -280,7 +280,7 @@ O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que 
 Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do arduino que não os utilizado neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
 </P>
 <B>
-```C
+```C++
 #define ENCONDER_PIN_A 8 // Arduino  D8
 #define ENCONDER_PIN_B 9 // Arduino  D9
 
@@ -293,7 +293,7 @@ Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pi
 Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
 </P>
 
-```C
+```C++
 // Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
 Band band[] = {
     {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
@@ -315,7 +315,7 @@ Step step[] = {
 
 volatile int lastStepVFO = 8;   // index for max increment / decrement for VFO
 volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO is 1KHz
-```C
+```
 
 </B>
 <BR>
