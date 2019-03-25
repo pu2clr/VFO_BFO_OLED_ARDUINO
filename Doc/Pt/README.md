@@ -255,39 +255,40 @@ Este botão alterna o controle da frequência do VFO para BFO e vice-versa. </P>
 O programa Arduino <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">disponível neste projeto</a>, pode ser baixado, modificado e utilizado por qualquer um que tenha interesse em desenvolver um projeto similar.  
 </P>
 <P>
-Alguns parâmetros utilizados no código-fonte pode ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas utilizadas pelo VFO  e faixa de freqência para o BFO. Por exemplo:</P> 
-
+Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas utilizadas pelo VFO  e faixa de freqência para o BFO. Por exemplo:</P> 
+<BR>
 Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar as constantes definidas:
 
-#define MAX_BFO      990000000LU    // BFO max. frequency
-#define CENTER_BFO  1000000000LU    // BFO center frequency
-#define MIN_BFO     1100000000LU    // BFO min. frequency
+<BR>#define MAX_BFO      990000000LU    // BFO max. frequency
+<BR>#define CENTER_BFO  1000000000LU    // BFO center frequency
+<BR>#define MIN_BFO     1100000000LU    // BFO min. frequency 
 
+<BR>
 O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz). 
-
+<BR>
 Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do arduino que não os utilizado neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
-
-#define ENCONDER_PIN_A 14 // Arduino  D14
-#define ENCONDER_PIN_B 16 // Arduino  D16
-
-#define BUTTON_STEP 0    // Control the frequency increment and decrement
-#define BUTTON_BAND 1    // Controls the band
-#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
-
+<BR>
+<BR>#define ENCONDER_PIN_A 14 // Arduino  D14
+<BR>#define ENCONDER_PIN_B 16 // Arduino  D16
+<BR>
+<BR>#define BUTTON_STEP 0    // Control the frequency increment and decrement
+<BR>#define BUTTON_BAND 1    // Controls the band
+<BR>#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
+<BR>
 Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
+<BR>
+<BR>// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
+<BR>Band band[] = {
+<BR>    {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
+<BR>    {"SW1  ", 170000001LLU, 350000000LLU},
+<BR>	.
+<BR>	.
+<BR>	.
+<BR>    {"VHF6 ", 13500000000LLU, 16000000000LLU}};
 
-// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
-Band band[] = {
-    {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
-    {"SW1  ", 170000001LLU, 350000000LLU},
-	.
-	.
-	.
-    {"VHF6 ", 13500000000LLU, 16000000000LLU}};
-
-// Last element position of the array band
-volatile int lastBand = 26;   // (sizeof band / sizeof(Band));	
-
+<BR>// Last element position of the array band
+<BR>volatile int lastBand = 26;   // (sizeof band / sizeof(Band));	
+<BR>
 <P>
 O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">código-fonte </a> deste projeto está com uma documentação bem rica que busca dirimir dúvidas quanto ao uso e configuração do Si5351, OLED Display, botões, Encoder e LED. A <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a>, logo acima desta página, poderá ser utilizado para a publicação de dúvidas ou defeitos encontrados neste projeto.    
 </P>
