@@ -252,6 +252,10 @@ Este botão alterna o controle da frequência do VFO para BFO e vice-versa. </P>
 <H2>Sobre o programa Arduino</H2>
 
 <P>
+Para controlar o Si53551A via Arduino foi utilizado a <a href=" https://github.com/etherkit/Si5351Arduino">biblioteca Etherkit (Si5351 Library for Arduino)</a> desenvolvida pelo radioamador NTS7. Esta biblioteca oferece uma documentação muito rica e  várias facilidades se comparadas a outras bibliotecas para o Si5351. 
+</P>
+
+<P>
 O programa Arduino <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">disponível neste projeto</a>, pode ser baixado, modificado e utilizado por qualquer um que tenha interesse em desenvolver um projeto similar.  
 </P>
 <P>
