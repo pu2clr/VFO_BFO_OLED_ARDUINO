@@ -15,8 +15,8 @@
 #include "SSD1306AsciiAvrI2c.h"
 
 // Enconder PINs
-#define ENCONDER_PIN_A 14 // Arduino  D14
-#define ENCONDER_PIN_B 16 // Arduino  D16
+#define ENCONDER_PIN_A 8 // Arduino  D14
+#define ENCONDER_PIN_B 9 // Arduino  D16
 
 // OLED Diaplay constants
 #define I2C_ADDRESS 0x3C
