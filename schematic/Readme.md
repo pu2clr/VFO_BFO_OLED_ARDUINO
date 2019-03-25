@@ -2,7 +2,8 @@
 <BR>
 This schematic was made by using the <a href="http://fritzing.org/home/">Fritzing Software</a>.  
 <BR>
- <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
+
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="VFO and BFO schematic">
 
 <H2>Si5351A</H2>
 <P>On Arduino Micro use Si5351A connected to D2 (SDA) and  D3 (SCL).</P>
