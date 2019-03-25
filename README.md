@@ -9,7 +9,9 @@
 <BR>
 <h2>Video</H2>
 
-[![Alt text](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_03.jpg)](https://youtu.be/pFDvcIk5EAk)
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_01.jpg" alt="Prototype01" height="214" width="300">
+There is some videos about this project on my Youtube Channel (PU2CLR). 
+Click <a href="https://youtu.be/pFDvcIk5EAk"  target="_blank"> here </a> to see the video.
 
 <BR>
 <H2>About the Arduino that I'm using in this project</H2>
