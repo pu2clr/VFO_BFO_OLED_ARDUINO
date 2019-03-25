@@ -289,11 +289,10 @@ Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pi
 <BR>#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 <BR>
 </B>
-<p>
+<P>
 Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
 </P>
 <B>
-<BR>
 <BR>// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
 <BR>Band band[] = {
 <BR>    {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
