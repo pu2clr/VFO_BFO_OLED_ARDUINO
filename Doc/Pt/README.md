@@ -1,14 +1,9 @@
-<H1>Sobre o Projeto do VFO e BFO com Si5351A e Arduino</H1>
+# Sobre o Projeto do VFO e BFO com Si5351A e Arduino</
 
-<P>
+
 O Si5351A é um gerador de sinal configurável excelente para experimentações em radioamadorismo. Ele possui três saídas de sinal que podem ser configuradas de forma  independente. Isto é, cada saída pode oscilar em uma frequência distinta da outra. Esta característica permite, por exemplo, a construção de um VFO e um VFO no mesmo ambiente, simplificando circuitos em receptores e  transmissores. 
-</P>
 
-<P>
 O Si5351A permite operações com alta frequência. Assim, o VFO deste projeto pode oscilar entre 535KHz até 160MHz dividido em 27 bandas que podem ser mudadas via o pressionamento de um botão (veja tabela a seguir). Um enconder permite que você mude a frequência dentro de uma banda. Quanto ao  BFO, foi projetado para oscilar entre 400KHz e 500KHz.  Um outro botão alterna o controle entre o VFO e o BFO. A frequência do BFO pode ser alterada pelo encoder.  O <B>programa em Arduino  está disponível</B> na pasta <B>source</B> deste repositório ou diretamente por este <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">link</a> e poderá ser adaptado conforme a sua necessidade.  A documentação do código fonte foi escrita no idioma Inglês, porém, não creio que isso será um problema para a maioria dos desenvolvedores. Qualquer dúvida ou problema poderá ser postado via a aba <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a> .
-</P>
-
-
 
 <P>
 O operador poderá controlar o Si5351A por três botões e um encoder
@@ -204,7 +199,7 @@ O operador poderá controlar o Si5351A por três botões e um encoder
 
 
 
-<H2>Esquema Elétrico</H2>
+## Esquema Elétrico
 
 <P> A figura a seguir ilustra o esquema elétrico envolvendo os componentes utilizados no projeto. </P>
 
@@ -266,6 +261,7 @@ Alguns parâmetros utilizados no código-fonte podem ser alterados para atender 
 Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar as constantes definidas:
 </P>
 <BR>
+
 ```cpp
 #define MAX_BFO      990000000LU    // BFO max. frequency
 #define CENTER_BFO  1000000000LU    // BFO center frequency
@@ -280,6 +276,7 @@ O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que 
 Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do arduino que não os utilizado neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
 </P>
 <B>
+
 ```cpp
 #define ENCONDER_PIN_A 8 // Arduino  D8
 #define ENCONDER_PIN_B 9 // Arduino  D9
