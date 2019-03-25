@@ -1,4 +1,6 @@
 <H1>The Arduino and components wire up.</H1>
+<BR>
+This schematic was made by using the <a href="http://fritzing.org/home/">Fritzing Software</a>.  
 
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
 
