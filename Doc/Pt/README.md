@@ -263,26 +263,32 @@ O programa Arduino <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/
 Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas utilizadas pelo VFO  e faixa de freqência para o BFO, oor exemplo.</P> 
 <BR>
 Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar as constantes definidas:
-
+<B>
 <BR>#define MAX_BFO      990000000LU    // BFO max. frequency
 <BR>#define CENTER_BFO  1000000000LU    // BFO center frequency
 <BR>#define MIN_BFO     1100000000LU    // BFO min. frequency 
-
+</B>
 <BR>
-O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz). 
+<P>
+O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz).
+</P> 
 <BR>
+<P>
 Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do arduino que não os utilizado neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
+</P>
 <B>
 <BR>
-<BR>#define ENCONDER_PIN_A 14 // Arduino  D14
-<BR>#define ENCONDER_PIN_B 16 // Arduino  D16
+<BR>#define ENCONDER_PIN_A 8 // Arduino  D8
+<BR>#define ENCONDER_PIN_B 9 // Arduino  D9
 <BR>
 <BR>#define BUTTON_STEP 0    // Control the frequency increment and decrement
 <BR>#define BUTTON_BAND 1    // Controls the band
 <BR>#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 <BR>
 </B>
+<p>
 Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
+</P>
 <B>
 <BR>
 <BR>// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
