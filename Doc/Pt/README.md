@@ -267,6 +267,7 @@ Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar
 O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz). 
 <BR>
 Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do arduino que não os utilizado neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
+<B>
 <BR>
 <BR>#define ENCONDER_PIN_A 14 // Arduino  D14
 <BR>#define ENCONDER_PIN_B 16 // Arduino  D16
@@ -275,7 +276,9 @@ Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pi
 <BR>#define BUTTON_BAND 1    // Controls the band
 <BR>#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 <BR>
+</B>
 Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
+<B>
 <BR>
 <BR>// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
 <BR>Band band[] = {
@@ -288,6 +291,8 @@ Os valores do passo de incremento e decremento, bem como as faixas utilizadas po
 
 <BR>// Last element position of the array band
 <BR>volatile int lastBand = 26;   // (sizeof band / sizeof(Band));	
+</B>
+<BR>
 <BR>
 <P>
 O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">código-fonte </a> deste projeto está com uma documentação bem rica que busca dirimir dúvidas quanto ao uso e configuração do Si5351, OLED Display, botões, Encoder e LED. A <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a>, logo acima desta página, poderá ser utilizado para a publicação de dúvidas ou defeitos encontrados neste projeto.    
