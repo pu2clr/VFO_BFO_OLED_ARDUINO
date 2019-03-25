@@ -266,11 +266,11 @@ Alguns parâmetros utilizados no código-fonte podem ser alterados para atender 
 Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar as constantes definidas:
 </P>
 <BR>
-<B>
-<BR>#define MAX_BFO      990000000LU    // BFO max. frequency
-<BR>#define CENTER_BFO  1000000000LU    // BFO center frequency
-<BR>#define MIN_BFO     1100000000LU    // BFO min. frequency 
-</B>
+```C
+#define MAX_BFO      990000000LU    // BFO max. frequency
+#define CENTER_BFO  1000000000LU    // BFO center frequency
+#define MIN_BFO     1100000000LU    // BFO min. frequency 
+```
 <BR>
 <P>
 O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz).
@@ -280,40 +280,42 @@ O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que 
 Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do arduino que não os utilizado neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
 </P>
 <B>
-<BR>
-<BR>#define ENCONDER_PIN_A 8 // Arduino  D8
-<BR>#define ENCONDER_PIN_B 9 // Arduino  D9
-<BR>
-<BR>#define BUTTON_STEP 0    // Control the frequency increment and decrement
-<BR>#define BUTTON_BAND 1    // Controls the band
-<BR>#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
-<BR>
-</B>
+```C
+#define ENCONDER_PIN_A 8 // Arduino  D8
+#define ENCONDER_PIN_B 9 // Arduino  D9
+
+#define BUTTON_STEP 0    // Control the frequency increment and decrement
+#define BUTTON_BAND 1    // Controls the band
+#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
+```
+
 <P>
 Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
 </P>
-<B>
-<BR>// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
-<BR>Band band[] = {
-<BR>    {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
-<BR>    {"SW1  ", 170000001LLU, 350000000LLU},
-<BR>	.
-<BR>	.
-<BR>	.
-<BR>    {"VHF6 ", 13500000000LLU, 16000000000LLU}};
 
-<BR>// Last element position of the array band
-<BR>volatile int lastBand = 26;   // (sizeof band / sizeof(Band));	
+```C
+// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
+Band band[] = {
+    {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
+    {"SW1  ", 170000001LLU, 350000000LLU},
+	.
+	.
+	.
+    {"VHF6 ", 13500000000LLU, 16000000000LLU}};
 
-<BR>Step step[] = {
-<BR>    {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
-<BR>    {"100Hz ", 10000},
-<BR>	.
-<BR>	.
-<BR>	{"500KHz", 50000000}};    // VFO max. increment / decrement
+// Last element position of the array band
+volatile int lastBand = 26;   // (sizeof band / sizeof(Band));	
 
-<BR>volatile int lastStepVFO = 8;   // index for max increment / decrement for VFO
-<BR>volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO is 1KHz
+Step step[] = {
+   {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
+   {"100Hz ", 10000},
+	.
+	.
+	{"500KHz", 50000000}};    // VFO max. increment / decrement
+
+volatile int lastStepVFO = 8;   // index for max increment / decrement for VFO
+volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO is 1KHz
+```C
 
 </B>
 <BR>
