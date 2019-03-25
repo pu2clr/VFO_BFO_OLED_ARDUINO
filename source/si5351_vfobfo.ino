@@ -55,7 +55,7 @@ typedef struct
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
     {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
-    {"SW1  ", 170000001LLU, 350000000LLU},
+    {"SW1  ", 170000000LLU, 350000000LLU},
     {"SW2  ", 350000000LLU, 400000001LLU},
     {"SW3  ", 400000000LLU, 700000000LLU},
     {"SW4  ", 700000000LLU, 730000000LLU},    // 7MHz to 7.3 MHz  (Amateur 40m)
