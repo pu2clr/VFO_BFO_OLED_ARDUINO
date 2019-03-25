@@ -217,16 +217,25 @@ void changeFreq(int direction)
     vfoFreq += step[currentStep].value * direction;
     // Check the VFO limits
     if (vfoFreq > band[currentBand].maxFreq) // Max. VFO frequency for the current band
-      vfoFreq = band[currentBand].minFreq;
-    else if (vfoFreq < band[currentBand].minFreq) // Min. VFO frequency for the band
-      vfoFreq = band[currentBand].maxFreq;
+    {
+      vfoFreq = band[currentBand].minFreq; // Go to min. frequency of the range
+      blinkLed(STATUS_LED, 50); // Alert the user that the range is over
+    }
+      else if (vfoFreq < band[currentBand].minFreq) // Min. VFO frequency for the band
+      {
+        vfoFreq = band[currentBand].maxFreq; // Go to max. frequency of the range 
+        blinkLed(STATUS_LED, 50);    // Alert the user that the range is over
+      } 
   }
   else
   {
     bfoFreq += step[currentStep].value * direction; // currentStep * direction;
     // Check the BFO limits
     if (bfoFreq > MAX_BFO || bfoFreq < MIN_BFO) // BFO goes to center if it is out of the limits
-      bfoFreq = CENTER_BFO;
+    {
+      bfoFreq = CENTER_BFO; // Go to center
+      blinkLed(STATUS_LED, 50); // Alert the user that the range is over
+    }
   }
   isFreqChanged = true;
 }
