@@ -1,11 +1,11 @@
 # About the VFO and BFO with Si5351A and Arduino project
 
 
-The Si5351 is an I2C configurable clock generator that is very appropriate for receivers and transceivers projects in amateur radio applications. It is also suited for replacing crystal oscillators. It has three outputs that you can get three distinct frequencies at the same time. A great feature of the Si5351A is the possibility of using it with a microcontroller or platform like Arduino, PIC family and others. <B>This project is about a VFO and BFO that you can control two clock outputs of the Si5351A by using the Arduino Micro (Atmega32u4).  The VFO (CLK0) can oscillate from 535KHz to 160MHz and the second (CLK1) can oscillate from 400KHz to 500KHz.
+The Si5351 is an I2C configurable clock generator that is very appropriate for receivers and transceivers projects in amateur radio applications. It is also suited for replacing crystal oscillators. It has three outputs that you can get three distinct frequencies at the same time. A great feature of the Si5351A is the possibility of using it with a microcontroller or platform like Arduino, PIC family and others. **This project is about a VFO and BFO that you can control two clock outputs of the Si5351A by using the Arduino Micro (Atmega32u4).  The VFO (CLK0) can oscillate from 535KHz to 160MHz and the second (CLK1) can oscillate from 400KHz to 500KHz**.
 
 
 
-The <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> Arduino program </a> has being documented in English and you can get more details about the Si5351A controls by reading the <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> si5351_vfobfo.ino file</a>. 
+The <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> Arduino program </a> has being documented in English lenguage and you can get more details about the Si5351A controls by reading the <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">si5351_vfobfo.ino file</a>. 
 
 
 The user can control the VFO and BFO  by using three buttons and an encoder. 
@@ -224,9 +224,9 @@ The user can control the VFO and BFO  by using three buttons and an encoder.
 </table> 
 
 
-<H2>Schematic</H2>
+## Schematic
 
-<P>The schematic below shows the Arduino and components wire up.</P>
+The schematic below shows the Arduino and components wire up.
 
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
 
