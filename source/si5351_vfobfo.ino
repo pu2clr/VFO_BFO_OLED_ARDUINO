@@ -41,7 +41,7 @@
 // OLED - Declaration for a SSD1306 display connected to I2C (SDA, SCL pins)
 SSD1306AsciiAvrI2c display;
 
-// I'm using in this project the Adafruit Si5351A
+// The Si5351 instance.
 Si5351 si5351;
 
 // Structure for Bands database
