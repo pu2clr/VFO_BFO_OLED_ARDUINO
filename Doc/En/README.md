@@ -5,15 +5,15 @@ The Si5351 is an I2C configurable clock generator that is very appropriate for r
 
 
 
-The <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> Arduino program </a> has being documented in English and you can get more details about the Si5351A controls by reading the the <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> si5351_vfobfo.ino file</a>. 
+The <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> Arduino program </a> has being documented in English and you can get more details about the Si5351A controls by reading the <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> si5351_vfobfo.ino file</a>. 
 
 
-The user can control the Si5351A by using three buttons and an encoder. 
+The user can control the VFO and BFO  by using three buttons and an encoder. 
 
-- The button **Band** changes the range of frequency. This project divides the range from 535KHz to 160MHz in 27 bands. See band table below;  
-- The button **Step** changes the increment and decrement step. It can be 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz and 500KHz;
-- The button **VFO/BFO** switches from VFO to BFO and vice-versa. It allows the user to control the VFO or BFO by using the same **Encoder**;
-- The **Encoder** is used to increment or decrement the current frequency by using the step value as a
+- The button __Band__ changes the range of frequency. This project divides the VFO range (from 535KHz to 160MHz) in 27 bands. See band table below;  
+- The button __Step__ changes the increment and decrement step. It can be 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz and 500KHz;
+- The button __VFO/BFO__ switches from VFO to BFO and vice-versa. It allows the user to control the VFO or BFO by using the same __Encoder__;
+- The __Encoder__ is used to increment or decrement the current frequency by using the step value as a
 	reference.
 
 
@@ -232,13 +232,13 @@ The user can control the Si5351A by using three buttons and an encoder.
 
 
 
-### Sobre o esquema e conexões
+### About schematic and connections
 
 This project uses the Arduino Atmega32u4 compatible (Micro). With this kind of Arduino, we can use up to 5 external interrupts (pins 0,1,2,3 and 7). Then pins 0,1 and 7 were used to implement the buttons command (Step, Band and switch VFO/BFO).
 
 #### Si5351A
 
-The device Si5351A is connected pins D2 (SDA) and D3 (SCL).  
+The device Si5351A is connected to pins D2 (SDA) and D3 (SCL).  
 
 #### OLED Display SSD1306 - 128 x 64/0.96
 
@@ -247,16 +247,16 @@ The OLED Display is also connected to D2(SDA) and D3 (SCL).
 #### Encoder
 The Encoder is connected to Arduino on pins D8 and D9. Connect the lead A to pin D8 and lead B to pin D9. 
 
-#### Botão de Banda (Band)
+#### Band push button
 
 The Band push button is connected to pin D0/Rx (see schematic). Use this button to select one of 27 bands available.   
 
-#### Botão de Passo (Step)
+#### Step push button
 
 The Step push button is connected to the pin D1/Tx. Use this button to select the increment and decrement frequency steps.   
 
 
-#### Botão VFO/BFO
+#### VFO/BFO switch
 
 The VFO/BFO switch push button is connected to the pin D7.   This button changes the Encoder control from VFO to BFO and vice versa.  
 
@@ -266,7 +266,7 @@ The VFO/BFO switch push button is connected to the pin D7.   This button changes
 The main Arduino library used on this project to control the Si5351A was developed by NTS7. You can see more about this Library <a href="https://github.com/etherkit/Si5351Arduino">here</a>. 
 
 
-If you want to modify the frequency of BFO to 10MHz, just change the lines below. 
+If you want to modify the frequency of BFO to 10MHz (for example), just change the lines below. 
 
 ```cpp
 #define MAX_BFO     1100000000LU   // BFO max. frequency 

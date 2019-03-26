@@ -29,6 +29,7 @@
 #define BUTTON_BAND 1    // Controls the band
 #define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 
+// BFO range for this project is 400KHz to 500KHz. The central frequency is 455KHz. 
 #define MAX_BFO     50000000LU    // BFO max. frequency
 #define CENTER_BFO  45500000LU    // BFO center frequency
 #define MIN_BFO     40000000LU    // BFO min. frequency
@@ -114,8 +115,7 @@ volatile boolean clearDisplay = false;
 
 // AM is the default band
 volatile uint64_t vfoFreq = band[currentBand].minFreq; // VFO starts on AM
-volatile uint64_t bfoFreq = 45500000LU;                // 455 KHz -  BFO
-
+volatile uint64_t bfoFreq = CENTER_BFO;                // 455 KHz for this project
 // VFO is the Si5351A CLK0 
 // BFO is the Si5351A CLK1
 volatile int currentClock = 0; // If 0, then VFO will be controlled else the BFO will be
