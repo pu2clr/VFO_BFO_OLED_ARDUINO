@@ -306,10 +306,10 @@ The increment and decrement steps can be changed here.
 
 ```cpp
 Step step[] = {
-   {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
-   {"100Hz ", 10000},
-	.
-	.
+   	{"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
+   	{"100Hz ", 10000},
+		.
+		.
 	{"500KHz", 50000000}};    // VFO max. increment / decrement
 
 // Calculate the index of last position of step[] array (in this case will be 8)
