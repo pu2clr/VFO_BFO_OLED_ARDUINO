@@ -15,8 +15,8 @@
 #include "SSD1306AsciiAvrI2c.h"
 
 // Enconder PINs
-#define ENCONDER_PIN_A 8 // Arduino  D08
-#define ENCONDER_PIN_B 9 // Arduino  D09
+#define ENCODER_PIN_A 8 // Arduino  D08
+#define ENCODER_PIN_B 9 // Arduino  D09
 
 // OLED Diaplay constants
 #define I2C_ADDRESS 0x3C
@@ -133,8 +133,8 @@ void setup()
   // LED Pin
   pinMode(STATUS_LED, OUTPUT);
   // Encoder pins
-  pinMode(ENCONDER_PIN_A, INPUT);
-  pinMode(ENCONDER_PIN_B, INPUT);
+  pinMode(ENCODER_PIN_A, INPUT);
+  pinMode(ENCODER_PIN_B, INPUT);
   // Si5351 contrtolers pins
   pinMode(BUTTON_BAND, INPUT);
   pinMode(BUTTON_STEP, INPUT);
@@ -289,10 +289,10 @@ void loop()
 {
   // Enconder action can be processed after 5 milisecounds 
   if ( (millis() - elapsedTimeEncoder) > 5) {
-    encoder_pin_a = digitalRead(ENCONDER_PIN_A); 
-    encoder_pin_b = digitalRead(ENCONDER_PIN_B);
-    if ((!encoder_pin_a) && (encoder_prev)) // has ENCONDER_PIN_A gone from high to low?
-    { // if so,  check ENCONDER_PIN_B. It is high then clockwise (1) else counter-clockwise (-1)
+    encoder_pin_a = digitalRead(ENCODER_PIN_A); 
+    encoder_pin_b = digitalRead(ENCODER_PIN_B);
+    if ((!encoder_pin_a) && (encoder_prev)) // has ENCODER_PIN_A gone from high to low?
+    { // if so,  check ENCODER_PIN_B. It is high then clockwise (1) else counter-clockwise (-1)
       changeFreq( ((encoder_pin_b)? 1:-1) );
     }
     encoder_prev = encoder_pin_a;
