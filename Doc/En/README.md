@@ -1,35 +1,23 @@
-<H1>About the VFO and BFO with Si5351A and Arduino project</H1>
+# About the VFO and BFO with Si5351A and Arduino project
 
 
-<P>
-The Si5351 is an I2C configurable clock generator that is very appropriate for receivers and transceivers projects in amateur radio applications. It is also suited for replacing crystal oscillators. It has three outputs that you can get three distinct frequencies at the same time. A great feature of the Si5351A is the possibility of using it with a microcontroller or platform like Arduino, PIC family and others. <B>This project is about a VFO and BFO that you can control two clock outputs of the Si5351A by using the Arduino Micro (Atmega32u4).  The VFO (CLK0) can oscillate from 535KHz to 160MHz and the second (CLK1) can oscillate from 400KHz to 500KHz.</B> 
-</P>
+The Si5351 is an I2C configurable clock generator that is very appropriate for receivers and transceivers projects in amateur radio applications. It is also suited for replacing crystal oscillators. It has three outputs that you can get three distinct frequencies at the same time. A great feature of the Si5351A is the possibility of using it with a microcontroller or platform like Arduino, PIC family and others. <B>This project is about a VFO and BFO that you can control two clock outputs of the Si5351A by using the Arduino Micro (Atmega32u4).  The VFO (CLK0) can oscillate from 535KHz to 160MHz and the second (CLK1) can oscillate from 400KHz to 500KHz.
 
 
 
 The <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> Arduino program </a> has being documented in English and you can get more details about the Si5351A controls by reading the the <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> si5351_vfobfo.ino file</a>. 
 
-<P>
+
 The user can control the Si5351A by using three buttons and an encoder. 
-<ul>
-	<li><p><span style="font-variant: normal"> </span><span lang="en-US">The
-	button <B>Band</B> changes the band. This project divides the range from 535KHz to 160MHz in 27 bands. See band table below; </span>
-	</p>
-	<li><p><span style="font-variant: normal"> </span><span lang="en-US">The
-	button <B>Step</B> changes the increment and decrement
-	step. It can be 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz and
-	500KHz; </span>
-	</p>
-	<li><p><span lang="en-US">The button <B>VFO/BFO</B>
-	switches from VFO to BFO and vice-versa. It allows the user to control the VFO or BFO by using the same encoder.</span></p>
-	<li><p><span lang="en-US">The encoder is used to increment or
-	decrement the current frequency by using the step value as a
-	reference.</span></p>
-</ul>
-</P>
+
+- The button **Band** changes the range of frequency. This project divides the range from 535KHz to 160MHz in 27 bands. See band table below;  
+- The button **Step** changes the increment and decrement step. It can be 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz and 500KHz;
+- The button **VFO/BFO** switches from VFO to BFO and vice-versa. It allows the user to control the VFO or BFO by using the same **Encoder**;
+- The **Encoder** is used to increment or decrement the current frequency by using the step value as a
+	reference.
 
 
-<H2>Band table for the VFO used in this project</H2>
+## Band table for the VFO used in this project
 
 <table cellspacing="0" border="0">
 	<colgroup width="37"></colgroup>
@@ -244,11 +232,92 @@ The user can control the Si5351A by using three buttons and an encoder.
 
 
 
-Under construction...
-...
+### Sobre o esquema e conexões
 
-References:
-http://rheslip.blogspot.com/2012/02/single-chip-superheterodyne-receiver_5.html
+This project uses the Arduino Atmega32u4 compatible (Micro). With this kind of Arduino, we can use up to 5 external interrupts (pins 0,1,2,3 and 7). Then pins 0,1 and 7 were used to implement the buttons command (Step, Band and switch VFO/BFO).
+
+#### Si5351A
+
+The device Si5351A is connected pins D2 (SDA) and D3 (SCL).  
+
+#### OLED Display SSD1306 - 128 x 64/0.96
+
+The OLED Display is also connected to D2(SDA) and D3 (SCL).  
+
+#### Encoder
+The Encoder is connected to Arduino on pins D8 and D9. Connect the lead A to pin D8 and lead B to pin D9. 
+
+#### Botão de Banda (Band)
+
+The Band push button is connected to pin D0/Rx (see schematic). Use this button to select one of 27 bands available.   
+
+#### Botão de Passo (Step)
+
+The Step push button is connected to the pin D1/Tx. Use this button to select the increment and decrement frequency steps.   
+
+
+#### Botão VFO/BFO
+
+The VFO/BFO switch push button is connected to the pin D7.   This button changes the Encoder control from VFO to BFO and vice versa.  
+
+
+## About the Arduino Program developed for this project
+
+The main Arduino library used on this project to control the Si5351A was developed by NTS7. You can see more about this Library <a href="https://github.com/etherkit/Si5351Arduino">here</a>. 
+
+
+If you want to modify the frequency of BFO to 10MHz, just change the lines below. 
+
+```cpp
+#define MAX_BFO     1100000000LU   // BFO max. frequency 
+#define CENTER_BFO  1000000000LU   // BFO center frequency
+#define MIN_BFO      990000000LU   // BFO min. frequency 
+```
+
+If you need to change the Arduino pins and devices connections, you can modify the line codes below. 
+
+```cpp
+#define ENCONDER_PIN_A 8 // Arduino  D8
+#define ENCONDER_PIN_B 9 // Arduino  D9
+
+#define BUTTON_STEP 0    // Control the frequency increment and decrement
+#define BUTTON_BAND 1    // Controls the band
+#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
+```
+
+The bands and ranges can be changed here. 
+
+```cpp
+// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
+Band band[] = {
+    {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
+    {"SW1  ", 170000001LLU, 350000000LLU},
+	.
+	.
+	.
+    {"VHF6 ", 13500000000LLU, 16000000000LLU}};
+
+// Calculate the last element position (index) of the array band 
+const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
+volatile int currentBand = 0; // First band. For this case, AM is the current band.
+```
+
+The increment and decrement steps can be changed here.
+
+```cpp
+Step step[] = {
+   {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
+   {"100Hz ", 10000},
+	.
+	.
+	{"500KHz", 50000000}};    // VFO max. increment / decrement
+
+// Calculate the index of last position of step[] array (in this case will be 8)
+const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
+volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO. In this case will be is 1KHz
+volatile long currentStep = 0;  // it stores the current step index (50Hz in this case)
+```
+
 
 
 

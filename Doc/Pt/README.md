@@ -279,8 +279,9 @@ Band band[] = {
 	.
     {"VHF6 ", 13500000000LLU, 16000000000LLU}};
 
-// Last element position of the array band
-volatile int lastBand = 26;   // (sizeof band / sizeof(Band));	
+// Calculate the last element position (index) of the array band 
+const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
+volatile int currentBand = 0; // First band. For this case, AM is the current band.
 
 Step step[] = {
    {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
@@ -289,10 +290,12 @@ Step step[] = {
 	.
 	{"500KHz", 50000000}};    // VFO max. increment / decrement
 
-volatile int lastStepVFO = 8;   // index for max increment / decrement for VFO
-volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO is 1KHz
+// Calculate the index of last position of step[] array (in this case will be 8)
+const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
+volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO. In this case will be is 1KHz
+volatile long currentStep = 0;  // it stores the current step index (50Hz in this case)
 ```
 
 O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">código-fonte </a> deste projeto está com uma documentação bem rica que busca dirimir dúvidas quanto ao uso e configuração do Si5351, OLED Display, botões, Encoder e LED. A <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a>, logo acima desta página, poderá ser utilizado para a publicação de dúvidas ou defeitos encontrados neste projeto.    
 
-Observação: Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
+**Observação:** Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
