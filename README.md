@@ -11,7 +11,7 @@ __English:__ Signal Generetor with Si5351, OLED and Arduino. This project is abo
 
 There is a video about this project on my Youtube Channel (PU2CLR).
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_01.jpg" alt="Prototype01" height="414" width="520">
- 
+
 Click <a href="https://youtu.be/pFDvcIk5EAk"  target="_blank"> here </a> to see the video.
 
 ## About the Arduino that I'm using in this project
@@ -54,6 +54,6 @@ The source code of this project are available
 #### Photo 02
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_02.jpg" alt="Prototype02">
 
-##3# Photo 03
+#### Photo 03
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_03.jpg" alt="Prototype03">
  
