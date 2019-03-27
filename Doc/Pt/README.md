@@ -237,6 +237,45 @@ Este botão alterna o controle da frequência do VFO para BFO e vice-versa.
 
 Para controlar o Si53551A via Arduino foi utilizado a <a href="https://github.com/etherkit/Si5351Arduino">biblioteca Etherkit (Si5351 Library for Arduino)</a> desenvolvida pelo radioamador NTS7. Esta biblioteca oferece uma documentação muito rica e  várias facilidades se comparadas a outras bibliotecas para o Si5351. 
 
+Ainda em relação a biblioteca da Etherkit, é importante observar o mecanismo de __calibração__ do Si5351. 
+Existe um exemplo (si5351_calibration) que vem com a biblioteca da Etherkit que permite que usuário do Si5351 calibre seu dispositivo. Este procedimento permite uma geração do sinal mais precisa. Publiquei um vídeo no Youtube que mostrar como calibrar o Si5351 se necessário. Clique <a href="https://youtu.be/BJ83uvDcfIo">aqui</a> para assistir ao vídeo.
+
+No Sketch deste projeto, você encontrará as seguntes linhas de código que se referem à correção encontrada no processo de calibração: 
+
+```cpp
+
+#define CORRECTION_FACTOR 80000 // See how to calibrate your Si5351A (0 if you do not want).
+.
+.
+.
+void setup()
+{
+	.
+	.
+	.
+  si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 0);
+  // Adjusting the frequency (see how to calibrate the Si5351 - example si5351_calibration.ino)
+  si5351.set_correction(CORRECTION_FACTOR, SI5351_PLL_INPUT_XO);
+  .
+  .
+  .
+
+}
+
+.
+.
+.
+````
+
+Note no código anterior que a constante definida __CORRECTION_FACTOR__ tem o valor 80000. O valor 80000 foi encontrado na execução do Sketch si5351_correction (ver exemplo no IDE do arduino).
+Note também que após instanciar e iniciar o Si5351, a função si5351.set_correction(CORRECTION_FACTOR, SI5351_PLL_INPUT_XO) é executada. Este chamada permite fazer a correção da frequência do gerador de sinal.
+
+__Importante:__ Se você não executou o processo de calibração do seu Si5351 e não pretende fazer isto, ajuste a constante definida CORRECTION_FACTOR para 0 como mostrado a seguir:
+
+
+```cpp
+#define CORRECTION_FACTOR 0 
+```
 
 
 O programa Arduino <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">disponível neste projeto</a>, pode ser baixado, modificado e utilizado por qualquer um que tenha interesse em desenvolver um projeto similar.  
