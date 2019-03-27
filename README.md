@@ -6,7 +6,6 @@ __Português:__ Gerador de Sinal com Si5341, OLED e Arduino. Este projeto é sob
 
 __English:__ Signal Generetor with Si5351, OLED and Arduino. This project is about a construction of a VFO (530KHz to 160MHz) and a BFO (400KHz to 500KHz or another range). See <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Doc/En">documentation here</a>.
 
-
 ## Video
 
 There is a video about this project on my Youtube Channel (PU2CLR).
