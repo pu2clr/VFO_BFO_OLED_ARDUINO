@@ -2,7 +2,7 @@
 
 This schematic was made by using the <a href="http://fritzing.org/home/">Fritzing Software</a>.  
 
-The  <a href="http://fritzing.org/home/">Fritzing file are available in this repository</a>. 
+The  <a href="http://fritzing.org/home/">Fritzing file is available in this repository</a>. 
 
 ## Schematic
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="VFO and BFO schematic">
