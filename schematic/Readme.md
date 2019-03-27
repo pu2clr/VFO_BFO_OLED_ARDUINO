@@ -1,23 +1,36 @@
-<H1>The Arduino and components wire up.</H1>
-<P>
-This schematic was made by using the <a href="http://fritzing.org/home/">Fritzing Software</a>.  
-</P>
-<BR>
+# The Arduino and components wire up.
 
+This schematic was made by using the <a href="http://fritzing.org/home/">Fritzing Software</a>.  
+
+The  <a href="http://fritzing.org/home/">Fritzing file are available in this repository</a>. 
+
+## Schematic
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="VFO and BFO schematic">
 
-<H2>Si5351A</H2>
-<P>On Arduino Micro use Si5351A connected to D2 (SDA) and  D3 (SCL).</P>
-<H2>OLED Display SSD1306 - 128 x 64/0.96</H2>
-<P>On Arduino Micro use the <B>OLED</B> connected to D2 (SDA) and  D3 (SCL). Yes, the same Si5351A connections.</P>
-<H2>Encoder</H2>
-<P> Connect Arduino D8 and D9 pins to the <B>Encoder</B> pin A and pin B respectively </P> 
+### Si5351A
 
-<H2>Push Button Band</H2>
-<P> Connect Arduino D0/Rx pin to the <B>Band</B> push button.</P> 
+On __Arduino Micro__ use __Si5351A__ connected to D2 (SDA) and  D3 (SCL).
 
-<H2>Push Button Step</H2>
-<P> Connect Arduino D1/Tx pin to the <B>Step</B> push button.</P> 
+### OLED Display SSD1306 - 128 x 64/0.96
 
-<H2>Push Button VFO/BFO</H2>
-<P> Connect Arduino D7 pin to the <B>VFO/BFO</B> push button.</P> 
+On Arduino Micro use the __OLED__ connected to D2 (SDA) and  D3 (SCL). Yes, the same Si5351A connections.
+
+### Encoder
+
+Connect Arduino __D8__ and __D9__ pins to the __Encoder__ pin __A__ and pin __B__ respectively.
+
+### Push Button Band
+
+Connect Arduino __D0/Rx__ pin to the __Band__ push button.
+
+### Push Button Step
+
+Connect Arduino __D1/Tx__ pin to the __Step__ push button. 
+
+### Push Button VFO/BFO
+
+Connect Arduino __D7__ pin to the __VFO/BFO__ push button.
+
+
+
+
