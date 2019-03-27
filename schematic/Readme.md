@@ -9,11 +9,11 @@ The  <a href="http://fritzing.org/home/">Fritzing file is available in this repo
 
 ### Si5351A
 
-On __Arduino Micro__ use __Si5351A__ connected to D2 (SDA) and  D3 (SCL).
+The __Si5351A__ is connected to D2 (SDA) and  D3 (SCL).
 
 ### OLED Display SSD1306 - 128 x 64/0.96
 
-On Arduino Micro use the __OLED__ connected to D2 (SDA) and  D3 (SCL). Yes, the same Si5351A connections.
+The __OLED__ is connected to D2 (SDA) and  D3 (SCL). Yes, the same Si5351A connections.
 
 ### Encoder
 
