@@ -383,8 +383,7 @@ Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pi
 
 ### Interrupções externas
 
-Este projeto implementa os três botões usando o recurso interrupções externas do Arduino. No caso do Atmega32u4, os pinos 0,1,2,3 e 7 podem ser utilizados para este fim. Desta forma, quando um dos botões for pressionado, o Arduido irá interroper o fluxo de execução normal para executar o códio conectado a interrupção.  [Entenda mais sobre Interrupções no Arduino.](https://www.arduino.cc/reference/pt/language/functions/external-interrupts/attachinterrupt/)
-
+Este projeto implementa os três botões (Band, Step e Switch VFO/BFO) usando o recurso interrupções externas do Arduino. No caso do Atmega32u4, os pinos 0,1,2,3 e 7 podem ser utilizados para esta finalidade. Desta forma, quando um dos botões for pressionado, o Arduido irá interroper o fluxo de execução normal para executar o códio conectado a interrupção.  Entenda mais sobre Interrupções no Arduino clicando [aqui](https://www.arduino.cc/reference/pt/language/functions/external-interrupts/attachinterrupt/).
 
 O código a seguir conecta os botões Band, Step e Switch VFO/BFO às respectivas funções de tratamento. 
 
