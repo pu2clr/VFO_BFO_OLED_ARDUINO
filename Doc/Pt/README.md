@@ -235,10 +235,15 @@ Este botão alterna o controle da frequência do VFO para BFO e vice-versa.
 
 ## Sobre o programa Arduino
 
+O programa (sketch) Arduino <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">disponível neste projeto</a>, pode ser livremente baixado, modificado e utilizado por qualquer um que tenha interesse em desenvolver um projeto similar.  
+
 Para controlar o Si53551A via Arduino foi utilizado a <a href="https://github.com/etherkit/Si5351Arduino">biblioteca Etherkit (Si5351 Library for Arduino)</a> desenvolvida pelo radioamador NTS7. Esta biblioteca oferece uma documentação muito rica e  várias facilidades se comparadas a outras bibliotecas para o Si5351. 
 
 Ainda em relação a biblioteca da Etherkit, é importante observar o mecanismo de __calibração__ do Si5351. 
 Existe um exemplo (si5351_calibration) que vem com a biblioteca da Etherkit que permite a calibração do Si5351. Este procedimento melhora a precisão da frequência de saída do sinal gerado pelo SI5351. Publiquei um vídeo no Youtube que mostrar como calibrar o Si5351 se necessário. Clique <a href="https://youtu.be/BJ83uvDcfIo">aqui</a> para assistir ao vídeo.
+
+
+### Calibração do Si5351A
 
 No <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">Sketch</a> deste projeto, você encontrará as seguintes linhas de código que se referem à correção encontrada durante a execução do processo de calibração: 
 
@@ -273,12 +278,11 @@ __Importante:__ Se você não executou o processo de calibração do seu Si5351 
 ```
 
 
-O programa Arduino <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">disponível neste projeto</a>, pode ser baixado, modificado e utilizado por qualquer um que tenha interesse em desenvolver um projeto similar.  
-
+### Informações sobre a configuração do  VFO e BFO 
 
 Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas utilizadas pelo VFO  e faixa de frequência para o BFO, por exemplo.
 
-Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar as constantes definidas:
+#### Para modificar a faixa de frequência do BFO de 455KHz para 10MHz
 
 
 ```cpp
@@ -286,20 +290,10 @@ Para modificar a faixa de frequência do BFO de 455KHz para 10MHz, basta alterar
 #define CENTER_BFO  1000000000LU    // BFO center frequency
 #define MIN_BFO     1100000000LU    // BFO min. frequency 
 ```
-
 O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz).
 
-Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do arduino que não os utilizados neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
 
-
-```cpp
-#define ENCODER_PIN_A 8 // Arduino  D8
-#define ENCODER_PIN_B 9 // Arduino  D9
-
-#define BUTTON_STEP 0    // Control the frequency increment and decrement
-#define BUTTON_BAND 1    // Controls the band
-#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
-```
+#### Tabela de faixas e freqência e passos (Step)
 
 Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
 
@@ -330,9 +324,29 @@ volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO.
 volatile long currentStep = 0;  // it stores the current step index (50Hz in this case)
 ```
 
+
+### Pinos do Arduino para os botões Encoder, Band, Step e Switch VFO/BFO
+
+Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do arduino que não os utilizados neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
+
+
+```cpp
+#define ENCODER_PIN_A 8 // Arduino  D8
+#define ENCODER_PIN_B 9 // Arduino  D9
+
+#define BUTTON_STEP 0    // Control the frequency increment and decrement
+#define BUTTON_BAND 1    // Controls the band
+#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
+```
+
+## Considerações finais
+
 O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">código-fonte </a> deste projeto está com uma documentação bem rica que busca dirimir dúvidas quanto ao uso e configuração do Si5351, OLED Display, botões, Encoder e LED. A <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a>, logo acima desta página, poderá ser utilizado para a publicação de dúvidas ou defeitos encontrados neste projeto.    
 
+
 **Observação:** Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
+
+
 
 
 ## Referências
@@ -363,7 +377,13 @@ O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5
 [Text only Arduino Library for SSD1306 OLED displays](https://github.com/greiman/SSD1306Ascii)
 
 
-### Videos
+### Vídeos
+
+[VFO and BFO with Si5351A controlled by Arduino, PU2CLR](https://youtu.be/pFDvcIk5EAk)
+
+[VFO e BFO com Si5351A e Arduino - Calibração do Si5351, PU2CLR](https://youtu.be/BJ83uvDcfIo)
+
+[VFO e BFO com o Si5351 e OLED controlado por Arduino - (Portuguese), PU2CLR](https://youtu.be/0sGL2KpOJH4)
 
 [NT7S Adafruit si5351 VFO/BFO](https://www.youtube.com/watch?v=791NupCbiWU)
 

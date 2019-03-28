@@ -86,6 +86,8 @@ The source code of this project are available
 
 ### Videos
 
+[VFO and BFO with Si5351A controlled by Arduino, PU2CLR](https://youtu.be/pFDvcIk5EAk)
+
 [NT7S Adafruit si5351 VFO/BFO](https://www.youtube.com/watch?v=791NupCbiWU)
 
 [Vídeo: Arduino Nano + Si5351 Three outputs HF VHF VFO](https://www.youtube.com/watch?v=xD6tLSOjSsw)
