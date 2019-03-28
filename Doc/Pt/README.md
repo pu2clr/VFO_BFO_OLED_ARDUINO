@@ -335,27 +335,66 @@ O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5
 **Observação:** Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
 
 
-## Referências e outros links relacionados
+## Referências
 
-https://github.com/etherkit/Si5351Arduino
+[Arduino](https://www.arduino.cc)
 
-https://tronixstuff.com/2010/10/20/tutorial-arduino-and-the-i2c-bus/
+[Silicon Labs Si5351A/B/C-B](https://www.silabs.com/documents/public/data-sheets/Si5351-B.pdf)
 
-https://www.arduino.cc/en/Reference/Wire 
+[Si5351 Library for Arduino](https://github.com/etherkit/Si5351Arduino)
 
-http://rfanat.ru/s25/dds_sio5351_pro-min.html
+[All About Arduino Libraries](http://learn.adafruit.com/adafruit-all-about-arduino-libraries-install-use)
 
-https://www.adafruit.com/product/2045
+[Arduino Wire Library](https://www.arduino.cc/en/Reference/Wire) 
 
-https://learn.adafruit.com/adafruit-si5351-clock-generator-breakout/downloads
+[Tutorial: Arduino and the I2C bus – Part One](https://tronixstuff.com/2010/10/20/tutorial-arduino-and-the-i2c-bus/)
 
-https://www.instructables.com/id/Arduino-Frequency-Synthesiser-Using-160MHz-Si5351/
+[Adafruit Si5351A Clock Generator Breakout Board - 8KHz to 160MHz](https://www.adafruit.com/product/2045)
 
-https://kk9jef.wordpress.com/2017/07/10/si5351-signal-generator/
+[Arduino Frequency Synthesiser Using 160MHz Si5351, lingib](https://www.instructables.com/id/Arduino-Frequency-Synthesiser-Using-160MHz-Si5351/)
 
-https://nt7s.com/2018/01/arduino-si5351-powered-signal-generator/
+[SI5351 Signal Generator](https://kk9jef.wordpress.com/2017/07/10/si5351-signal-generator/)
 
-[All About Arduino Libraries!](http://learn.adafruit.com/adafruit-all-about-arduino-libraries-install-use)
+[Arduino – Si5351 Powered Signal Generator, kk9jef](https://nt7s.com/2018/01/arduino-si5351-powered-signal-generator/) 
+
+[Text only Arduino Library for SSD1306 OLED displays](https://github.com/greiman/SSD1306Ascii)
 
 
-[ARDUINO NANO + SI5351  3 output HF VHF VFO!] (https://www.youtube.com/watch?v=xD6tLSOjSsw)
+### Videos
+
+[NT7S Adafruit si5351 VFO/BFO](https://www.youtube.com/watch?v=791NupCbiWU)
+
+[Vídeo: Arduino Nano + Si5351 Three outputs HF VHF VFO](https://www.youtube.com/watch?v=xD6tLSOjSsw)
+
+[Simple vfo+bfo with s-meter using si5351 and arduino/avr](https://www.youtube.com/watch?v=s82TBVt3VG4&feature=youtu.be)
+
+[Homebrew HF transceiver with SI5351A](https://www.youtube.com/watch?v=JJ8-VEZk_28)
+
+[Arduino Signal Generator](https://www.youtube.com/watch?v=7M6ghR9tuTk)
+
+[Homebrew 80/40m SSB/CW Rig - #7a Si5351 Calibration](https://www.youtube.com/watch?v=fJ_3z2IAjKg)
+
+[Si5351 VFO/BFO Software: Part 1 Hardware overview](https://www.youtube.com/watch?v=58G5atwBX2M)
+
+[Bitx40 With an OLED Display and the Si5351](https://www.youtube.com/watch?v=VSPEC144A00&list=PLx2fI1IGczHx-p6aEuci4ETU4VM419cm_)
+
+[Arduino Tutorial: OLED 0.96" I2C/SPI Display](https://www.youtube.com/watch?v=PrIAnDZ9dp8)
+
+[Tutorial on I2C OLED Display with Arduino/NodeMCU](https://www.youtube.com/watch?v=_e_0HJY0uIo)
+
+[Arduino Tutorial: 0.96' 128x64 I2C OLED Display from banggood.com tutorial with review and drivers](https://www.youtube.com/watch?v=A9EwJ7M7OsI)
+
+[OLED Display I2C 128x64 With Arduino - Tutorial](https://www.youtube.com/watch?v=Iq9HHct6b9o)
+
+
+
+
+
+
+
+
+
+
+
+
+
