@@ -380,6 +380,69 @@ Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pi
 #define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 ```
 
+
+### Interrupções externas
+
+Este projeto implementa os três botões usando o recurso interrupções externas do Arduino. No caso do Atmega32u4, os pinos 0,1,2,3 e 7 podem ser utilizados para este fim. Desta forma, quando um dos botões for pressionado, o Arduido irá interroper o fluxo de execução normal para executar o códio conectado a interrupção. 
+
+O código a seguir conecta os botões às respectivas funções de tratamento. 
+
+```cpp
+  // Will stop what Arduino is doing and call changeStep(), changeBand() or switchVFOBFO 
+  attachInterrupt(digitalPinToInterrupt(BUTTON_STEP), changeStep, RISING);      // whenever the BUTTON_STEP goes from LOW to HIGH
+  attachInterrupt(digitalPinToInterrupt(BUTTON_BAND), changeBand, RISING);      // whenever the BUTTON_BAND goes from LOW to HIGH
+  attachInterrupt(digitalPinToInterrupt(BUTTON_VFO_BFO), switchVFOBFO, RISING); // whenever the BUTTON_VFO_BFO goes from LOW to HIGH
+  // wait for 1/2 second and the system will be ready.
+```
+
+O código a seguir implementa a função de cada botão.
+
+```cpp
+// Change frequency increment rate
+void changeStep()
+{
+  if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
+    return;                                                            // nothing to do if the time less than MIN_ELAPSED_TIME milisecounds
+  noInterrupts();                                                      //// disable global interrupts:
+  if (currentClock == 0)                                               // Is VFO
+    currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0; // Increment the step or go back to the first
+  else                                                                 // Is BFO
+    currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
+  isFreqChanged = true;
+  clearDisplay = true;
+  elapsedTimeInterrupt = millis();
+  interrupts(); // enable interrupts
+}
+
+// Change band
+void changeBand()
+{
+  if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
+    return;                                                       // nothing to do if the time less than 11 milisecounds
+  noInterrupts();                                                 //  disable global interrupts:
+  currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
+  vfoFreq = band[currentBand].minFreq;
+  isFreqChanged = true;
+  elapsedTimeInterrupt = millis();
+  interrupts(); // enable interrupts
+}
+
+// Switch the Encoder control from VFO to BFO and virse versa.
+void switchVFOBFO()
+{
+  if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
+    return;       // nothing to do if the time less than 11 milisecounds
+  noInterrupts(); //  disable global interrupts:
+  currentClock = !currentClock;
+  currentStep = 0; // go back to first Step (100Hz)
+  clearDisplay = true;
+  elapsedTimeInterrupt = millis();
+  interrupts(); // enable interrupts
+}
+```
+
+
+
 ## Considerações finais
 
 O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">código-fonte </a> deste projeto está com uma documentação bem rica que busca dirimir dúvidas quanto ao uso e configuração do Si5351, OLED Display, botões, Encoder e LED. A <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a>, logo acima desta página, poderá ser utilizado para a publicação de dúvidas ou defeitos encontrados neste projeto.    
