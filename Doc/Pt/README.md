@@ -285,6 +285,14 @@ Alguns parâmetros utilizados no código-fonte podem ser alterados para atender 
 
 #### Para modificar a faixa de frequência do BFO de 455KHz para 10MHz
 
+Originalmente o BFO deste projeto está configurado para operar em 455KHz conforme apresentado no código a seguir: 
+
+```cpp
+#define MAX_BFO     50000000LU    // BFO max. frequency
+#define CENTER_BFO  45500000LU    // BFO center frequency
+#define MIN_BFO     40000000LU    // BFO min. frequency
+````
+
 O código a seguir modifica o BFO para operar em 10MHz
 
 ```cpp
