@@ -281,10 +281,11 @@ __Importante:__ Se você não executou o processo de calibração do seu Si5351 
 
 ### Informações sobre a configuração do  VFO e BFO 
 
-Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas utilizadas pelo VFO  e faixa de frequência para o BFO, por exemplo.
+Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas e frequências  utilizadas pelo VFO, bem como os limites e a frequência para o BFO.
 
 #### Para modificar a faixa de frequência do BFO de 455KHz para 10MHz
 
+O código a seguir modifica o BFO para operar em 10MHz
 
 ```cpp
 #define MAX_BFO      990000000LU    // BFO max. frequency
