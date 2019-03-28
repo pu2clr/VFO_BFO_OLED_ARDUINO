@@ -300,7 +300,7 @@ O código a seguir modifica o BFO para operar em 10MHz
 #define CENTER_BFO  1000000000LU    // BFO center frequency
 #define MIN_BFO     1100000000LU    // BFO min. frequency 
 ```
-O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz).
+O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1MHz. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz).
 
 
 #### Tabela de faixas e freqência e passos (Step)
