@@ -368,8 +368,7 @@ volatile long currentStep = 0;  // it stores the current step index (50Hz in thi
 
 ### Pinos do Arduino para os botões Encoder, Band, Step e Switch VFO/BFO
 
-Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do Arduino que não os utilizados neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
-
+Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do Arduino que não os utilizados neste projeto. Para tanto, basta modificar os valores para as constantes definidas no código a seguir. Contudo, é importante que os botões devem estar conectados aos pinos do Arduino ou similar com suporte à interrupções externas.  
 
 ```cpp
 #define ENCODER_PIN_A 8 // Arduino  D8
@@ -379,6 +378,7 @@ Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pi
 #define BUTTON_BAND 1    // Controls the band
 #define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 ```
+
 
 
 ### Interrupções externas
