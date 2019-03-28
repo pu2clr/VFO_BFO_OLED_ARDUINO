@@ -69,7 +69,7 @@ The source code of this project are available
 
 [Arduino Wire Library](https://www.arduino.cc/en/Reference/Wire) 
 
-[Arduino - Usando Interrupções](https://www.arduino.cc/reference/pt/language/functions/external-interrupts/attachinterrupt/)
+[Arduino - Using Interrupts](https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/)
 
 [Tutorial: Arduino and the I2C bus – Part One](https://tronixstuff.com/2010/10/20/tutorial-arduino-and-the-i2c-bus/)
 
