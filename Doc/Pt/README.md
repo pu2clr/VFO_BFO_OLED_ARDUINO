@@ -383,7 +383,7 @@ Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pi
 
 ### Interrupções externas
 
-Este projeto implementa os três botões (Band, Step e Switch VFO/BFO) usando o recurso interrupções externas do Arduino. No caso do Atmega32u4, os pinos 0,1,2,3 e 7 podem ser utilizados para esta finalidade. Desta forma, quando um dos botões for pressionado, o Arduido irá interroper o fluxo de execução normal para executar o códio conectado a interrupção.  Entenda mais sobre Interrupções no Arduino clicando [aqui](https://www.arduino.cc/reference/pt/language/functions/external-interrupts/attachinterrupt/).
+Este projeto implementa os três botões (Band, Step e Switch VFO/BFO) usando o recurso interrupções externas do Arduino. No caso do Atmega32u4, os pinos 0,1,2,3 e 7 podem ser utilizados para esta finalidade. Desta forma, quando um dos botões for pressionado, o Arduido interroperá o fluxo de execução normal para executar o códio conectado a interrupção.  Entenda mais sobre Interrupções no Arduino clicando [aqui](https://www.arduino.cc/reference/pt/language/functions/external-interrupts/attachinterrupt/).
 
 O uso de interrupção para executar as ações dos botões é especialmente útil neste projeto porque facilita a execução imediata da função desejada no momento do pressionamento do botão. Obviamente é possível implementar as ações dos botões Band, Step e switch VFO/BFO na função loop do Arduino usando a abordagem tradicional. No entanto, esta abordagem pode causar algumas imprecisões quanto à resposta do sistema no momento do pressionamento do botão.  Infelizmente, dada a pouca quantidade de pinos no Arduino baseado no Atmega32u4 que implementa interrupções externas, não foi possível usar o mesmo recursos para o Encoder. Neste caso, a função do Encoder foi implementada na função __loop__ principal do Arduino. 
 
@@ -397,7 +397,7 @@ O código a seguir conecta os botões Band, Step e Switch VFO/BFO às respectiva
   // wait for 1/2 second and the system will be ready.
 ```
 
-O código a seguir implementa a função de cada botão. Observe também no código que a ação do botão só será executada se tiver decorrido um tempo mínimo após o último pressionamento (veja no programa a constante definida MIN_ELAPSED_TIME). Este artifício é utilizado porque o botão (Push Button) pode, em um único pressionamento, alterar mais de uma vez o status do pino que ele está conectado. Isso ocorre porque os contatos metálicos do botão não se comportam de forma tão precisa como aparentam. Diante disso, para que um único pressionamento do botão não seja entendido pelo sistema como vários, este recurso de medir o tempo decorrido após o último pressionamento, é utilizado. 
+O código a seguir implementa de fato a função de cada botão. Observe também no código que a ação do botão só será executada se tiver decorrido um tempo mínimo após o último pressionamento (veja no programa a constante definida MIN_ELAPSED_TIME). Este artifício é utilizado porque o botão (Push Button) pode, em um único pressionamento, alterar mais de uma vez o status do pino que ele está conectado. Isso ocorre porque os contatos metálicos do botão não se comportam de forma tão precisa como aparentam. Diante disso, para que um único pressionamento do botão não seja entendido pelo sistema como vários, este recurso de medir o tempo decorrido após o último pressionamento, é utilizado. 
 
 ```cpp
 // Change frequency increment rate
