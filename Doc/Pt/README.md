@@ -305,29 +305,59 @@ O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1MHz. Lembrando q
 
 #### Tabela de faixas e freqência e passos (Step)
 
-Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
+Este projeto definiu 27 bandas (faixas de frequência) que cobrem de 535KHz a 160MHz. A quantidade de bandas, bem como os limites inferiores e superiores de cada banda podem ser alteradas na estrutura apresentada no código a seguir:
+
 
 ```cpp
-// Band database:  More information see  https://en.wikipedia.org/wiki/Radio_spectrum
+// Band database. You can change the band ranges if you need.
+// The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
     {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
-    {"SW1  ", 170000001LLU, 350000000LLU},
-	.
-	.
-	.
-    {"VHF6 ", 13500000000LLU, 16000000000LLU}};
+    {"SW1  ", 170000000LLU, 350000000LLU},
+    {"SW2  ", 350000000LLU, 400000001LLU},
+    {"SW3  ", 400000000LLU, 700000000LLU},
+    {"SW4  ", 700000000LLU, 730000000LLU},    // 7MHz to 7.3 MHz  (Amateur 40m)
+    {"SW5  ", 730000000LLU, 900000000LLU},    // 41m
+    {"SW6  ", 900000000LLU, 1000000000LLU},   // 31m
+    {"SW7  ", 1000000000LLU, 1100000000LLU},  // 10 MHz to 11 MHz (Amateur 30m)
+    {"SW8  ", 1100000000LLU, 1400000000LLU},  // 25 and 22 meters
+    {"SW9  ", 1400000000LLU, 1500000000LLU},  // 14MHz to 15Mhz (Amateur 20m)
+    {"SW10 ", 1500000000LLU, 1700000000LLU},  // 19m
+    {"SW11 ", 1700000000LLU, 1800000000LLU},  // 16m
+    {"SW12 ", 1800000000LLU, 2000000000LLU}, // 18MHz to 20Mhz (Amateur and comercial 15m)
+    {"SW13 ", 2000000000LLU, 2135000000LLU}, // 20MHz to 22Mhz (Amateur and comercial 15m/13m)
+    {"SW14 ", 2135000000LLU, 2200000000LLU},
+    {"SW15 ", 2235000000LLU, 2498000000LLU},
+    {"SW16 ", 2488000000LLU, 2499000000LLU}, // 24.88MHz to 24.99MHz (Amateur 12m)
+    {"SW17 ", 2499000000LLU, 2600000000LLU},
+    {"SW18 ", 2600000000LLU, 2800000000LLU},
+    {"SW19 ", 2800000000LLU, 3000000000LLU}, // 28MHz to 30MHz (Amateur 10M)
+    {"VHF1 ", 3000000000LLU, 5000000000LLU},
+    {"VHF2 ", 5000000000LLU, 5400000000LLU},
+    {"VHF3 ", 5400000000LLU, 8600000000LLU},
+    {"FM   ", 8600000000LLU, 10800000000LLU},  // Comercial FM
+    {"VHF4 ", 10800000000LLU, 12000000000LLU}, // 108MHz to 160MHz
+    {"VHF5 ", 12000000000LLU, 13500000000LLU}, // Air band
+    {"VHF6 ", 13500000000LLU, 16000000000LLU}}; 
 
 // Calculate the last element position (index) of the array band 
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
 volatile int currentBand = 0; // First band. For this case, AM is the current band.
+```
 
+Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
+
+```cpp
 Step step[] = {
-   {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
-   {"100Hz ", 10000},
-	.
-	.
-	{"500KHz", 50000000}};    // VFO max. increment / decrement
-
+    {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
+    {"100Hz ", 10000},
+    {"500Hz ", 50000},
+    {"1KHz  ", 100000},       // BFO max. increment / decrement
+    {"2.5KHz", 250000},
+    {"5KHz  ", 500000},
+    {"10KHz ", 1000000},
+    {"100KHz", 10000000},
+    {"500KHz", 50000000}};    // VFO max. increment / decrement
 // Calculate the index of last position of step[] array (in this case will be 8)
 const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
 volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO. In this case will be is 1KHz
