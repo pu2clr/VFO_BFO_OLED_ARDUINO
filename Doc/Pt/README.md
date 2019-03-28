@@ -345,9 +345,10 @@ const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 
 volatile int currentBand = 0; // First band. For this case, AM is the current band.
 ```
 
-Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando os trechos de código a seguir: 
+Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando o trecho de código a seguir: 
 
 ```cpp
+// Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
     {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
     {"100Hz ", 10000},
@@ -367,7 +368,7 @@ volatile long currentStep = 0;  // it stores the current step index (50Hz in thi
 
 ### Pinos do Arduino para os botões Encoder, Band, Step e Switch VFO/BFO
 
-Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do arduino que não os utilizados neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
+Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do Arduino que não os utilizados neste projeto. Para tanto, basta modificar os valores para as constantes definidas a seguir: 
 
 
 ```cpp
@@ -385,7 +386,6 @@ O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5
 
 
 **Observação:** Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
-
 
 
 
