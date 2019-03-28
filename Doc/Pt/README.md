@@ -237,7 +237,7 @@ Este botão alterna o controle da frequência do VFO para BFO e vice-versa.
 
 O programa (sketch) Arduino <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">disponível neste projeto</a>, pode ser livremente baixado, modificado e utilizado por qualquer um que tenha interesse em desenvolver um projeto similar.  
 
-Para controlar o Si53551A via Arduino foi utilizado a <a href="https://github.com/etherkit/Si5351Arduino">biblioteca Etherkit (Si5351 Library for Arduino)</a> desenvolvida pelo radioamador NTS7. Esta biblioteca oferece uma documentação muito rica e  várias facilidades se comparadas a outras bibliotecas para o Si5351. 
+Para controlar o Si53551A via Arduino foi utilizado a <a href="https://github.com/etherkit/Si5351Arduino">biblioteca Etherkit (Si5351 Library for Arduino)</a> desenvolvida pelo radioamador NTS7. Esta biblioteca oferece uma documentação muito rica e com várias facilidades se comparadas a outras bibliotecas para o Si5351. 
 
 Ainda em relação a biblioteca da Etherkit, é importante observar o mecanismo de __calibração__ do Si5351. 
 Existe um exemplo (si5351_calibration) que vem com a biblioteca da Etherkit que permite a calibração do Si5351. Este procedimento melhora a precisão da frequência de saída do sinal gerado pelo SI5351. Publiquei um vídeo no Youtube que mostrar como calibrar o Si5351 se necessário. Clique <a href="https://youtu.be/BJ83uvDcfIo">aqui</a> para assistir ao vídeo.
@@ -245,7 +245,8 @@ Existe um exemplo (si5351_calibration) que vem com a biblioteca da Etherkit que 
 
 ### Calibração do Si5351A
 
-No <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">Sketch</a> deste projeto, você encontrará as seguintes linhas de código que se referem à correção encontrada durante a execução do processo de calibração: 
+No <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">Sketch</a> deste projeto, você encontrará as linhas de código a seguir que se referem à correção do Si5351 necessária para melhorar a sua precisão. Caso necessário, [este vídeo](https://youtu.be/BJ83uvDcfIo) ilustra como fazer a Calibração do Si5351.
+
 
 ```cpp
 
