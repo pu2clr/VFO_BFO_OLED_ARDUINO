@@ -343,7 +343,6 @@ volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO.
 volatile long currentStep = 0;  // it stores the current step index (50Hz in this case)
 ```
 
-
 ### Arduino pins and  Encoder, Band, Step and Switch VFO/BFO
 
 The pins for encoder and push buttons are defined bellow. If you need to change some push button pin, you should be aware that the push buttons are connected to  pins with support to external interrupts. On Atmega32u4 you can use the pins 0,1,2,3 and 7.
