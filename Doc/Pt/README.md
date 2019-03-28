@@ -303,7 +303,7 @@ O código a seguir modifica o BFO para operar em 10MHz
 O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1MHz. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz).
 
 
-#### Tabela de faixas e freqência e passos (Step)
+#### Tabela de faixas e frequência e passos (Step)
 
 Este projeto definiu 27 bandas (faixas de frequência) que cobrem de 535KHz a 160MHz. A quantidade de bandas, bem como os limites inferiores e superiores de cada banda podem ser alteradas na estrutura apresentada no código a seguir:
 
