@@ -240,7 +240,7 @@ Para controlar o Si53551A via Arduino foi utilizado a <a href="https://github.co
 Ainda em relação a biblioteca da Etherkit, é importante observar o mecanismo de __calibração__ do Si5351. 
 Existe um exemplo (si5351_calibration) que vem com a biblioteca da Etherkit que permite a calibração do Si5351. Este procedimento melhora a precisão da frequência de saída do sinal gerado pelo SI5351. Publiquei um vídeo no Youtube que mostrar como calibrar o Si5351 se necessário. Clique <a href="https://youtu.be/BJ83uvDcfIo">aqui</a> para assistir ao vídeo.
 
-No Sketch deste projeto, você encontrará as seguntes linhas de código que se referem à correção encontrada no processo de calibração: 
+No <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">Sketch</a> deste projeto, você encontrará as seguintes linhas de código que se referem à correção encontrada durante a execução do processo de calibração: 
 
 ```cpp
 
@@ -250,18 +250,15 @@ No Sketch deste projeto, você encontrará as seguntes linhas de código que se 
 .
 void setup()
 {
-	.
-	.
-	.
+  .
+  .
   si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 0);
   // Adjusting the frequency (see how to calibrate the Si5351 - example si5351_calibration.ino)
   si5351.set_correction(CORRECTION_FACTOR, SI5351_PLL_INPUT_XO);
   .
   .
-  .
 
 }
-
 .
 ````
 
@@ -336,3 +333,29 @@ volatile long currentStep = 0;  // it stores the current step index (50Hz in thi
 O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">código-fonte </a> deste projeto está com uma documentação bem rica que busca dirimir dúvidas quanto ao uso e configuração do Si5351, OLED Display, botões, Encoder e LED. A <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a>, logo acima desta página, poderá ser utilizado para a publicação de dúvidas ou defeitos encontrados neste projeto.    
 
 **Observação:** Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
+
+
+## Referências e outros links relacionados
+
+https://github.com/etherkit/Si5351Arduino
+
+https://tronixstuff.com/2010/10/20/tutorial-arduino-and-the-i2c-bus/
+
+https://www.arduino.cc/en/Reference/Wire 
+
+http://rfanat.ru/s25/dds_sio5351_pro-min.html
+
+https://www.adafruit.com/product/2045
+
+https://learn.adafruit.com/adafruit-si5351-clock-generator-breakout/downloads
+
+https://www.instructables.com/id/Arduino-Frequency-Synthesiser-Using-160MHz-Si5351/
+
+https://kk9jef.wordpress.com/2017/07/10/si5351-signal-generator/
+
+https://nt7s.com/2018/01/arduino-si5351-powered-signal-generator/
+
+[All About Arduino Libraries!](http://learn.adafruit.com/adafruit-all-about-arduino-libraries-install-use)
+
+
+[ARDUINO NANO + SI5351  3 output HF VHF VFO!] (https://www.youtube.com/watch?v=xD6tLSOjSsw)
