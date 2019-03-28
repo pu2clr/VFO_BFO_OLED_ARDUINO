@@ -161,12 +161,12 @@ void setup()
   si5351.update_status();
   // Show the initial system information
   delay(500);
-  
+
   // Will stop what Arduino is doing and call changeStep(), changeBand() or switchVFOBFO 
   attachInterrupt(digitalPinToInterrupt(BUTTON_STEP), changeStep, RISING);      // whenever the BUTTON_STEP goes from LOW to HIGH
   attachInterrupt(digitalPinToInterrupt(BUTTON_BAND), changeBand, RISING);      // whenever the BUTTON_BAND goes from LOW to HIGH
   attachInterrupt(digitalPinToInterrupt(BUTTON_VFO_BFO), switchVFOBFO, RISING); // whenever the BUTTON_VFO_BFO goes from LOW to HIGH
-  // wait for 4 seconds and the system will be ready.
+  // wait for 1/2 second and the system will be ready.
   delay(500);
 }
 
