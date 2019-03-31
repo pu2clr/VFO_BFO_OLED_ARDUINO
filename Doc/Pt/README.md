@@ -209,13 +209,14 @@ O usuário poderá controlar o VFO e o BFO por três botões e um Encoder
 Para este projeto foi utilizado o Arduino Micro, baseado no Atmega32u4. A principal razão pela escolha desta versão do Arduino foi pelo fato dele possibilitar o uso de até 5 interrupções externas (pinos 0, 1, 2, 3, 7). Este recurso foi utilizado para implementar o funcionamento dos botões Band, Setp e switch VFO / BFO. No entanto, com poucos ajustes no projeto, é possível adaptá-lo para um Arduino UNO ou similar. 
 
 #### Si5351A
-O dispositivo Si5351A é ligado nos pinos D2 e D3. Você deve ficar atendo às descrições SDA (pin D2) e SCL (pin D3). A inversão dessas conexões fará com que o dispositivo não funcione. 
+O dispositivo Si5351A é ligado nos pinos D2 e D3 do Arduino (MICRO ou compatível). Você deve ficar atendo às descrições SDA (pin D2) e SCL (pin D3). A inversão dessas conexões fará com que o dispositivo não funcione. 
 
 #### OLED Display SSD1306 - 128 x 64/0.96
-OLED Display também é ligado aos pinos D2 e D3 obedecendo as mesmas orientações do Si5351A. 
+OLED Display também é ligado aos pinos D2 e D3 do Arduino Micro obedecendo as mesmas orientações do Si5351A. 
 
 ### Encoder
 O encoder é conectado ao Arduino Micro da seguinte forma: terminal A no pino D8 e terminal B no pino D9.
+É recomendado a utilizacao de um filtro RC, implementado no esquema acima por dois capacitores de 10nF e dois resistores de 10K. Esta técnica permite que sinais indesejados causados pelos contatos metálicos do encoder durante a sua rotação sejam enviados para os pinos do Arduino.
 
 #### Botão de Banda (Band)
 
