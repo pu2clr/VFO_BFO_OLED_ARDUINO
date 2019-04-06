@@ -42,7 +42,7 @@ More information on Silicon Labs <a href="https://www.silabs.com/documents/publi
 
 ### Arduino source code
 
-The source code of this project are available 
+The source code of this project is available 
 <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">here</a>.
 
 

@@ -16,7 +16,7 @@ O usuário poderá controlar o VFO e o BFO por três botões e um Encoder
 - O **Encoder** é utilizado para controlar a frequência do VFO ou BFO.
 
 
-## Tabela de divisão de Bandas Utilizadas no Projeto
+## Tabela de divisão de Bandas utilizadas no Projeto
 <table cellspacing="0" border="0">
 	<colgroup width="37"></colgroup>
 	<colgroup width="91"></colgroup>
@@ -247,7 +247,7 @@ Existe um exemplo (si5351_calibration) que vem com a biblioteca da Etherkit que 
 
 ### Calibração do Si5351A
 
-No <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">Sketch</a> deste projeto, você encontrará as linhas de código a seguir que se referem à correção do Si5351 necessária para melhorar a sua precisão. Caso necessário, [este vídeo](https://youtu.be/BJ83uvDcfIo) ilustra como fazer a Calibração do Si5351.
+No <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">Sketch</a> deste projeto, você encontrará algumas linhas de código que se referem à correção do Si5351 necessária para melhorar a sua precisão. Caso necessário, [este vídeo](https://youtu.be/BJ83uvDcfIo) ilustra como fazer a Calibração do Si5351. O código a seguir ilustra a utilização do fator de correção encontrado no processo de calibração. 
 
 
 ```cpp
