@@ -1,9 +1,9 @@
 # Sobre o Projeto do VFO e BFO com Si5351A e Arduino
 
 
-O Si5351A é um gerador de sinal configurável excelente para experimentações em radioamadorismo. Ele possui três saídas de sinal que podem ser configuradas de forma  independente. Isto é, cada saída pode oscilar em uma frequência distinta da outra. Esta característica permite, por exemplo, a construção de um VFO e um VFO no mesmo ambiente, simplificando circuitos em receptores e  transmissores. 
+O Si5351A é um gerador de sinal configurável excelente para experimentações em radioamadorismo. Ele possui três saídas de sinal que podem ser configuradas de forma  independente. Isto é, cada saída pode oscilar em uma frequência distinta da outra. Esta característica permite, por exemplo, a construção de um VFO e um BFO no mesmo ambiente, simplificando circuitos em receptores e  transmissores. 
 
-O Si5351A permite operações com alta frequência. Assim, o VFO deste projeto pode oscilar entre 535KHz até 160MHz dividido em 27 bandas que podem ser mudadas via o pressionamento de um botão (veja tabela a seguir). Um encoder permite que você mude a frequência dentro de uma banda. Quanto ao  BFO, foi projetado para oscilar entre 400KHz e 500KHz.  Um outro botão alterna o controle entre o VFO e o BFO. A frequência do BFO pode ser alterada pelo encoder.  O <B>programa em Arduino  está disponível</B> na pasta <B>source</B> deste repositório ou diretamente por este <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">link</a> e poderá ser adaptado conforme a sua necessidade.  A documentação do código fonte foi escrita no idioma Inglês, porém, não creio que isso será um problema para a maioria dos desenvolvedores. Qualquer dúvida ou problema poderá ser postado via a <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a> .
+O Si5351A permite operações com alta frequência. Assim, o VFO deste projeto pode oscilar entre 535KHz e 160MHz. Esta  extensa faixa de frequencia foi dividida em 27 bandas que podem ser mudadas via o pressionamento de um botão (veja tabela a seguir). Um encoder permite que você mude a frequência dentro de uma banda. Quanto ao  BFO, foi projetado para oscilar entre 400KHz e 500KHz.  Um outro botão alterna o controle entre o VFO e o BFO. A frequência do BFO pode ser alterada pelo encoder.  O <B>programa em Arduino  está disponível</B> na pasta <B>source</B> deste repositório ou diretamente por este <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">link</a> e poderá ser adaptado conforme a sua necessidade.  A documentação do código fonte foi escrita no idioma Inglês, porém, não creio que isso será um problema para a maioria dos desenvolvedores. Qualquer dúvida ou problema poderá ser postado via a <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a> .
 
 
 ## Operação do VFO e BFO
@@ -209,13 +209,14 @@ O usuário poderá controlar o VFO e o BFO por três botões e um Encoder
 Para este projeto foi utilizado o Arduino Micro, baseado no Atmega32u4. A principal razão pela escolha desta versão do Arduino foi pelo fato dele possibilitar o uso de até 5 interrupções externas (pinos 0, 1, 2, 3, 7). Este recurso foi utilizado para implementar o funcionamento dos botões Band, Setp e switch VFO / BFO. No entanto, com poucos ajustes no projeto, é possível adaptá-lo para um Arduino UNO ou similar. 
 
 #### Si5351A
-O dispositivo Si5351A é ligado nos pinos D2 e D3. Você deve ficar atendo às descrições SDA (pin D2) e SCL (pin D3). A inversão dessas conexões fará com que o dispositivo não funcione. 
+O dispositivo Si5351A é ligado nos pinos D2 e D3 do Arduino (MICRO ou compatível). Você deve ficar atendo às descrições SDA (pin D2) e SCL (pin D3). A inversão dessas conexões fará com que o dispositivo não funcione. 
 
 #### OLED Display SSD1306 - 128 x 64/0.96
-OLED Display também é ligado aos pinos D2 e D3 obedecendo as mesmas orientações do Si5351A. 
+OLED Display também é ligado aos pinos D2 e D3 do Arduino Micro obedecendo as mesmas orientações do Si5351A. 
 
 ### Encoder
 O encoder é conectado ao Arduino Micro da seguinte forma: terminal A no pino D8 e terminal B no pino D9.
+É recomendado a utilizacao de um filtro RC, implementado no esquema acima por dois capacitores de 10nF e dois resistores de 10K. Esta técnica permite que sinais indesejados causados pelos contatos metálicos do encoder durante a sua rotação sejam enviados para os pinos do Arduino.
 
 #### Botão de Banda (Band)
 
