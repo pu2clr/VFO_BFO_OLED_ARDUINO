@@ -420,6 +420,23 @@ void switchVFOBFO()
 ```
 
 
+## SI5351 Calibration
+
+You might need calibrate your si5351 to get more precision during signal generation. To do that you can use the si5351_calibration.ino sketch that comes with [the Si5351 library for Arduino](https://github.com/etherkit/Si5351Arduino). Click [here](https://github.com/etherkit/Si5351Arduino#calibration) to see more about si5351 calibration. You can also try watch [this Portuguese video](https://youtu.be/BJ83uvDcfIo) that show how to calibrate the si5351. Another video about si5351 calibration can be watch [here (Homebrew 80/40m SSB/CW Rig - #7a Si5351 Calibration)](https://youtu.be/fJ_3z2IAjKg).
+
+The line code bellow shows the correction factor found during this project. 
+
+```cpp
+// Change this value bellow  (CORRECTION_FACTOR) to 0 if you do not know the correction factor of your Si5351A.
+#define CORRECTION_FACTOR 80000 // See how to calibrate your Si5351A (0 if you do not want).
+```
+
+if you do not want calibrate, set CORRECTION_FACTOR to 0 as shown bellow. 
+
+```cpp
+#define CORRECTION_FACTOR 0 
+```
+
 
 
 
