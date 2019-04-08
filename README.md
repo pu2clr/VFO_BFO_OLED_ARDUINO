@@ -23,7 +23,7 @@ __English:__ Signal Generetor with Si5351, OLED and Arduino. This project is abo
 
 ## Photo
 
- ![Photo about this project](/images/prototype_photo_01.jpg" alt="Prototype01">
+ ![Photo about this project](/images/prototype_photo_01.jpg)
 
 ## Short links
 
