@@ -34,7 +34,7 @@ The user can control the VFO and BFO  by using tow buttons and an encoder.
 
 ## Band table for the VFO
 
-The VFO is separated into 27 bands. It first band oscilates from 100KHz to 1700 KHz and the last band oscilates from 135MHz to 160MHz. You might need to change this configuration. The [Arduino sketch section below](/Doc/En#arduino-sketch) show how you can change the band configuration. 
+The VFO is separated into 27 bands. It first band oscilates from 100KHz to 1700 KHz and the last band oscilates from 135MHz to 160MHz. You might need to change this configuration. The [Arduino sketch section below](/Doc/En#arduino-sketch) shows how you can change the band configuration. 
 
 
 <table cellspacing="0" border="0">
@@ -313,7 +313,7 @@ If you need to change the Arduino pins and devices connections, you can modify t
 #define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 ```
 
-The bands and ranges can be changed here. 
+The bands and ranges can be changed here. You can remove band and change frequencies modifying the array band[]. See code below. 
 
 ```cpp
 // Band database. You can change the band ranges if you need.
