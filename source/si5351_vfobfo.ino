@@ -6,7 +6,7 @@
   The CLK 1 can be used as a BFO (400KHz to 500KHz)
   See on https://github.com/etherkit/Si5351Arduino  and know how to calibrate your Si5351
   See also the example Etherkit/si5251_calibration
-  Author: Ricardo Lima Caratti (PU2CLR) -   2019/03/07
+  Author: Ricardo Lima Caratti (PU2CLR) -   April, 2019
 */
 
 #include <si5351.h>
