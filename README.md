@@ -2,44 +2,36 @@
 
 ## By PU2CLR - Ricardo Lima Caratti - March 18th, 2019
 
+
 __Português:__ Gerador de Sinal com Si5341, OLED e Arduino. Este projeto é sobre a construção de um VFO (530KHz to 160MHz) e um BFO (400KHz to 500KHz). Para mais detalhes consulte a <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Doc/Pt">documentação em Português</a>. 
 
 __English:__ Signal Generetor with Si5351, OLED and Arduino. This project is about a construction of a VFO (530KHz to 160MHz) and a BFO (400KHz to 500KHz or another range). See <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Doc/En">documentation here</a>.
 
+## Table of contents
 
-## Video about this project
-
-There is a video about this project on my Youtube Channel (PU2CLR).
- <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_01.jpg" alt="Prototype01" height="414" width="520">
-
-Click <a href="https://youtu.be/pFDvcIk5EAk"  target="_blank"> here </a> to see the video.
-
-
-
-### Sellers
-
-- Adafruit: https://www.adafruit.com/product/2045 
-- Etherkit: https://www.etherkit.com/rf-modules/si5351a-breakout-board.html 
-- You can also find it on eBay, Aliepress and Amazon.
+1. [Introduction](/Doc/En#introduction) 
+1. [Arduino ATmega32U4](/Doc/En#arduino-atmega32u4)
+1. [BFO interface](/Doc/En#vfo-and-bfo-interface)
+1. [Band table for the VFO](/Doc/En#band-table-for-the-VFO)
+1. [Schematic](/Doc/En#schematic)
+1. [Components](/Doc/En#components)
+1. [Arduino sketch](/Doc/En#arduino-sketch)
+1. [Photos](/Doc/En@photos)
+1. [References](/Doc/En#references)
+1. [Videos](/Doc/En#videos)
 
 
-### Arduino source code
+## Photo
 
-The source code of this project is available [here]()(/source/si5351_vfobfo.ino).
+ ![Photo about this project](/images/prototype_photo_01.jpg" alt="Prototype01">
+
+## Short links
+
+- Click [here](https://youtu.be/pFDvcIk5EAk) to see the video about this project.
+- Click [here](/Doc/En") for documentation
+- Click [here](/source/si5351_vfobfo.ino) for Arduino Sketch
 
 
-### SCHEMATIC
- <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
-
-#### Photo 01
- <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_01.jpg" alt="Prototype01">
-
-#### Photo 02
- <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_02.jpg" alt="Prototype02">
-
-#### Photo 03
- <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_03.jpg" alt="Prototype03">
- 
 
 ## About the author 
 
