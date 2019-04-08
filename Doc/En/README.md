@@ -34,7 +34,7 @@ The user can control the VFO and BFO  by using tow buttons and an encoder.
 
 ## Band table for the VFO
 
-The VFO is separated into 27 bands. It first band oscilates from 100KHz to 1700 KHz and the last band oscilates from 135MHz to 160MHz. You might need to change this configuration. The [Arduino sketch section bellow](/Doc/En#arduino-sketch) show how you can change the band configuration. 
+The VFO is separated into 27 bands. It first band oscilates from 100KHz to 1700 KHz and the last band oscilates from 135MHz to 160MHz. You might need to change this configuration. The [Arduino sketch section below](/Doc/En#arduino-sketch) show how you can change the band configuration. 
 
 
 <table cellspacing="0" border="0">
@@ -373,7 +373,7 @@ volatile long currentStep = 0;  // it stores the current step index (50Hz in thi
 
 ### Arduino pins and  Encoder, Band, Step and Switch VFO/BFO
 
-The pins for encoder and push buttons are defined bellow. If you need to change some push button pin, you should be aware that the push buttons are connected to  pins with support to external interrupts. On Atmega32u4 you can use the pins 0,1,2,3 and 7.
+The pins for encoder and push buttons are defined below. If you need to change some push button pin, you should be aware that the push buttons are connected to  pins with support to external interrupts. On Atmega32u4 you can use the pins 0,1,2,3 and 7.
 
 
 ```cpp
@@ -452,14 +452,14 @@ void switchVFOBFO()
 
 You might need calibrate your si5351 to get more precision during signal generation. To do that you can use the si5351_calibration.ino sketch that comes with [the Si5351 library for Arduino](https://github.com/etherkit/Si5351Arduino). Click [here](https://github.com/etherkit/Si5351Arduino#calibration) to see more about si5351 calibration. You can also try watch [this Portuguese video](https://youtu.be/BJ83uvDcfIo) that show how to calibrate the si5351. Another video about si5351 calibration can be watch [here (Homebrew 80/40m SSB/CW Rig - #7a Si5351 Calibration)](https://youtu.be/fJ_3z2IAjKg).
 
-The line code bellow shows the correction factor found during this project. 
+The line code below shows the correction factor found during this project. 
 
 ```cpp
-// Change this value bellow  (CORRECTION_FACTOR) to 0 if you do not know the correction factor of your Si5351A.
+// Change this value below  (CORRECTION_FACTOR) to 0 if you do not know the correction factor of your Si5351A.
 #define CORRECTION_FACTOR 80000 // See how to calibrate your Si5351A (0 if you do not want).
 ```
 
-if you do not want calibrate, set CORRECTION_FACTOR to 0 as shown bellow. 
+if you do not want calibrate, set CORRECTION_FACTOR to 0 as shown below. 
 
 ```cpp
 #define CORRECTION_FACTOR 0 
