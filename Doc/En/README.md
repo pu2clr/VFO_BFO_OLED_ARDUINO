@@ -10,7 +10,7 @@
 1. [Schematic](/Doc/En#schematic)
 1. [Components](/Doc/En#components)
 1. [Arduino sketch](/Doc/En#arduino-sketch)
-1. [Photos](/Doc/En@photos)
+1. [Photos](/Doc/En#photos)
 1. [References](/Doc/En#references)
 1. [Videos](/Doc/En#videos)
 
