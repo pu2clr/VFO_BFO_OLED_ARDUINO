@@ -38,6 +38,11 @@ O usuário poderá controlar o VFO e o BFO por três botões e um Encoder
 
 
 ## Tabela de divisão de Bandas utilizadas no Projeto
+
+The VFO is separated into 27 bands. It first band oscilates from 100KHz to 1700 KHz and the last band oscilates from 135MHz to 160MHz. You might need to change this configuration. The [Arduino sketch section below](/Doc/En#arduino-sketch) shows how you can change the band configuration. 
+
+O VFO está dividido em 27 bandas. A primeira banda varia entre 100KHz até 1.7MHz e a última banda varia entre 135MHz até 160MHz. É possível que você queira reduzir o número de bandas ou mesmo alterar as frequências em cada banda. Para tanto, consulte a adiante ["Sobre o programa Arduino"](/Doc/Pt#sobre-o-esquema-e-conexões).
+
 <table cellspacing="0" border="0">
 	<colgroup width="37"></colgroup>
 	<colgroup width="91"></colgroup>
@@ -336,7 +341,7 @@ Este projeto definiu 27 bandas (faixas de frequência) que cobrem de 535KHz a 16
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
-    {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
+    {"LWMW ", 53500000LLU, 170000000LLU},     // 100KHz to 1700KHz
     {"SW1  ", 170000000LLU, 350000000LLU},
     {"SW2  ", 350000000LLU, 400000001LLU},
     {"SW3  ", 400000000LLU, 700000000LLU},
