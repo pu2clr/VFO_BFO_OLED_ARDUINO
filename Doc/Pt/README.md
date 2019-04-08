@@ -39,8 +39,6 @@ O usuário poderá controlar o VFO e o BFO por três botões e um Encoder
 
 ## Tabela de divisão de Bandas utilizadas no Projeto
 
-The VFO is separated into 27 bands. It first band oscilates from 100KHz to 1700 KHz and the last band oscilates from 135MHz to 160MHz. You might need to change this configuration. The [Arduino sketch section below](/Doc/En#arduino-sketch) shows how you can change the band configuration. 
-
 O VFO está dividido em 27 bandas. A primeira banda varia entre 100KHz até 1.7MHz e a última banda varia entre 135MHz até 160MHz. É possível que você queira reduzir o número de bandas ou mesmo alterar as frequências em cada banda. Para tanto, consulte a adiante ["Sobre o programa Arduino"](/Doc/Pt#sobre-o-esquema-e-conexões).
 
 <table cellspacing="0" border="0">
