@@ -4,6 +4,7 @@
 ## Table of contents
 
 1. [Introduction](/Doc/En#introduction) 
+1. [Arduino ATmega32U4](/Doc/En#arduino-atmega32u4)
 1. [BFO interface](/Doc/En#vfo-and-bfo-interface)
 1. [Band table for the VFO](/Doc/En#band-table-for-the-VFO)
 1. [Schematic](/Doc/En#schematic)
@@ -17,7 +18,16 @@
 
 The Si5351 is an I2C configurable clock generator that is very appropriate for receivers and transceivers projects in amateur radio applications. It is also suited for replacing crystal oscillators. It has three outputs that you can get three distinct frequencies at the same time. A great feature of the Si5351A is the possibility of using it with a microcontroller or platform like Arduino, PIC family and others. **This project is about a VFO and BFO that you can control two clock outputs of the Si5351A by using the Arduino Micro (Atmega32u4).  The VFO (CLK0) can oscillate from 100KHz to 160MHz and the second (CLK1) can oscillate from 452KHz to 458KHz**.
 
+"The Si5351 is an I2C configurable clock generator that is ideally suited for replacing crystals, crystal oscillators, VCXOs, phase-locked loops (PLLs), and fanout buffers in cost-sensitive applications. Based on a PLL/VCXO + high resolution MultiSynth fractional divider architecture, the Si5351 can generate any frequency up to 200 MHz on each of its outputs with 0 ppm error. Three versions of the Si5351 are available to meet a wide variety of applications. The Si5351A generates up to 8 free-running clocks using an internal oscillator for replacing crystals and crystal oscillators. The Si5351B adds an internal VCXO and provides the flexibility to replace both free-running clocks and synchronous clocks.....". See more on Silicon Labs documentation <a href="https://www.silabs.com/documents/public/data-sheets/Si5351-B.pdf">here</a>.
+
+
 The <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> Arduino program </a> has being documented in English lenguage and you can get more details about the Si5351A controls by reading the <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">si5351_vfobfo.ino file</a>. 
+
+
+## Arduino ATmega32U4
+
+This project uses the Arduino ATmega32U4 (Known as Arduino Micro) with a built-in USB.  The ATmega32U4 has 5 pins (0,1,2, 3 and 7) that allow the developer to use for handling external interrupts. This feature is very useful in this project. See more about Arduino Micro (ATmega32U4) <a href="https://store.arduino.cc/usa/arduino-micro">here</a>.
+
 
 
 ## VFO and BFO interface
