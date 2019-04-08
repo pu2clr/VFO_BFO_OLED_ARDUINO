@@ -1,4 +1,4 @@
-# Sobre o Projeto do VFO e BFO com Si5351A e Arduino
+# Projeto do VFO e BFO com Si5351A e Arduino
 
 
 # Summário
