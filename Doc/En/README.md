@@ -3,13 +3,13 @@
 
 ## Table of contents
 
-1. [Introduction]() 
-1. [BFO interface]()
-1. [Band table for the VFO]()
-1. [Schematic]()
-1. [Arduino sketch]()
-1. [References]()
-1. [Videos]()
+1. [Introduction](/Doc/En#introduction) 
+1. [BFO interface](/Doc/En#vfo-and-bfo-interface)
+1. [Band table for the VFO](/Doc/En#band-table-for-the-VFO)
+1. [Schematic](/Doc/En#schematic)
+1. [Arduino sketch](/Doc/En#arduino-sketch)
+1. [References](/Doc/En#references)
+1. [Videos](/Doc/En#videos)
 
 
 ## Introduction 
@@ -19,7 +19,7 @@ The Si5351 is an I2C configurable clock generator that is very appropriate for r
 The <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> Arduino program </a> has being documented in English lenguage and you can get more details about the Si5351A controls by reading the <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">si5351_vfobfo.ino file</a>. 
 
 
-## BFO interface
+## VFO and BFO interface
 
 The user can control the VFO and BFO  by using tow buttons and an encoder. 
 
