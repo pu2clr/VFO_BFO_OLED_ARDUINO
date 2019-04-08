@@ -28,7 +28,7 @@ __English:__ Signal Generetor with Si5351, OLED and Arduino. This project is abo
 ## Short links
 
 - Click [here](https://youtu.be/pFDvcIk5EAk) to see the video about this project.
-- Click [here](/Doc/En") for documentation
+- Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Doc/En) for documentation
 - Click [here](/source/si5351_vfobfo.ino) to see Arduino Sketch
 
 ## About the author 
