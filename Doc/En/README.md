@@ -492,6 +492,7 @@ if you do not want calibrate, set CORRECTION_FACTOR to 0 as shown below.
 
 ## References
 
+- [BFO Controlled by Arduino](https://github.com/pu2clr/BFO)
 - [Arduino](https://www.arduino.cc)
 - [Arduino Micro Pinout](http://pinoutguide.com/Electronics/arduino_micro_pinout.shtml)
 - [Atmega32u4](https://www.microchip.com/wwwproducts/en/ATmega32u4)
