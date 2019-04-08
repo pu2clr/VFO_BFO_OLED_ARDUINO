@@ -1,14 +1,28 @@
-# About the VFO and BFO with Si5351A and Arduino project
+# VFO and BFO with Si5351A and Arduino project
 
 
-The Si5351 is an I2C configurable clock generator that is very appropriate for receivers and transceivers projects in amateur radio applications. It is also suited for replacing crystal oscillators. It has three outputs that you can get three distinct frequencies at the same time. A great feature of the Si5351A is the possibility of using it with a microcontroller or platform like Arduino, PIC family and others. **This project is about a VFO and BFO that you can control two clock outputs of the Si5351A by using the Arduino Micro (Atmega32u4).  The VFO (CLK0) can oscillate from 535KHz to 160MHz and the second (CLK1) can oscillate from 400KHz to 500KHz**.
+## Table of contents
+
+1. [Introduction]() 
+1. [BFO interface]()
+1. [Band table for the VFO]()
+1. [Schematic]()
+1. [Arduino sketch]()
+1. [References]()
+1. [Videos]()
 
 
+## Introduction 
+
+The Si5351 is an I2C configurable clock generator that is very appropriate for receivers and transceivers projects in amateur radio applications. It is also suited for replacing crystal oscillators. It has three outputs that you can get three distinct frequencies at the same time. A great feature of the Si5351A is the possibility of using it with a microcontroller or platform like Arduino, PIC family and others. **This project is about a VFO and BFO that you can control two clock outputs of the Si5351A by using the Arduino Micro (Atmega32u4).  The VFO (CLK0) can oscillate from 100KHz to 160MHz and the second (CLK1) can oscillate from 452KHz to 458KHz**.
 
 The <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino"> Arduino program </a> has being documented in English lenguage and you can get more details about the Si5351A controls by reading the <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">si5351_vfobfo.ino file</a>. 
 
 
-The user can control the VFO and BFO  by using three buttons and an encoder. 
+## BFO interface
+
+The user can control the VFO and BFO  by using tow buttons and an encoder. 
+
 
 - The button __Band__ changes the range of frequency. This project divides the VFO range (from 535KHz to 160MHz) in 27 bands. See band table below;  
 - The button __Step__ changes the increment and decrement step. It can be 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz and 500KHz;
@@ -17,7 +31,7 @@ The user can control the VFO and BFO  by using three buttons and an encoder.
 	reference.
 
 
-## Band table for the VFO used in this project
+## Band table for the VFO
 
 <table cellspacing="0" border="0">
 	<colgroup width="37"></colgroup>
@@ -35,7 +49,7 @@ The user can control the VFO and BFO  by using three buttons and an encoder.
 	<tr>
 		<td height="23" align="right" sdval="1" sdnum="1046;">1</td>
 		<td align="left">AM   </td>
-		<td align="left"> 535 KHz</td>
+		<td align="left"> 100 KHz</td>
 		<td align="left"> 1.7 MHz</td>
 		<td align="left"><br></td>
 	</tr>
@@ -226,10 +240,9 @@ The user can control the VFO and BFO  by using three buttons and an encoder.
 
 ## Schematic
 
-The schematic below shows the Arduino and components wire up.
+The schematic was built by using [Fritzing](http://fritzing.org/home/) Software, an open-source software tools to design circuits. The schematic below shows the Arduino and components wire up.
 
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
-
 
 
 ### About schematic and connections
@@ -261,7 +274,7 @@ The Step push button is connected to the pin D1/Tx. Use this button to select th
 The VFO/BFO switch push button is connected to the pin D7.   This button changes the Encoder control from VFO to BFO and vice versa.  
 
 
-## About the Arduino Program developed for this project
+## Arduino sketch 
 
 The main Arduino library used on this project to control the Si5351A was developed by NTS7. You can see more about this Library <a href="https://github.com/etherkit/Si5351Arduino">here</a>. 
 
@@ -437,6 +450,29 @@ if you do not want calibrate, set CORRECTION_FACTOR to 0 as shown bellow.
 #define CORRECTION_FACTOR 0 
 ```
 
+
+## References
+
+- [Arduino](https://www.arduino.cc)
+- [Arduino Micro Pinout](http://pinoutguide.com/Electronics/arduino_micro_pinout.shtml)
+- [Atmega32u4](https://www.microchip.com/wwwproducts/en/ATmega32u4)
+- [Arduino Interrupts](https://www.arduino.cc/reference/en/language/functions/interrupts/interrupts/)
+- [Text only Arduino Library for SSD1306 OLED displays](https://github.com/greiman/SSD1306Ascii)
+- [Si5351 Library for Arduino](https://github.com/etherkit/Si5351Arduino)
+- [Si5351 calibration](https://github.com/etherkit/Si5351Arduino#calibration)
+- [Fritzing](http://fritzing.org/home/)
+- [My ham radio Facebook](https://www.facebook.com/PU2CLR)
+- [QRZ - Biografy and my ham radio page](https://www.qrz.com/db/PU2CLR)
+
+
+
+## Videos about this project
+
+- [BFO with SI5351 and Arduino test with REDSUN RP2100](https://youtu.be/AG9XZ8bdaNM)
+- [VFO and BFO with Si5351A controlled by Arduino](https://youtu.be/pFDvcIk5EAk)
+- [VFO e BFO com Si5351A e Arduino - Calibração do Si5351](https://youtu.be/BJ83uvDcfIo)
+- [VFO e BFO com o Si5351 e OLED controlado por Arduino - (Portuguese)](https://youtu.be/0sGL2KpOJH4)
+- [Homebrew 80/40m SSB/CW Rig - #7a Si5351 Calibration](https://youtu.be/fJ_3z2IAjKg).
 
 
 
