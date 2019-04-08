@@ -7,6 +7,7 @@
 1. [BFO interface](/Doc/En#vfo-and-bfo-interface)
 1. [Band table for the VFO](/Doc/En#band-table-for-the-VFO)
 1. [Schematic](/Doc/En#schematic)
+1. [Components](/Doc/En#components)
 1. [Arduino sketch](/Doc/En#arduino-sketch)
 1. [References](/Doc/En#references)
 1. [Videos](/Doc/En#videos)
@@ -33,6 +34,9 @@ The user can control the VFO and BFO  by using tow buttons and an encoder.
 
 ## Band table for the VFO
 
+The VFO is separated into 27 bands. It first band oscilates from 100KHz to 1700 KHz and the last band oscilates from 135MHz to 160MHz. You might need to change this configuration. The [Arduino sketch section bellow](/Doc/En#arduino-sketch) show how you can change the band configuration. 
+
+
 <table cellspacing="0" border="0">
 	<colgroup width="37"></colgroup>
 	<colgroup width="91"></colgroup>
@@ -48,7 +52,7 @@ The user can control the VFO and BFO  by using tow buttons and an encoder.
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="1" sdnum="1046;">1</td>
-		<td align="left">AM   </td>
+		<td align="left">LW/MW </td>
 		<td align="left"> 100 KHz</td>
 		<td align="left"> 1.7 MHz</td>
 		<td align="left"><br></td>
@@ -245,6 +249,17 @@ The schematic was built by using [Fritzing](http://fritzing.org/home/) Software,
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
 
 
+## Components
+
+- AZDelivery 1 x OLED Display Arduino 128 x 64 Pixels White 0.96 Inch I2C IIC Module for Arduino. This project uses the [Text only Arduino Library for SSD1306 OLED displays](https://github.com/greiman/SSD1306Ascii) Arduino library.
+- Adafruit Si5351A Clock Generator Breakout Board - 8KHz to 160MHz. This project uses the [Si5351 Library for Arduino](https://github.com/etherkit/Si5351Arduino).
+- One regular encoder.
+- Three regular Push Button.
+- Two 10nF ceramic capacitor
+- Six 10K resistor
+- One 1K resistor  
+- Arduino Micro ([Atmega32u4](https://www.microchip.com/wwwproducts/en/ATmega32u4))
+
 ### About schematic and connections
 
 This project uses the Arduino Atmega32u4 compatible (Micro). With this kind of Arduino, we can use up to 5 external interrupts (pins 0,1,2,3 and 7). Then pins 0,1 and 7 were used to implement the buttons command (Step, Band and switch VFO/BFO).
@@ -303,7 +318,7 @@ The bands and ranges can be changed here.
 ```cpp
 // Band database. You can change the band ranges if you need.
 Band band[] = {
-    {"AM   ", 53500000LLU, 170000000LLU},     // 535KHz to 1700KHz
+    {"LW/MW ", 10000000LLU, 170000000LLU},     // 100KHz to 1700KHz
     {"SW1  ", 170000000LLU, 350000000LLU},
     {"SW2  ", 350000000LLU, 400000001LLU},
     {"SW3  ", 400000000LLU, 700000000LLU},
@@ -328,7 +343,7 @@ Band band[] = {
     {"VHF3 ", 5400000000LLU, 8600000000LLU},
     {"FM   ", 8600000000LLU, 10800000000LLU},  // Comercial FM
     {"VHF4 ", 10800000000LLU, 12000000000LLU}, // 108MHz to 160MHz
-    {"VHF5 ", 12000000000LLU, 13500000000LLU}, // Air band
+    {"VHF5 ", 12000000000LLU, 13500000000LLU},
     {"VHF6 ", 13500000000LLU, 16000000000LLU}}; 
 // Calculate the last element position (index) of the array band 
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
@@ -457,22 +472,29 @@ if you do not want calibrate, set CORRECTION_FACTOR to 0 as shown bellow.
 - [Arduino Micro Pinout](http://pinoutguide.com/Electronics/arduino_micro_pinout.shtml)
 - [Atmega32u4](https://www.microchip.com/wwwproducts/en/ATmega32u4)
 - [Arduino Interrupts](https://www.arduino.cc/reference/en/language/functions/interrupts/interrupts/)
+- [All About Arduino Libraries](http://learn.adafruit.com/adafruit-all-about-arduino-libraries-install-use)
+- [Tutorial: Arduino and the I2C bus – Part One](https://tronixstuff.com/2010/10/20/tutorial-arduino-and-the-i2c-bus/)
+- [Arduino Frequency Synthesiser Using 160MHz Si5351, lingib](https://www.instructables.com/id/Arduino-Frequency-Synthesiser-Using-160MHz-Si5351/)
 - [Text only Arduino Library for SSD1306 OLED displays](https://github.com/greiman/SSD1306Ascii)
 - [Si5351 Library for Arduino](https://github.com/etherkit/Si5351Arduino)
 - [Si5351 calibration](https://github.com/etherkit/Si5351Arduino#calibration)
+- [Silicon Labs Si5351A/B/C-B](https://www.silabs.com/documents/public/data-sheets/Si5351-B.pdf)
 - [Fritzing](http://fritzing.org/home/)
 - [My ham radio Facebook](https://www.facebook.com/PU2CLR)
 - [QRZ - Biografy and my ham radio page](https://www.qrz.com/db/PU2CLR)
 
 
 
-## Videos about this project
+## Videos
 
 - [BFO with SI5351 and Arduino test with REDSUN RP2100](https://youtu.be/AG9XZ8bdaNM)
 - [VFO and BFO with Si5351A controlled by Arduino](https://youtu.be/pFDvcIk5EAk)
 - [VFO e BFO com Si5351A e Arduino - Calibração do Si5351](https://youtu.be/BJ83uvDcfIo)
 - [VFO e BFO com o Si5351 e OLED controlado por Arduino - (Portuguese)](https://youtu.be/0sGL2KpOJH4)
-- [Homebrew 80/40m SSB/CW Rig - #7a Si5351 Calibration](https://youtu.be/fJ_3z2IAjKg).
+- [Homebrew 80/40m SSB/CW Rig - #7a Si5351 Calibration](https://youtu.be/fJ_3z2IAjKg)
+- [Arduino Signal Generator](https://www.youtube.com/watch?v=7M6ghR9tuTk)
+- [Arduino Tutorial: OLED 0.96" I2C/SPI Display](https://www.youtube.com/watch?v=PrIAnDZ9dp8)
+- [Tutorial on I2C OLED Display with Arduino/NodeMCU](https://www.youtube.com/watch?v=_e_0HJY0uIo)
 
 
 
