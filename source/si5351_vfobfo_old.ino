@@ -29,10 +29,10 @@
 #define BUTTON_BAND 1    // Controls the band
 #define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 
-// BFO range for this project is 400KHz to 500KHz. The central frequency is 455KHz.
-#define MAX_BFO 45800000LU    // BFO maximum frequency
-#define CENTER_BFO 45500000LU // BFO centeral frequency
-#define MIN_BFO 45200000LU    // BFO minimum frequency
+// BFO range for this project is 400KHz to 500KHz. The central frequency is 455KHz. 
+#define MAX_BFO     45800000LU    // BFO maximum frequency
+#define CENTER_BFO  45500000LU    // BFO centeral frequency
+#define MIN_BFO     45200000LU    // BFO minimum frequency
 
 #define STATUS_LED 10 // Arduino status LED Pin 10
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
@@ -55,18 +55,18 @@ typedef struct
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
-    {"LW/MW ", 10000000LLU, 170000000LLU}, // 100KHz to 1700KHz
+    {"LW/MW ", 10000000LLU, 170000000LLU},     // 100KHz to 1700KHz
     {"SW1  ", 170000000LLU, 350000000LLU},
     {"SW2  ", 350000000LLU, 400000001LLU},
     {"SW3  ", 400000000LLU, 700000000LLU},
-    {"SW4  ", 700000000LLU, 730000000LLU},   // 7MHz to 7.3 MHz  (Amateur 40m)
-    {"SW5  ", 730000000LLU, 900000000LLU},   // 41m
-    {"SW6  ", 900000000LLU, 1000000000LLU},  // 31m
-    {"SW7  ", 1000000000LLU, 1100000000LLU}, // 10 MHz to 11 MHz (Amateur 30m)
-    {"SW8  ", 1100000000LLU, 1400000000LLU}, // 25 and 22 meters
-    {"SW9  ", 1400000000LLU, 1500000000LLU}, // 14MHz to 15Mhz (Amateur 20m)
-    {"SW10 ", 1500000000LLU, 1700000000LLU}, // 19m
-    {"SW11 ", 1700000000LLU, 1800000000LLU}, // 16m
+    {"SW4  ", 700000000LLU, 730000000LLU},    // 7MHz to 7.3 MHz  (Amateur 40m)
+    {"SW5  ", 730000000LLU, 900000000LLU},    // 41m
+    {"SW6  ", 900000000LLU, 1000000000LLU},   // 31m
+    {"SW7  ", 1000000000LLU, 1100000000LLU},  // 10 MHz to 11 MHz (Amateur 30m)
+    {"SW8  ", 1100000000LLU, 1400000000LLU},  // 25 and 22 meters
+    {"SW9  ", 1400000000LLU, 1500000000LLU},  // 14MHz to 15Mhz (Amateur 20m)
+    {"SW10 ", 1500000000LLU, 1700000000LLU},  // 19m
+    {"SW11 ", 1700000000LLU, 1800000000LLU},  // 16m
     {"SW12 ", 1800000000LLU, 2000000000LLU}, // 18MHz to 20Mhz (Amateur and comercial 15m)
     {"SW13 ", 2000000000LLU, 2135000000LLU}, // 20MHz to 22Mhz (Amateur and comercial 15m/13m)
     {"SW14 ", 2135000000LLU, 2200000000LLU},
@@ -83,9 +83,9 @@ Band band[] = {
     {"VHF5 ", 12000000000LLU, 13500000000LLU},
     {"VHF6 ", 13500000000LLU, 16000000000LLU}};
 
-// Calculate the last element position (index) of the array band
+// Calculate the last element position (index) of the array band 
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
-volatile int currentBand = 0;                          // First band. For this case, AM is the current band.
+volatile int currentBand = 0; // First band. For this case, AM is the current band.
 
 // Struct for step database
 typedef struct
@@ -96,28 +96,27 @@ typedef struct
 
 // Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
-    {"10Hz  ", 1000}, // VFO and BFO min. increment / decrement
-    {"50Hz  ", 5000},
+    {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
     {"100Hz ", 10000},
     {"500Hz ", 50000},
-    {"1KHz  ", 100000}, // BFO max. increment / decrement
+    {"1KHz  ", 100000},       // BFO max. increment / decrement
     {"2.5KHz", 250000},
     {"5KHz  ", 500000},
     {"10KHz ", 1000000},
     {"100KHz", 10000000},
-    {"500KHz", 50000000}}; // VFO max. increment / decrement
+    {"500KHz", 50000000}};    // VFO max. increment / decrement
 // Calculate the index of last position of step[] array (in this case will be 8)
 const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
-volatile int lastStepBFO = 3;                             // index for max. increment / decrement for BFO. In this case will be is 1KHz
-volatile long currentStep = 0;                            // it stores the current step index (50Hz in this case)
+volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO. In this case will be is 1KHz
+volatile long currentStep = 0;  // it stores the current step index (50Hz in this case)
 
 volatile boolean isFreqChanged = false;
 volatile boolean clearDisplay = false;
 
-// LW/MW is the default band
+// AM is the default band
 volatile uint64_t vfoFreq = band[currentBand].minFreq; // VFO starts on AM
 volatile uint64_t bfoFreq = CENTER_BFO;                // 455 KHz for this project
-// VFO is the Si5351A CLK0
+// VFO is the Si5351A CLK0 
 // BFO is the Si5351A CLK1
 volatile int currentClock = 0; // If 0, then VFO will be controlled else the BFO will be
 
@@ -157,13 +156,13 @@ void setup()
   // Adjusting the frequency (see how to calibrate the Si5351 - example si5351_calibration.ino)
   si5351.set_correction(CORRECTION_FACTOR, SI5351_PLL_INPUT_XO);
   si5351.set_pll(SI5351_PLL_FIXED, SI5351_PLLA);
-  si5351.set_freq(vfoFreq, SI5351_CLK0); // Start CLK0 (VFO)
-  si5351.set_freq(bfoFreq, SI5351_CLK1); // Start CLK1 (BFO)
+  si5351.set_freq(vfoFreq, SI5351_CLK0);          // Start CLK0 (VFO)
+  si5351.set_freq(bfoFreq, SI5351_CLK1);          // Start CLK1 (BFO)
   si5351.update_status();
   // Show the initial system information
   delay(500);
 
-  // Will stop what Arduino is doing and call changeStep(), changeBand() or switchVFOBFO
+  // Will stop what Arduino is doing and call changeStep(), changeBand() or switchVFOBFO 
   attachInterrupt(digitalPinToInterrupt(BUTTON_STEP), changeStep, RISING);      // whenever the BUTTON_STEP goes from LOW to HIGH
   attachInterrupt(digitalPinToInterrupt(BUTTON_BAND), changeBand, RISING);      // whenever the BUTTON_BAND goes from LOW to HIGH
   attachInterrupt(digitalPinToInterrupt(BUTTON_VFO_BFO), switchVFOBFO, RISING); // whenever the BUTTON_VFO_BFO goes from LOW to HIGH
@@ -189,40 +188,18 @@ void displayDial()
 {
   double vfo = vfoFreq / 100000.0;
   double bfo = bfoFreq / 100000.0;
-  String mainFreq;
-  String secoundFreq;
-  String staticFreq;
-  String dinamicFreq;
-
-  // Change the display behaviour depending on who is controlled, BFO or BFO.
-  if (currentClock == 0)
-  { // If the encoder is controlling the VFO
-    mainFreq = String(vfo,3);
-    secoundFreq = String(bfo,3);
-    staticFreq = "BFO";
-    dinamicFreq = "VFO";
-  }
-  else // encoder is controlling the VFO
-  {
-    mainFreq = String(bfo,3);
-    secoundFreq = String(vfo,3);
-    staticFreq = "VFO";
-    dinamicFreq = "BFO";
-  }
 
   // display.setCursor(0,0)
   // display.clear();
-
   display.set2X();
   display.setCursor(0, 0);
-  display.print(mainFreq);
-  display.print("     ");
+  display.print(" ");
+  display.print(vfo);
+  display.print("    ");
 
   display.set1X();
-  display.print("\n\n\n");
-  display.print(staticFreq);
-  display.print(".: ");
-  display.print(secoundFreq);
+  display.print("\n\n\nBFO.: ");
+  display.print(bfo);
 
   display.print("\nBand: ");
   display.print(band[currentBand].name);
@@ -231,8 +208,7 @@ void displayDial()
   display.print(step[currentStep].name);
 
   display.print("\n\nCtrl: ");
-  display.print(dinamicFreq);
-
+  display.print((currentClock) ? "BFO" : "VFO");
 }
 
 // Change the frequency (increment or decrement)
@@ -246,13 +222,13 @@ void changeFreq(int direction)
     if (vfoFreq > band[currentBand].maxFreq) // Max. VFO frequency for the current band
     {
       vfoFreq = band[currentBand].minFreq; // Go to min. frequency of the range
-      blinkLed(STATUS_LED, 50);            // Alert the user that the range is over
+      blinkLed(STATUS_LED, 50); // Alert the user that the range is over
     }
-    else if (vfoFreq < band[currentBand].minFreq) // Min. VFO frequency for the band
-    {
-      vfoFreq = band[currentBand].maxFreq; // Go to max. frequency of the range
-      blinkLed(STATUS_LED, 50);            // Alert the user that the range is over
-    }
+      else if (vfoFreq < band[currentBand].minFreq) // Min. VFO frequency for the band
+      {
+        vfoFreq = band[currentBand].maxFreq; // Go to max. frequency of the range 
+        blinkLed(STATUS_LED, 50);    // Alert the user that the range is over
+      } 
   }
   else
   {
@@ -260,7 +236,7 @@ void changeFreq(int direction)
     // Check the BFO limits
     if (bfoFreq > MAX_BFO || bfoFreq < MIN_BFO) // BFO goes to center if it is out of the limits
     {
-      bfoFreq = CENTER_BFO;     // Go to center
+      bfoFreq = CENTER_BFO; // Go to center
       blinkLed(STATUS_LED, 50); // Alert the user that the range is over
     }
   }
@@ -312,14 +288,13 @@ void switchVFOBFO()
 // main loop
 void loop()
 {
-  // Enconder action can be processed after 5 milisecounds
-  if ((millis() - elapsedTimeEncoder) > 5)
-  {
-    encoder_pin_a = digitalRead(ENCODER_PIN_A);
+  // Enconder action can be processed after 5 milisecounds 
+  if ( (millis() - elapsedTimeEncoder) > 5) {
+    encoder_pin_a = digitalRead(ENCODER_PIN_A); 
     encoder_pin_b = digitalRead(ENCODER_PIN_B);
     if ((!encoder_pin_a) && (encoder_prev)) // has ENCODER_PIN_A gone from high to low?
-    {                                       // if so,  check ENCODER_PIN_B. It is high then clockwise (1) else counter-clockwise (-1)
-      changeFreq(((encoder_pin_b) ? 1 : -1));
+    { // if so,  check ENCODER_PIN_B. It is high then clockwise (1) else counter-clockwise (-1)
+      changeFreq( ((encoder_pin_b)? 1:-1) );
     }
     encoder_prev = encoder_pin_a;
     elapsedTimeEncoder = millis(); // keep elapsedTimeEncoder updated
