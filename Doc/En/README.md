@@ -311,17 +311,6 @@ If you want to modify the frequency of BFO to 10MHz (for example), just change t
 #define MIN_BFO      990000000LU   // BFO min. frequency 
 ```
 
-If you need to change the Arduino pins and devices connections, you can modify the line codes below. 
-
-```cpp
-#define ENCONDER_PIN_A 8 // Arduino  D8
-#define ENCONDER_PIN_B 9 // Arduino  D9
-
-#define BUTTON_STEP 0    // Control the frequency increment and decrement
-#define BUTTON_BAND 1    // Controls the band
-#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
-```
-
 
 #### Bands and frequency ranges
 
@@ -363,20 +352,23 @@ volatile int currentBand = 0; // First band. For this case, AM is the current ba
 ```
 
 
-The increment and decrement steps can be changed here.
+#### The increment and decrement steps can be changed here.
+
+The steps of BFO can be changed here. 
 
 ```cpp
 // Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
-    {"50Hz  ", 5000},         // VFO and BFO min. increment / decrement 
+    {"10Hz  ", 1000}, // VFO and BFO min. increment / decrement
+    {"50Hz  ", 5000},
     {"100Hz ", 10000},
     {"500Hz ", 50000},
-    {"1KHz  ", 100000},       // BFO max. increment / decrement
+    {"1KHz  ", 100000}, // BFO max. increment / decrement
     {"2.5KHz", 250000},
     {"5KHz  ", 500000},
     {"10KHz ", 1000000},
     {"100KHz", 10000000},
-    {"500KHz", 50000000}};    // VFO max. increment / decrement
+    {"500KHz", 50000000}}; // VFO max. increment / decrement
 // Calculate the index of last position of step[] array (in this case will be 8)
 const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
 volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO. In this case will be is 1KHz
