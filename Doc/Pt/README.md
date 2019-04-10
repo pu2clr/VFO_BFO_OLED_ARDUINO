@@ -21,7 +21,7 @@
 	* [Alterando as configurações dos pinos do Arduino para Banda, Step, VFO/BFO e Encoder](/Doc/Pt#alterando-as-configura%C3%A7%C3%B5es-dos-pinos-do-arduino-para-banda-step-vfobfo-e-encoder)
 	* [Pinos do Arduino para os botões Encoder, Band, Step e Switch VFO/BFO](/Doc/Pt#pinos-do-arduino-para-os-botões-encoder-band-step-e-switch-vfobfo)
 	* [Interrupções externas](/Doc/Pt#interrupções-externas)
-	* [Modificando o tipo de Display](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Doc/Pt#modificando-o-tipo-de-display)
+	* [Modificando o tipo de Display](/Doc/Pt#modificando-o-tipo-de-display)
 * [Considerações finais](/Doc/Pt#considerações-finais)
 * [Referências](/Doc/Pt#considerações-finais)
 * [Vídeos](/Doc/Pt#v%C3%ADdeos)
@@ -55,7 +55,7 @@ O usuário poderá controlar o VFO e o BFO por três botões e um Encoder
 
 ### Informações VFO and BFO no display (Dial)
 
-O Dial deste projeto utiliza um [OLED Display 128 x 64 Pixels White 0.96 Inch I2C LED](https://startingelectronics.org/tutorials/arduino/modules/OLED-128x64-I2C-display/). As ações do usuário nos botões Band, Step e VFO/BFO, bem como as frequências correntes no VFO e BFO são apresentadas neste display. Dado o tamanho reduzido deste display, é possível que queira utilizar um outro tipo de display. Para tanto, siga as recomendações no item [Modificando o tipo de Display]() neste documento. A tabela ilustra as informações do display utilizado neste projeto. 
+O Dial deste projeto utiliza um [OLED Display 128 x 64 Pixels White 0.96 Inch I2C LED](https://startingelectronics.org/tutorials/arduino/modules/OLED-128x64-I2C-display/). As ações do usuário nos botões Band, Step e VFO/BFO, bem como as frequências correntes no VFO e BFO são apresentadas neste display. Dado o tamanho reduzido deste display, é possível que queira utilizar um outro tipo de display. Para tanto, siga as recomendações no item [Modificando o tipo de Display](/Doc/Pt#modificando-o-tipo-de-display) neste documento. A tabela ilustra as informações do display utilizado neste projeto. 
 
 
 |  Dial Information | Dial Information |
