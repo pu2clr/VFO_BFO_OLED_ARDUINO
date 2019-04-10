@@ -604,6 +604,18 @@ O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5
 
 
 
+## Fotos
+
+#### Foto 01
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_01.jpg" alt="Foto do protótipo 1">
+
+#### Foto 02
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_02.jpg" alt="Foto do protótipo 2">
+
+#### Foto 03
+ <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/images/prototype_photo_03.jpg" alt="Foto do protótipo 3">
+
+
 ## Referências
 
 - [BFO Controlled by Arduino](https://github.com/pu2clr/BFO)
