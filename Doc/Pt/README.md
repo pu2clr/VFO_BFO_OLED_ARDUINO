@@ -339,6 +339,7 @@ __Importante:__ Se você não executou o processo de calibração do seu Si5351 
 
 Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas e frequências  utilizadas pelo VFO, bem como os limites e a frequência para o BFO.
 
+
 ### Modificando a faixa de frequência do BFO
 
 Originalmente o BFO deste projeto está configurado para operar em 455KHz conforme apresentado no código a seguir: 
@@ -360,7 +361,7 @@ O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1MHz. Lembrando q
 
 
 
-### Modificando a faixa de frequência do BFO
+### Modificando a faixa de frequência do VFO
 
 Este projeto definiu 27 bandas (faixas de frequência) que cobrem de 535KHz a 160MHz. A quantidade de bandas, bem como os limites inferiores e superiores de cada banda podem ser alteradas na estrutura apresentada no código a seguir:
 
