@@ -40,10 +40,10 @@ This project uses the Arduino ATmega32U4 (Known as Arduino Micro) with a built-i
 
 ## VFO and BFO interface
 
-The user can control the VFO and BFO by using three buttons and an encoder. The Dial was implemented by using an OLED Display 128 x 64 Pixels White 0.96 Inch I2C. 
+The user can control the VFO and BFO by using three buttons and an encoder. The Dial was implemented with the OLED Display 128 x 64 Pixels White 0.96 Inch I2C. 
 
 
-- The button __Band__ changes the range of frequency. This project divides the VFO range (from 535KHz to 160MHz) in 27 bands. See band table below;  
+- The button __Band__ changes the range of frequency. This project divides the VFO range (from 100KHz to 160MHz) in 27 bands. See band table below;  
 - The button __Step__ changes the increment and decrement step. It can be 10Hz, 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz and 500KHz;
 - The button __VFO/BFO__ switches from VFO to BFO and vice-versa. It allows the user to control the VFO or BFO by using the same __Encoder__;
 - The __Encoder__ is used to increment or decrement the current frequency by using the step value as a
@@ -53,7 +53,7 @@ The user can control the VFO and BFO by using three buttons and an encoder. The 
 
 The Dial shows the current VFO and BFO frequencies, the step and who the encoder is controlling (VFO or BFO).
 When the user switch from VFO to BFO or vice-versa, the frequency information of the VFO or BFO is highlighted on display.
-If you want to use another display, the item Arduino sketch](/Doc/En#arduino-sketch) show how you can do that. 
+If you want to use another display, the item [Arduino sketch](/Doc/En#arduino-sketch) ([Changing the kind of display device](/Doc/En#changing-the-kind-of-display-device)) shows how you can do that. 
 
 
 |  Dial Information | Dial Information |
@@ -69,7 +69,7 @@ If you want to use another display, the item Arduino sketch](/Doc/En#arduino-ske
 
 ## Band table for the VFO
 
-The VFO is separated into 27 bands. It first band oscilates from 100KHz to 1700 KHz and the last band oscilates from 135MHz to 160MHz. You might need to change this configuration. The [Arduino sketch section below](/Doc/En#arduino-sketch) shows how you can change the band configuration. 
+The VFO is separated into 27 bands. It first band oscilates from 100KHz to 1700 KHz and the last band oscilates from 135MHz to 160MHz. You might need to change this configuration. The [Arduino sketch](/Doc/En#arduino-sketch) ([Bands and frequency ranges](/Doc/En#bands-and-frequency-ranges)) shows how you can change the band configuration. 
 
 
 <table cellspacing="0" border="0">
@@ -251,7 +251,7 @@ The VFO is separated into 27 bands. It first band oscilates from 100KHz to 1700 
 
 ## Schematic
 
-The schematic was built by using [Fritzing](http://fritzing.org/home/) Software, an open-source software tools to design circuits. The schematic below shows the Arduino and components wire up.
+The schematic was built using the [Fritzing](http://fritzing.org/home/) application, an open-source software tools to design circuits. The schematic below shows the Arduino and components wire up.
 
  <img src="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/schematic/vfobfo_schematic_fritzing_image.jpg" alt="Esquema do Projeto VFO e BFO com Arduino">
 
