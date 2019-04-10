@@ -11,6 +11,10 @@
 1. [Schematic](/Doc/En#schematic)
 1. [Components](/Doc/En#components)
 1. [Arduino sketch](/Doc/En#arduino-sketch)
+	1. [BFO range](/Doc/En#bfo-range)
+	1. [Arduino pins and  Encoder, Band, Step and Switch VFO/BFO]()
+	1. [Bands and frequency ranges](/Doc/En#bands-and-frequency-ranges)
+	1. [Changing the kind of display device](/Doc/En#changing-the-kind-of-display-device)
 1. [Photos](/Doc/En#photos)
 1. [References](/Doc/En#references)
 1. [Videos](/Doc/En#videos)
@@ -295,6 +299,8 @@ The VFO/BFO switch push button is connected to the pin D7.   This button changes
 The main Arduino library used on this project to control the Si5351A was developed by NTS7. You can see more about this Library <a href="https://github.com/etherkit/Si5351Arduino">here</a>. 
 
 
+#### BFO range
+
 If you want to modify the frequency of BFO to 10MHz (for example), just change the lines below. 
 
 ```cpp
@@ -313,6 +319,9 @@ If you need to change the Arduino pins and devices connections, you can modify t
 #define BUTTON_BAND 1    // Controls the band
 #define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 ```
+
+
+#### Bands and frequency ranges
 
 The bands and ranges can be changed here. You can remove band and change frequencies modifying the array band[]. See code below. 
 
@@ -448,7 +457,7 @@ void switchVFOBFO()
 }
 ```
 
-### Changing the kind of Display device
+### Changing the kind of display device
 
 This project uses the "OLED Display Arduino 128 x 64 Pixels White 0.96 Inch I2C". It is very small and does not provide a good look. If you need to change to a larger display device, you have to know how to connect your display device on your Arduino. Also you have to know how to program your display device for Arduino. If you are able to do that, you can follow the steps bellow. 
 
@@ -545,7 +554,6 @@ void displayDial()
 
 }
 ```
-
 
 ## SI5351 Calibration
 
