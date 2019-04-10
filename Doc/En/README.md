@@ -265,6 +265,7 @@ The schematic was built by using [Fritzing](http://fritzing.org/home/) Software,
 - Two 10nF ceramic capacitor
 - Six 10K resistor
 - One 1K resistor  
+- One Red LED
 - Arduino Micro ([Atmega32u4](https://www.microchip.com/wwwproducts/en/ATmega32u4))
 
 ### About schematic and connections
