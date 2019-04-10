@@ -4,10 +4,10 @@
 # Summário
 
 * [Introdução](/Doc/Pt#introdução)
-* [SI5351]()
+* [SI5351](/Doc/Pt#si5351)
 * [Arduino ATmega32U4](/Doc/Pt#arduino-atmega32u4)
 * [Operação do VFO e BFO](/Doc/Pt#operação-do-vfo-e-bfo)
-* [Informações VFO and BFO no display (Dial)]()
+* [Informações VFO and BFO no display (Dial)](/Doc/Pt#informa%C3%A7%C3%B5es-vfo-and-bfo-no-display-dial)
 * [Tabela de divisão de Bandas utilizadas no Projeto](/Doc/Pt#tabela-de-divisão-de-bandas-utilizadas-no-projeto)
 * [Esquema Elétrico](/Doc/Pt#esquema-elétrico)
   *  [Si5351A](/Doc/Pt#si5351a)
@@ -15,9 +15,14 @@
 	* [Endoder](/Doc/Pt#encoder)
 * [Sobre o programa Arduino](/Doc/Pt#sobre-o-esquema-e-conexões)
   * [Calibração do Si5351A](/Doc/Pt#calibração-do-si5351a)
+	* [Modificando a faixa de frequência do BFO]()
+	* [Alterando as Bandas e Frequências]()
+	* [Alterando a configuração de passos de incremento e decremento]()
+	* [Alterando as configurações dos pinos do Arduino para Banda, Step, VFO/BFO e Encoder]()
 	* [Informações sobre a configuração do VFO e BFO](/Doc/Pt#informações-sobre-a-configuração-do--vfo-e-bfo)
 	* [Pinos do Arduino para os botões Encoder, Band, Step e Switch VFO/BFO](/Doc/Pt#pinos-do-arduino-para-os-botões-encoder-band-step-e-switch-vfobfo)
 	* [Interrupções externas](/Doc/Pt#interrupções-externas)
+	* [Modificando o tipo de Display]()
 * [Considerações finais](/Doc/Pt#considerações-finais)
 * [Referências](/Doc/Pt#considerações-finais)
 * [Vídeos](/Doc/Pt#v%C3%ADdeos)
@@ -335,14 +340,14 @@ __Importante:__ Se você não executou o processo de calibração do seu Si5351 
 
 Alguns parâmetros utilizados no código-fonte podem ser alterados para atender alguma demanda específica quanto à pinagem do Arduino, bandas e frequências  utilizadas pelo VFO, bem como os limites e a frequência para o BFO.
 
-#### Para modificar a faixa de frequência do BFO de 455KHz para 10MHz
+### Modificando a faixa de frequência do BFO
 
 Originalmente o BFO deste projeto está configurado para operar em 455KHz conforme apresentado no código a seguir: 
 
 ```cpp
-#define MAX_BFO     50000000LU    // BFO max. frequency
+#define MAX_BFO     45200000LU    // BFO max. frequency
 #define CENTER_BFO  45500000LU    // BFO center frequency
-#define MIN_BFO     40000000LU    // BFO min. frequency
+#define MIN_BFO     45800000LU    // BFO min. frequency
 ````
 
 O código a seguir modifica o BFO para operar em 10MHz
@@ -355,7 +360,8 @@ O código a seguir modifica o BFO para operar em 10MHz
 O código anterior altera o BFO para oscilar entre 9.9MHZ e 10.1MHz. Lembrando que a unidade utilizada pela biblioteca si5351.h é 0.01Hz (um centésimo de Hertz).
 
 
-#### Tabela de faixas e frequência e passos (Step)
+
+### Modificando a faixa de frequência do BFO
 
 Este projeto definiu 27 bandas (faixas de frequência) que cobrem de 535KHz a 160MHz. A quantidade de bandas, bem como os limites inferiores e superiores de cada banda podem ser alteradas na estrutura apresentada no código a seguir:
 
@@ -397,6 +403,8 @@ const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 
 volatile int currentBand = 0; // First band. For this case, AM is the current band.
 ```
 
+### Alterando a configuração de passos de incremento e decremento
+
 Os valores do passo de incremento e decremento, bem como as faixas utilizadas podem ser modificadas alterando o trecho de código a seguir: 
 
 ```cpp
@@ -417,8 +425,7 @@ volatile int lastStepBFO = 3;   // index for max. increment / decrement for BFO.
 volatile long currentStep = 0;  // it stores the current step index (50Hz in this case)
 ```
 
-
-### Pinos do Arduino para os botões Encoder, Band, Step e Switch VFO/BFO
+### Alterando as configurações dos pinos do Arduino para Banda, Step, VFO/BFO e Encoder
 
 Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pinos do Arduino que não os utilizados neste projeto. Para tanto, basta modificar os valores para as constantes definidas no código a seguir. Contudo, é importante que os botões devem estar conectados aos pinos do Arduino ou similar com suporte à interrupções externas.  
 
@@ -430,8 +437,6 @@ Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pi
 #define BUTTON_BAND 1    // Controls the band
 #define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 ```
-
-
 
 ### Interrupções externas
 
@@ -495,6 +500,104 @@ void switchVFOBFO()
 }
 ```
 
+### Modificando o tipo de Display
+
+Este projeto utiliza o "OLED Display Arduino 128 x 64 Pixels White 0.96 Inch I2C". Por ter um tamanho muito limitado, é possível que você queira tracar por um outro tipo de display. Para tanto, você deve conhecer bem como configurar e programar o seu display para o ambiente do Arduino. Uma vez decidido mudar o tipo de display, siga as orientações a seguir.
+ 
+
+#### 1) Modifique a declaração da biblioteca para a do display que você utilizará
+
+Observe as diretivas include a seguir e faça a substituição sugerida pelo fabricante do seu display. 
+
+
+```cpp
+#include "SSD1306Ascii.h"
+#include "SSD1306AsciiAvrI2c.h"
+```
+
+#### 2) Declare a variável ou classe do seu display no programa Arduino 
+
+Substitua a declaração da linha a seguir pela sugerida pelo fabricante do seu display.
+
+```cpp
+// OLED - Declaration for a SSD1306 display connected to I2C (SDA, SCL pins)
+SSD1306AsciiAvrI2c display;
+```
+
+#### 3) Altere o código de inicialização do display na função setup()
+
+Substitua as linhas de código a seguir pela sugerida pelo fabricante do seu display.
+
+```cpp
+ // Initiating the OLED Display
+  display.begin(&Adafruit128x64, I2C_ADDRESS);
+  display.setFont(Adafruit5x7);
+  display.set2X();
+  display.clear();
+  display.print("\n PU2CLR");
+  delay(3000);
+  display.clear();
+  displayDial();
+```
+
+
+#### 4) Altere o códigoda função displayDial() pelo código adequado ao seu display  
+
+O corpo da função display deve ser alterado de acordo com as funções utilizadas pelo seu display. Mantenha o nome da função displayDial(). 
+
+```cpp
+// Show Signal Generator Information
+// Verificar setCursor() em https://github.com/greiman/SSD1306Ascii/issues/53
+void displayDial()
+{
+  double vfo = vfoFreq / 100000.0;
+  double bfo = bfoFreq / 100000.0;
+  String mainFreq;
+  String secoundFreq;
+  String staticFreq;
+  String dinamicFreq;
+
+  // Change the display behaviour depending on who is controlled, BFO or BFO.
+  if (currentClock == 0)
+  { // If the encoder is controlling the VFO
+    mainFreq = String(vfo,3);
+    secoundFreq = String(bfo,3);
+    staticFreq = "BFO";
+    dinamicFreq = "VFO";
+  }
+  else // encoder is controlling the VFO
+  {
+    mainFreq = String(bfo,3);
+    secoundFreq = String(vfo,3);
+    staticFreq = "VFO";
+    dinamicFreq = "BFO";
+  }
+
+  // display.setCursor(0,0)
+  // display.clear();
+
+  display.set2X();
+  display.setCursor(0, 0);
+  display.print(mainFreq);
+  display.print("     ");
+
+  display.set1X();
+  display.print("\n\n\n");
+  display.print(staticFreq);
+  display.print(".: ");
+  display.print(secoundFreq);
+
+  display.print("\nBand: ");
+  display.print(band[currentBand].name);
+
+  display.print("\nStep: ");
+  display.print(step[currentStep].name);
+
+  display.print("\n\nCtrl: ");
+  display.print(dinamicFreq);
+
+}
+```
 
 ## Considerações finais
 
