@@ -483,7 +483,7 @@ SSD1306AsciiAvrI2c display;
 
 #### 3) Replacing the OLED display device initialization code
 
-Replace the OLED display device initialization code on setup() function by the your display device initialization
+Replace the OLED display device initialization code on setup() function by the your display device initialization code.
 
 ```cpp
  // Initiating the OLED Display
@@ -500,7 +500,7 @@ Replace the OLED display device initialization code on setup() function by the y
 
 #### 4) Replacing the OLED displayDial() function  
 
-Replace the displayDial function code by the code used for your display device. Keep the name of the function (diaplayDial())
+Replace the displayDial function code by the your display device code. Keep the name of the function (diaplayDial()).
 
 
 ```cpp
