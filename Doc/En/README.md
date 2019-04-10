@@ -51,8 +51,9 @@ When the user switch from VFO to BFO or vice-versa, the frequency information of
 |  Dial Information | Dial Information |
 | ----------------- | ---------------- |
 | ![Photo dial 01](/images/dial_01.png)|  ![Photo dial 02](/images/dial_02.png) |
+| VFO is 100 KHz, BFO is 455 KHz, Band LW/MW, 10Hz setp and the encoder is controllins the VFO)| The encoder is controlling the BFO; the BFO now is the first information (highlighted)| 
 | ![Photo dial 03](/images/dial_03.png)|  ![Photo dial 04](/images/dial_05.png) |
-| ![Photo dial 05](/images/dial_05.png)|  - |
+| VFO is 1700.08 KHz, BFO is 455 KHz, Band SW1, 10Hz setp and the encoder is controllins the VFO)| VFO is 108MHz, BFO is 455 KHz, Band VFH4, 2.5KHz setp and the encoder is controllins the VFO) | 
 
 
 
