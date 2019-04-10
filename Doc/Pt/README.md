@@ -3,28 +3,40 @@
 
 # Summário
 
-1. [Introdução](/Doc/Pt#introdução)
-2. [Operação do VFO e BFO](/Doc/Pt#operação-do-vfo-e-bfo)
-3. [Tabela de divisão de Bandas utilizadas no Projeto](/Doc/Pt#tabela-de-divisão-de-bandas-utilizadas-no-projeto)
-4. [Esquema Elétrico](/Doc/Pt#esquema-elétrico)
+* [Introdução](/Doc/Pt#introdução)
+* [SI5351]()
+* [Arduino ATmega32U4](/Doc/Pt#arduino-atmega32u4)
+* [Operação do VFO e BFO](/Doc/Pt#operação-do-vfo-e-bfo)
+* [Informações VFO and BFO no display (Dial)]()
+* [Tabela de divisão de Bandas utilizadas no Projeto](/Doc/Pt#tabela-de-divisão-de-bandas-utilizadas-no-projeto)
+* [Esquema Elétrico](/Doc/Pt#esquema-elétrico)
   *  [Si5351A](/Doc/Pt#si5351a)
 	* [OLED Display SSD1306 - 128 x 64/0.96](/Doc/Pt#oled-display-ssd1306---128-x-64096)
 	* [Endoder](/Doc/Pt#encoder)
-5. [Sobre o programa Arduino](/Doc/Pt#sobre-o-esquema-e-conexões)
+* [Sobre o programa Arduino](/Doc/Pt#sobre-o-esquema-e-conexões)
   * [Calibração do Si5351A](/Doc/Pt#calibração-do-si5351a)
 	* [Informações sobre a configuração do VFO e BFO](/Doc/Pt#informações-sobre-a-configuração-do--vfo-e-bfo)
 	* [Pinos do Arduino para os botões Encoder, Band, Step e Switch VFO/BFO](/Doc/Pt#pinos-do-arduino-para-os-botões-encoder-band-step-e-switch-vfobfo)
 	* [Interrupções externas](/Doc/Pt#interrupções-externas)
-6. [Considerações finais](/Doc/Pt#considerações-finais)
-7. [Referências](/Doc/Pt#considerações-finais)
-8. [Vídeos](/Doc/Pt#v%C3%ADdeos)
+* [Considerações finais](/Doc/Pt#considerações-finais)
+* [Referências](/Doc/Pt#considerações-finais)
+* [Vídeos](/Doc/Pt#v%C3%ADdeos)
 
 
 ## Introdução
 
-O Si5351A é um gerador de sinal configurável excelente para experimentações em radioamadorismo. Ele possui três saídas de sinal que podem ser configuradas de forma  independente. Isto é, cada saída pode oscilar em uma frequência distinta da outra. Esta característica permite, por exemplo, a construção de um VFO e um BFO no mesmo ambiente, simplificando circuitos em receptores e  transmissores. 
 
-O Si5351A permite operações com alta frequência. Assim, o VFO deste projeto pode oscilar entre 535KHz e 160MHz. Esta  extensa faixa de frequencia foi dividida em 27 bandas que podem ser mudadas via o pressionamento de um botão (veja tabela a seguir). Um encoder permite que você mude a frequência dentro de uma banda. Quanto ao  BFO, foi projetado para oscilar entre 452KHz e 458KHz.  Um outro botão alterna o controle entre o VFO e o BFO. A frequência do BFO pode ser alterada pelo encoder.  O <B>programa em Arduino  está disponível</B> na pasta <B>source</B> deste repositório ou diretamente por este [link](/source/si5351_vfobfo.ino) e poderá ser adaptado conforme a sua necessidade.  A documentação do código fonte foi escrita no idioma Inglês, porém, não creio que isso será um problema para a maioria dos desenvolvedores. Qualquer dúvida ou problema poderá ser postado via a <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a> .
+Este projeto é baseado no gerador de sinal Si5351A que permite operações com alta frequência.  Assim, o VFO deste projeto pode oscilar entre 100KHz e 160MHz. Esta  extensa faixa de frequencia foi dividida em 27 bandas que podem ser mudadas via o pressionamento de um botão (veja tabela a seguir). Um encoder permite que você mude a frequência dentro de uma banda. Quanto ao  BFO, foi projetado para oscilar entre 452KHz e 458KHz.  Um outro botão alterna o controle entre o VFO e o BFO. A frequência do BFO pode ser alterada pelo encoder.  O <B>programa em Arduino  está disponível</B> na pasta <B>source</B> deste repositório ou diretamente por este [link](/source/si5351_vfobfo.ino) e poderá ser adaptado conforme a sua necessidade.  A documentação do código fonte foi escrita no idioma Inglês, porém, não creio que isso será um problema para a maioria dos desenvolvedores. Qualquer dúvida ou problema poderá ser postado via a <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a> .
+
+
+## SI5351
+
+O Si5351A é um gerador de sinal configurável excelente para experimentações em radioamadorismo. Ele possui três saídas de sinal que podem ser configuradas de forma  independente por meio de um microcontrolador. Isto é, cada saída pode oscilar em uma frequência distinta da outra. Esta característica permite, por exemplo, a construção de um VFO e um BFO no mesmo ambiente,simplificando circuitos em receptores e transmissores. Há também inúmeras aplicações para o si5351. Para maios informações sobre o si5351 clique [aqui](https://www.silabs.com/documents/public/data-sheets/Si5351-B.pdf).
+
+
+## Arduino ATmega32U4 
+
+Este projeto utiliza o Arduino baseado no ATmega32U4. Versões do arduino com o Atmega32u4 tem 5 pinos com recurso de interrupção externa (pinos 0,1,2,3 e 7). Este recurso é útil neste neste projeto para implementar a execução de algumas funções independente do fluxo de execução normal do Arduino, em especial o pressionamento dos botões (Band, Step e VFO/BFO). É importante ressaltar que as mesmas funções poderiam ser implementadas sem o uso desses recurso. Para mais informações sobre o Arduino baseado no Atmega32u4 clique [aqui](https://store.arduino.cc/usa/arduino-micro). 
 
 
 ## Operação do VFO e BFO
@@ -35,6 +47,19 @@ O usuário poderá controlar o VFO e o BFO por três botões e um Encoder
 - O botão **VFO/BFO** alterna o controle entre o VFO e o BFO.
 - O botão **Step** muda o passo de incremento e decremento. Pode ser 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz e 500KHz;
 - O **Encoder** é utilizado para controlar a frequência do VFO ou BFO.
+
+
+### Informações VFO and BFO no display (Dial)
+
+O Dial deste projeto utiliza um [OLED Display 128 x 64 Pixels White 0.96 Inch I2C LED](https://startingelectronics.org/tutorials/arduino/modules/OLED-128x64-I2C-display/). As ações do usuário nos botões Band, Step e VFO/BFO, bem como as frequências correntes no VFO e BFO são apresentadas neste display. Dado o tamanho reduzido deste display, é possível que queira utilizar um outro tipo de display. Para tanto, siga as recomendações no item [Modificando o tipo de Display]() neste documento. A tabela ilustra as informações do display utilizado neste projeto. 
+
+
+|  Dial Information | Dial Information |
+| ----------------- | ---------------- |
+| ![Photo dial 01](/images/dial_01.png)|  ![Photo dial 02](/images/dial_02.png) |
+| VFO está em 100 KHz; BFO está em 455 KHz; a banda é LW/MW; passo de incremento é 10Hz; e o encoder está controlando o VFO)| Neste caso o encoder está controlando o BFO; note que a frequência do BFO passou a ser apresentada na primeira linha(destacada)| 
+| ![Photo dial 03](/images/dial_03.png)|  ![Photo dial 04](/images/dial_05.png) |
+| VFO está em 1700.08 KHz; BFO está 455 KHz; a banda é SW1; o passo de incremento é 10Hz; e o encoder encoder está controlando o VFO)| VFO está 108MHz; BFO está em 455 KHz; a banda é VFH4, o passo de incremento é 2.5KHz; e o encoder está controlando o VFO) | 
 
 
 ## Tabela de divisão de Bandas utilizadas no Projeto
