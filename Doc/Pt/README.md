@@ -61,9 +61,9 @@ O Dial deste projeto utiliza um [OLED Display 128 x 64 Pixels White 0.96 Inch I2
 |  Dial Information | Dial Information |
 | ----------------- | ---------------- |
 | ![Photo dial 01](/images/dial_01.png)|  ![Photo dial 02](/images/dial_02.png) |
-| VFO está em 100 KHz; BFO está em 455 KHz; a banda é LW/MW; passo de incremento é 10Hz; e o encoder está controlando o VFO)| Neste caso o encoder está controlando o BFO; note que a frequência do BFO passou a ser apresentada na primeira linha(destacada)| 
+| VFO está em 100 KHz; BFO está em 455 KHz; a banda é LW/MW; passo de incremento é 10Hz; e o encoder está controlando o VFO | Neste caso o encoder está controlando o BFO; note que a frequência do BFO passou a ser apresentada na primeira linha(destacada)| 
 | ![Photo dial 03](/images/dial_03.png)|  ![Photo dial 04](/images/dial_05.png) |
-| VFO está em 1700.08 KHz; BFO está 455 KHz; a banda é SW1; o passo de incremento é 10Hz; e o encoder encoder está controlando o VFO)| VFO está 108MHz; BFO está em 455 KHz; a banda é VFH4, o passo de incremento é 2.5KHz; e o encoder está controlando o VFO) | 
+| VFO está em 1700.08 KHz; BFO está 455 KHz; a banda é SW1; o passo de incremento é 10Hz; e o encoder está controlando o VFO | VFO está 108MHz; BFO está em 455 KHz; a banda é VFH4, o passo de incremento é 2.5KHz; e o encoder está controlando o VFO | 
 
 
 ## Tabela de divisão de Bandas utilizadas no Projeto
@@ -83,8 +83,8 @@ O VFO está dividido em 27 bandas. A primeira banda varia entre 100KHz até 1.7M
 	</tr>
 	<tr>
 		<td height="23" align="right" sdval="1" sdnum="1046;">1</td>
-		<td align="left">AM   </td>
-		<td align="left"> 535 KHz</td>
+		<td align="left">LW/MW   </td>
+		<td align="left"> 100 KHz</td>
 		<td align="left"> 1.7 MHz</td>
 	</tr>
 	<tr>
