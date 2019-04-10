@@ -450,9 +450,9 @@ void switchVFOBFO()
 
 ### Changing the kind of Display device
 
-This project uses the "OLED Display Arduino 128 x 64 Pixels White 0.96 Inch I2C". It is very small and does not provide a good look. If you need to change to a larger display device, you have to know how to connect you display device on your Arduino. Also you have to know how to program your display device for Arduino. If you are able to do that, you have to follow the steps bellow. 
+This project uses the "OLED Display Arduino 128 x 64 Pixels White 0.96 Inch I2C". It is very small and does not provide a good look. If you need to change to a larger display device, you have to know how to connect your display device on your Arduino. Also you have to know how to program your display device for Arduino. If you are able to do that, you can follow the steps bellow. 
 
-#### Replacing the libraries declaration
+#### 1) Replacing the libraries declaration
 
 Replace the OLED library include directives below by the library include directive of your device display.
 
@@ -461,7 +461,7 @@ Replace the OLED library include directives below by the library include directi
 #include "SSD1306AsciiAvrI2c.h"
 ```
 
-#### Replacing the display device class declaration 
+#### 2) Replacing the display device class declaration 
 
 Replace the OLED display declaration by your display device declaration
 
@@ -470,7 +470,7 @@ Replace the OLED display declaration by your display device declaration
 SSD1306AsciiAvrI2c display;
 ```
 
-#### Replacing the OLED display device initialization code
+#### 3) Replacing the OLED display device initialization code
 
 Replace the OLED display device initialization code on setup() function by the your display device initialization
 
@@ -487,7 +487,7 @@ Replace the OLED display device initialization code on setup() function by the y
 ```
 
 
-#### Replacing the OLED displayDial() function  
+#### 4) Replacing the OLED displayDial() function  
 
 Replace the displayDial function code by the code used for your display device. Keep the name of the function (diaplayDial())
 
@@ -544,10 +544,7 @@ void displayDial()
   display.print(dinamicFreq);
 
 }
-
 ```
-
-
 
 
 ## SI5351 Calibration
