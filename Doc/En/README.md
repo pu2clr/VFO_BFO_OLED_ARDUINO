@@ -6,6 +6,7 @@
 1. [Introduction](/Doc/En#introduction) 
 1. [Arduino ATmega32U4](/Doc/En#arduino-atmega32u4)
 1. [BFO interface](/Doc/En#vfo-and-bfo-interface)
+	1. [VFO and BFO and Dial information](/Doc/En#vfo-and-bfo-and-dial-information)
 1. [Band table for the VFO](/Doc/En#band-table-for-the-VFO)
 1. [Schematic](/Doc/En#schematic)
 1. [Components](/Doc/En#components)
@@ -33,14 +34,26 @@ This project uses the Arduino ATmega32U4 (Known as Arduino Micro) with a built-i
 
 ## VFO and BFO interface
 
-The user can control the VFO and BFO  by using tow buttons and an encoder. 
+The user can control the VFO and BFO by using three buttons and an encoder. The Dial was implemented by using an OLED Display 128 x 64 Pixels White 0.96 Inch I2C. 
 
 
 - The button __Band__ changes the range of frequency. This project divides the VFO range (from 535KHz to 160MHz) in 27 bands. See band table below;  
-- The button __Step__ changes the increment and decrement step. It can be 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz and 500KHz;
+- The button __Step__ changes the increment and decrement step. It can be 10Hz, 50Hz, 100Hz, 500Hz, 1KHz, 2.5KHz, 5KHz, 10KHz, 100KHz and 500KHz;
 - The button __VFO/BFO__ switches from VFO to BFO and vice-versa. It allows the user to control the VFO or BFO by using the same __Encoder__;
 - The __Encoder__ is used to increment or decrement the current frequency by using the step value as a
 	reference.
+
+## VFO and BFO and Dial information
+
+The Dial shows the current VFO and BFO frequencies, the step and who the encoder is controlling (VFO or BFO).
+When the user switch from VFO to BFO or vice-versa, the frequency information of the VFO or BFO is highlighted on display.
+
+|  Dial Information | Dial Information |
+| ----------------- | ---------------- |
+| ![Photo dial 01]()
+
+
+
 
 
 ## Band table for the VFO
