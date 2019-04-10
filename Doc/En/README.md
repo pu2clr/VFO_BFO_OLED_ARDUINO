@@ -12,7 +12,7 @@
 1. [Components](/Doc/En#components)
 1. [Arduino sketch](/Doc/En#arduino-sketch)
 	1. [BFO range](/Doc/En#bfo-range)
-	1. [Arduino pins and  Encoder, Band, Step and Switch VFO/BFO]()
+	1. [Arduino pins and  Encoder, Band, Step and Switch VFO/BFO](/Doc/En#arduino-pins-and--encoder-band-step-and-switch-vfobfo)
 	1. [Bands and frequency ranges](/Doc/En#bands-and-frequency-ranges)
 	1. [Changing the kind of display device](/Doc/En#changing-the-kind-of-display-device)
 1. [Photos](/Doc/En#photos)

@@ -12,14 +12,18 @@ __English:__ Signal Generetor with Si5351, OLED and Arduino. This project is abo
 1. [Introduction](/Doc/En#introduction) 
 1. [Arduino ATmega32U4](/Doc/En#arduino-atmega32u4)
 1. [BFO interface](/Doc/En#vfo-and-bfo-interface)
+	1. [VFO and BFO and Dial information](/Doc/En#vfo-and-bfo-and-dial-information)
 1. [Band table for the VFO](/Doc/En#band-table-for-the-VFO)
 1. [Schematic](/Doc/En#schematic)
 1. [Components](/Doc/En#components)
 1. [Arduino sketch](/Doc/En#arduino-sketch)
+	1. [BFO range](/Doc/En#bfo-range)
+	1. [Arduino pins and  Encoder, Band, Step and Switch VFO/BFO](/Doc/En#arduino-pins-and--encoder-band-step-and-switch-vfobfo)
+	1. [Bands and frequency ranges](/Doc/En#bands-and-frequency-ranges)
+	1. [Changing the kind of display device](/Doc/En#changing-the-kind-of-display-device)
 1. [Photos](/Doc/En#photos)
 1. [References](/Doc/En#references)
 1. [Videos](/Doc/En#videos)
-
 
 ## Photo
 
