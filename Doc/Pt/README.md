@@ -1,7 +1,7 @@
 # Projeto do VFO e BFO com Si5351A e Arduino
 
 
-# Summário
+# Sumário
 
 * [Introdução](/Doc/Pt#introdução)
 * [SI5351](/Doc/Pt#si5351)
@@ -35,12 +35,12 @@ Este projeto é baseado no gerador de sinal Si5351A que permite operações com 
 
 ## SI5351
 
-O Si5351A é um gerador de sinal configurável excelente para experimentações em radioamadorismo. Ele possui três saídas de sinal que podem ser configuradas de forma  independente por meio de um microcontrolador. Isto é, cada saída pode oscilar em uma frequência distinta da outra. Esta característica permite, por exemplo, a construção de um VFO e um BFO no mesmo ambiente,simplificando circuitos em receptores e transmissores. Há também inúmeras aplicações para o si5351. Para maios informações sobre o si5351 clique [aqui](https://www.silabs.com/documents/public/data-sheets/Si5351-B.pdf).
+O Si5351A é um gerador de sinal configurável excelente para experimentações em radioamadorismo. Ele possui três saídas de sinal que podem ser configuradas de forma  independente por meio de um microcontrolador. Isto é, cada saída pode oscilar em uma frequência distinta da outra. Esta característica permite, por exemplo, a construção de um VFO e um BFO no mesmo ambiente,simplificando circuitos em receptores e transmissores. Há também inúmeras aplicações para o si5351. Para mais informações sobre o si5351 clique [aqui](https://www.silabs.com/documents/public/data-sheets/Si5351-B.pdf).
 
 
 ## Arduino ATmega32U4 
 
-Este projeto utiliza o Arduino baseado no ATmega32U4. Versões do arduino com o Atmega32u4 tem 5 pinos com recurso de interrupção externa (pinos 0,1,2,3 e 7). Este recurso é útil neste neste projeto para implementar a execução de algumas funções independente do fluxo de execução normal do Arduino, em especial o pressionamento dos botões (Band, Step e VFO/BFO). É importante ressaltar que as mesmas funções poderiam ser implementadas sem o uso desses recurso. Para mais informações sobre o Arduino baseado no Atmega32u4 clique [aqui](https://store.arduino.cc/usa/arduino-micro). 
+Este projeto utiliza o Arduino baseado no ATmega32U4. Versões do arduino com o Atmega32u4 tem 5 pinos com recurso de [interrupções externas](/Doc/Pt#interrupções-externas) (pinos 0,1,2,3 e 7). Este recurso é útil neste projeto para implementar a execução de algumas funções, independente do fluxo de execução normal do Arduino, em especial o pressionamento dos botões Band, Step e VFO/BFO. É importante ressaltar que as mesmas funções poderiam ser implementadas sem o uso desses recurso. Para mais informações sobre o Arduino baseado no Atmega32u4 clique [aqui](https://store.arduino.cc/usa/arduino-micro). 
 
 
 ## Operação do VFO e BFO
@@ -55,7 +55,7 @@ O usuário poderá controlar o VFO e o BFO por três botões e um Encoder
 
 ### Informações VFO and BFO no display (Dial)
 
-O Dial deste projeto utiliza um [OLED Display 128 x 64 Pixels White 0.96 Inch I2C LED](https://startingelectronics.org/tutorials/arduino/modules/OLED-128x64-I2C-display/). As ações do usuário nos botões Band, Step e VFO/BFO, bem como as frequências correntes no VFO e BFO são apresentadas neste display. Dado o tamanho reduzido deste display, é possível que queira utilizar um outro tipo de display. Para tanto, siga as recomendações no item [Modificando o tipo de Display](/Doc/Pt#modificando-o-tipo-de-display) neste documento. A tabela ilustra as informações do display utilizado neste projeto. 
+O Dial deste projeto utiliza um [OLED Display 128 x 64 Pixels White 0.96 Inch I2C LED](https://startingelectronics.org/tutorials/arduino/modules/OLED-128x64-I2C-display/). As ações do usuário nos botões Band, Step e VFO/BFO, bem como as frequências correntes no VFO e BFO são apresentadas neste display a cada mudança de status. Dado o tamanho reduzido deste display, é possível que você queira utilizar um outro tipo de display. Para tanto, siga as recomendações no item [Modificando o tipo de Display](/Doc/Pt#modificando-o-tipo-de-display) neste documento. A tabela a seguir ilustra as informações do display utilizado neste projeto. 
 
 
 |  Dial Information | Dial Information |
@@ -501,7 +501,7 @@ void switchVFOBFO()
 
 ### Modificando o tipo de Display
 
-Este projeto utiliza o "OLED Display Arduino 128 x 64 Pixels White 0.96 Inch I2C". Por ter um tamanho muito limitado, é possível que você queira tracar por um outro tipo de display. Para tanto, você deve conhecer bem como configurar e programar o seu display para o ambiente do Arduino. Uma vez decidido mudar o tipo de display, siga as orientações a seguir.
+Este projeto utiliza o "OLED Display Arduino 128 x 64 Pixels White 0.96 Inch I2C". Por ter um tamanho muito limitado, é possível que você queira trocar por um outro tipo de display. Para tanto, você deve conhecer bem como configurar e programar o seu display para o ambiente do Arduino. Uma vez decidido mudar o tipo de display, siga as orientações a seguir.
  
 
 #### 1) Modifique a declaração da biblioteca para a do display que você utilizará
@@ -516,7 +516,7 @@ Observe as diretivas include a seguir e faça a substituição sugerida pelo fab
 
 #### 2) Declare a variável ou classe do seu display no programa Arduino 
 
-Substitua a declaração da linha a seguir pela sugerida pelo fabricante do seu display.
+Substitua a declaração da linha a seguir pela sugerida pelo fabricante do seu display. De preferência, mantanha o nome da variável __display__.
 
 ```cpp
 // OLED - Declaration for a SSD1306 display connected to I2C (SDA, SCL pins)
@@ -542,7 +542,7 @@ Substitua as linhas de código a seguir pela sugerida pelo fabricante do seu dis
 
 #### 4) Altere o códigoda função displayDial() pelo código adequado ao seu display  
 
-O corpo da função display deve ser alterado de acordo com as funções utilizadas pelo seu display. Mantenha o nome da função displayDial(). 
+O corpo da função display deve ser alterado de acordo com as funções utilizadas pelo seu display. Mantenha o nome da função __displayDial()__. 
 
 ```cpp
 // Show Signal Generator Information
@@ -601,9 +601,6 @@ void displayDial()
 ## Considerações finais
 
 O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">código-fonte </a> deste projeto está com uma documentação bem rica que busca dirimir dúvidas quanto ao uso e configuração do Si5351, OLED Display, botões, Encoder e LED. A <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a>, logo acima desta página, poderá ser utilizado para a publicação de dúvidas ou defeitos encontrados neste projeto.    
-
-
-**Observação:** Este projeto ainda está em processo de refinamentos e o conteúdo deste repositório está em  mudanças constantes.  
 
 
 
