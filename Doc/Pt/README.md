@@ -19,7 +19,6 @@
 	* [Alterando as Bandas e Frequências do VFO](/Doc/Pt#modificando-a-faixa-de-frequ%C3%AAncia-do-vfo)
 	* [Alterando a configuração de passos de incremento e decremento](/Doc/Pt#alterando-a-configura%C3%A7%C3%A3o-de-passos-de-incremento-e-decremento)
 	* [Alterando as configurações dos pinos do Arduino para Banda, Step, VFO/BFO e Encoder](/Doc/Pt#alterando-as-configura%C3%A7%C3%B5es-dos-pinos-do-arduino-para-banda-step-vfobfo-e-encoder)
-	* [Pinos do Arduino para os botões Encoder, Band, Step e Switch VFO/BFO](/Doc/Pt#pinos-do-arduino-para-os-botões-encoder-band-step-e-switch-vfobfo)
 	* [Interrupções externas](/Doc/Pt#interrupções-externas)
 	* [Modificando o tipo de Display](/Doc/Pt#modificando-o-tipo-de-display)
 * [Considerações finais](/Doc/Pt#considerações-finais)
