@@ -22,6 +22,7 @@
 	* [Interrupções externas](/Doc/Pt#interrupções-externas)
 	* [Modificando o tipo de Display](/Doc/Pt#modificando-o-tipo-de-display)
 * [Considerações finais](/Doc/Pt#considerações-finais)
+* [Fotos](/Doc/Pt#fotos)
 * [Referências](/Doc/Pt#considerações-finais)
 * [Vídeos](/Doc/Pt#v%C3%ADdeos)
 
