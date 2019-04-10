@@ -43,15 +43,17 @@ The user can control the VFO and BFO by using three buttons and an encoder. The 
 - The __Encoder__ is used to increment or decrement the current frequency by using the step value as a
 	reference.
 
-## VFO and BFO and Dial information
+### VFO and BFO and Dial information
 
 The Dial shows the current VFO and BFO frequencies, the step and who the encoder is controlling (VFO or BFO).
 When the user switch from VFO to BFO or vice-versa, the frequency information of the VFO or BFO is highlighted on display.
+If you want to use another display, the item Arduino sketch](/Doc/En#arduino-sketch) show how you can do that. 
+
 
 |  Dial Information | Dial Information |
 | ----------------- | ---------------- |
 | ![Photo dial 01](/images/dial_01.png)|  ![Photo dial 02](/images/dial_02.png) |
-| VFO is 100 KHz, BFO is 455 KHz, Band LW/MW, 10Hz setp and the encoder is controllins the VFO)| The encoder is controlling the BFO; the BFO now is the first information (highlighted)| 
+| VFO is 100 KHz, BFO is 455 KHz, Band LW/MW, 10Hz setp and the encoder is controlling the VFO)| The encoder is controlling the BFO; the BFO now is the first information (highlighted)| 
 | ![Photo dial 03](/images/dial_03.png)|  ![Photo dial 04](/images/dial_05.png) |
 | VFO is 1700.08 KHz, BFO is 455 KHz, Band SW1, 10Hz setp and the encoder is controllins the VFO)| VFO is 108MHz, BFO is 455 KHz, Band VFH4, 2.5KHz setp and the encoder is controllins the VFO) | 
 
@@ -445,6 +447,107 @@ void switchVFOBFO()
   interrupts(); // enable interrupts
 }
 ```
+
+### Changing the kind of Display device
+
+This project uses the "OLED Display Arduino 128 x 64 Pixels White 0.96 Inch I2C". It is very small and does not provide a good look. If you need to change to a larger display device, you have to know how to connect you display device on your Arduino. Also you have to know how to program your display device for Arduino. If you are able to do that, you have to follow the steps bellow. 
+
+#### Replacing the libraries declaration
+
+Replace the OLED library include directives below by the library include directive of your device display.
+
+```cpp
+#include "SSD1306Ascii.h"
+#include "SSD1306AsciiAvrI2c.h"
+```
+
+#### Replacing the display device class declaration 
+
+Replace the OLED display declaration by your display device declaration
+
+```cpp
+// OLED - Declaration for a SSD1306 display connected to I2C (SDA, SCL pins)
+SSD1306AsciiAvrI2c display;
+```
+
+#### Replacing the OLED display device initialization code
+
+Replace the OLED display device initialization code on setup() function by the your display device initialization
+
+```cpp
+ // Initiating the OLED Display
+  display.begin(&Adafruit128x64, I2C_ADDRESS);
+  display.setFont(Adafruit5x7);
+  display.set2X();
+  display.clear();
+  display.print("\n PU2CLR");
+  delay(3000);
+  display.clear();
+  displayDial();
+```
+
+
+#### Replacing the OLED displayDial() function  
+
+Replace the displayDial function code by the code used for your display device. Keep the name of the function (diaplayDial())
+
+
+```cpp
+// Show Signal Generator Information
+// Verificar setCursor() em https://github.com/greiman/SSD1306Ascii/issues/53
+void displayDial()
+{
+  double vfo = vfoFreq / 100000.0;
+  double bfo = bfoFreq / 100000.0;
+  String mainFreq;
+  String secoundFreq;
+  String staticFreq;
+  String dinamicFreq;
+
+  // Change the display behaviour depending on who is controlled, BFO or BFO.
+  if (currentClock == 0)
+  { // If the encoder is controlling the VFO
+    mainFreq = String(vfo,3);
+    secoundFreq = String(bfo,3);
+    staticFreq = "BFO";
+    dinamicFreq = "VFO";
+  }
+  else // encoder is controlling the VFO
+  {
+    mainFreq = String(bfo,3);
+    secoundFreq = String(vfo,3);
+    staticFreq = "VFO";
+    dinamicFreq = "BFO";
+  }
+
+  // display.setCursor(0,0)
+  // display.clear();
+
+  display.set2X();
+  display.setCursor(0, 0);
+  display.print(mainFreq);
+  display.print("     ");
+
+  display.set1X();
+  display.print("\n\n\n");
+  display.print(staticFreq);
+  display.print(".: ");
+  display.print(secoundFreq);
+
+  display.print("\nBand: ");
+  display.print(band[currentBand].name);
+
+  display.print("\nStep: ");
+  display.print(step[currentStep].name);
+
+  display.print("\n\nCtrl: ");
+  display.print(dinamicFreq);
+
+}
+
+```
+
+
 
 
 ## SI5351 Calibration
