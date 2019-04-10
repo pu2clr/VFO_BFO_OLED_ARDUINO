@@ -50,7 +50,9 @@ When the user switch from VFO to BFO or vice-versa, the frequency information of
 
 |  Dial Information | Dial Information |
 | ----------------- | ---------------- |
-| ![Photo dial 01]()
+| ![Photo dial 01](/images/dial_01.png)|  ![Photo dial 02](/images/dial_01.png) |
+| ![Photo dial 03](/images/dial_01.png)|  ![Photo dial 04](/images/dial_01.png) |
+| ![Photo dial 05](/images/dial_01.png)|  - |
 
 
 
