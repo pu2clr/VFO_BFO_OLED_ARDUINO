@@ -2,5 +2,5 @@
     "board": "arduino:avr:micro",
     "programmer": "AVR ISP",
     "sketch": "source/si5351_vfobfo.ino",
-    "port": "/dev/cu.usbmodem14101"
+    "port": "/dev/cu.usbmodem14201"
 }

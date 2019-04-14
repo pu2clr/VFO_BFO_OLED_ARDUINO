@@ -312,7 +312,7 @@ void loop()
     clearDisplay = true;
     elapsedTimeInterrupt = millis();
   }
-  else if (digitalRead(BUTTON_VFO_BFO && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME  == HIGH)
+  else if (digitalRead(BUTTON_VFO_BFO) && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME  == HIGH) 
   {
     currentClock = !currentClock;
     currentStep = 0; // go back to first Step 
