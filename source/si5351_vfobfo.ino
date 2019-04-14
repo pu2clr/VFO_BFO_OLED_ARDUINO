@@ -109,7 +109,7 @@ Step step[] = {
 // Calculate the index of last position of step[] array (in this case will be 8)
 const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
 volatile int lastStepBFO = 3;                             // index for max. increment / decrement for BFO. In this case will be is 1KHz
-volatile long currentStep = 0;                            // it stores the current step index (50Hz in this case)
+volatile long currentStep = 4;                            // it stores the current step index 
 
 volatile boolean isFreqChanged = false;
 volatile boolean clearDisplay = false;
