@@ -43,6 +43,8 @@ O Si5351A é um gerador de sinal configurável excelente para experimentações 
 Este projeto utiliza o Arduino baseado no ATmega32U4. Versões do arduino com o Atmega32u4 tem 5 pinos com recurso de [interrupções externas](/Doc/Pt#interrupções-externas) (pinos 0,1,2,3 e 7). Este recurso é útil neste projeto para implementar a execução de algumas funções, independente do fluxo de execução normal do Arduino, em especial o pressionamento dos botões Band, Step e VFO/BFO. É importante ressaltar que as mesmas funções poderiam ser implementadas sem o uso desses recurso. Para mais informações sobre o Arduino baseado no Atmega32u4 clique [aqui](https://store.arduino.cc/usa/arduino-micro). 
 
 
+
+
 ## Operação do VFO e BFO
 
 O usuário poderá controlar o VFO e o BFO por três botões e um Encoder
@@ -259,7 +261,11 @@ O VFO está dividido em 27 bandas. A primeira banda varia entre 100KHz até 1.7M
 
 ### Sobre o esquema e conexões
 
-Para este projeto foi utilizado o Arduino Micro, baseado no Atmega32u4. A principal razão pela escolha desta versão do Arduino foi pelo fato dele possibilitar o uso de até 5 interrupções externas (pinos 0, 1, 2, 3, 7). Este recurso foi utilizado para implementar o funcionamento dos botões Band, Setp e switch VFO / BFO. No entanto, com poucos ajustes no projeto, é possível adaptá-lo para um Arduino UNO ou similar. 
+Para este projeto foi utilizado o Arduino Micro, baseado no _Atmega32u4_. A principal razão pela escolha desta versão do Arduino foi pelo fato dele possibilitar o uso de até 5 interrupções externas (pinos 0, 1, 2, 3, 7). Este recurso foi utilizado para implementar o funcionamento dos botões Band, Setp e switch VFO / BFO. No entanto, com poucos ajustes no projeto, é possível adaptá-lo para um Arduino UNO ou similar. 
+
+__Importante__:
+Se você não tiver um Arduino baseado no _Atmega32u4_, há um outro sketch para Arduino desenvolvido sem o uso do recurso de interrupção externa disponível na pasta [source/Atmega328](/https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/source/Atmega328), apropriado para o Arduino UNO, Mini, Nano etc, que poderá ajudá-lo. Este sketch foi desenvolvido somente para ilustrar como usar as fucionalidades dos botões na função __loop()__. No entanto, este sketch não é objeto principal deste projeto e __não__ será atualizado. Quero dizer, novas funcionalidades e correções só serão incorporadas no código para o _Atmega32u4_.
+
 
 #### Si5351A
 O dispositivo Si5351A é ligado nos pinos D2 e D3 do Arduino (MICRO ou compatível). Você deve ficar atendo às descrições SDA (pin D2) e SCL (pin D3). A inversão dessas conexões fará com que o dispositivo não funcione. 
