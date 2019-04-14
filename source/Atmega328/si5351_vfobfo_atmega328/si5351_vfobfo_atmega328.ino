@@ -88,7 +88,7 @@ Band band[] = {
 
 // Calculate the last element position (index) of the array band
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
-volatile int currentBand = 0;                          // First band. For this case, AM is the current band.
+int currentBand = 0;                                   // First band. For this case, AM is the current band.
 
 // Struct for step database
 typedef struct
@@ -111,20 +111,20 @@ Step step[] = {
     {"500KHz", 50000000}}; // VFO max. increment / decrement
 // Calculate the index of last position of step[] array (in this case will be 8)
 const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
-volatile int lastStepBFO = 3;                             // index for max. increment / decrement for BFO. In this case will be is 1KHz
-volatile long currentStep = 0;                            // it stores the current step index (50Hz in this case)
+int lastStepBFO = 3;                                      // index for max. increment / decrement for BFO. In this case will be is 1KHz
+long currentStep = 0;                                     // it stores the current step index (50Hz in this case)
 
-volatile boolean isFreqChanged = false;
-volatile boolean clearDisplay = false;
+boolean isFreqChanged = false;
+boolean clearDisplay = false;
 
 // LW/MW is the default band
-volatile uint64_t vfoFreq = band[currentBand].minFreq; // VFO starts on AM
-volatile uint64_t bfoFreq = CENTER_BFO;                // 455 KHz for this project
-// VFO is the Si5351A CLK0
-// BFO is the Si5351A CLK1
-volatile int currentClock = 0; // If 0, then VFO will be controlled else the BFO will be
+uint64_t vfoFreq = band[currentBand].minFreq; // VFO starts on AM
+uint64_t bfoFreq = CENTER_BFO;                // 455 KHz for this project
+                                              // VFO is the Si5351A CLK0
+                                              // BFO is the Si5351A CLK1
+int currentClock = 0;                         // If 0, then VFO will be controlled else the BFO will be
 
-long volatile elapsedTimeInterrupt = millis(); // will control the minimum time to process an interrupt action
+long elapsedTimeInterrupt = millis(); // will control the minimum time to process an interrupt action
 long elapsedTimeEncoder = millis();
 
 // Encoder variable control
@@ -193,15 +193,15 @@ void displayDial()
   // Change the display behaviour depending on who is controlled, BFO or BFO.
   if (currentClock == 0)
   { // If the encoder is controlling the VFO
-    mainFreq = String(vfo,3);
-    secoundFreq = String(bfo,3);
+    mainFreq = String(vfo, 3);
+    secoundFreq = String(bfo, 3);
     staticFreq = "BFO";
     dinamicFreq = "VFO";
   }
   else // encoder is controlling the VFO
   {
-    mainFreq = String(bfo,3);
-    secoundFreq = String(vfo,3);
+    mainFreq = String(bfo, 3);
+    secoundFreq = String(vfo, 3);
     staticFreq = "VFO";
     dinamicFreq = "BFO";
   }
@@ -228,7 +228,6 @@ void displayDial()
 
   display.print("\n\nCtrl: ");
   display.print(dinamicFreq);
-
 }
 
 // Change the frequency (increment or decrement)
@@ -263,7 +262,6 @@ void changeFreq(int direction)
   isFreqChanged = true;
 }
 
-
 // main loop
 void loop()
 {
@@ -295,14 +293,14 @@ void loop()
   }
 
   // check if some button is pressed
-  if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME ) 
+  if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME)
   {
     currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
     vfoFreq = band[currentBand].minFreq;
     isFreqChanged = true;
     elapsedTimeInterrupt = millis();
   }
-  else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME )
+  else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME)
   {
     if (currentClock == 0)                                               // Is VFO
       currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0; // Increment the step or go back to the first
@@ -312,18 +310,18 @@ void loop()
     clearDisplay = true;
     elapsedTimeInterrupt = millis();
   }
-  else if (digitalRead(BUTTON_VFO_BFO) && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME  == HIGH) 
+  else if (digitalRead(BUTTON_VFO_BFO) && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME == HIGH)
   {
     currentClock = !currentClock;
-    currentStep = 0; // go back to first Step 
+    currentStep = 0; // go back to first Step
     clearDisplay = true;
     elapsedTimeInterrupt = millis();
-  } 
-  
-  if (clearDisplay)  {
-      display.clear();
-      displayDial();
-      clearDisplay = false;
   }
 
+  if (clearDisplay)
+  {
+    display.clear();
+    displayDial();
+    clearDisplay = false;
+  }
 }
