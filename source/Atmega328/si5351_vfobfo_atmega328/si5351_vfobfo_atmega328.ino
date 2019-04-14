@@ -124,7 +124,7 @@ uint64_t bfoFreq = CENTER_BFO;                // 455 KHz for this project
                                               // BFO is the Si5351A CLK1
 int currentClock = 0;                         // If 0, then VFO will be controlled else the BFO will be
 
-long elapsedTimeInterrupt = millis(); // will control the minimum time to process an interrupt action
+long elapsedButton = millis(); // will control the minimum time to process an interrupt action
 long elapsedTimeEncoder = millis();
 
 // Encoder variable control
@@ -205,9 +205,6 @@ void displayDial()
     staticFreq = "VFO";
     dinamicFreq = "BFO";
   }
-
-  // display.setCursor(0,0)
-  // display.clear();
 
   display.set2X();
   display.setCursor(0, 0);
@@ -293,14 +290,14 @@ void loop()
   }
 
   // check if some button is pressed
-  if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME)
+  if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
   {
     currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
     vfoFreq = band[currentBand].minFreq;
     isFreqChanged = true;
-    elapsedTimeInterrupt = millis();
+    elapsedButton = millis();
   }
-  else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME)
+  else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
   {
     if (currentClock == 0)                                               // Is VFO
       currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0; // Increment the step or go back to the first
@@ -308,14 +305,14 @@ void loop()
       currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
     isFreqChanged = true;
     clearDisplay = true;
-    elapsedTimeInterrupt = millis();
+    elapsedButton = millis();
   }
-  else if (digitalRead(BUTTON_VFO_BFO) && (millis() - elapsedTimeInterrupt) > MIN_ELAPSED_TIME == HIGH)
+  else if (digitalRead(BUTTON_VFO_BFO) && (millis() - elapsedButton) > MIN_ELAPSED_TIME == HIGH)
   {
     currentClock = !currentClock;
     currentStep = 0; // go back to first Step
     clearDisplay = true;
-    elapsedTimeInterrupt = millis();
+    elapsedButton = millis();
   }
 
   if (clearDisplay)
