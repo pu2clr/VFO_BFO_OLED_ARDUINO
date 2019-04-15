@@ -1,13 +1,16 @@
 
 /*
-  VFO and BFO with SI5351 and Arduino controlled by IR Control
+  Experiment 01: VFO and BFO with SI5351 and Arduino controlled by IR Control
+                 Arduino Atmega328 (Nano, Uno, Mini etc) 
+                 
   Program to control the "Adafruit Si5351A Clock Generator" or similar via Arduino.
   This program control the frequencies of two clocks (CLK) output of the Si5351A
-  The CLK 0 can be used as a VFO (535KHz to 160MHz)
-  The CLK 1 can be used as a BFO (400KHz to 500KHz)
+  The CLK 0 can be used as a VFO (100KHz to 160MHz)
+  The CLK 1 can be used as a BFO (452KHz to 558KHz)
   See on https://github.com/etherkit/Si5351Arduino  and know how to calibrate your Si5351
   See also the example Etherkit/si5251_calibration
-  Author: Ricardo Lima Caratti (PU2CLR) -   April, 2019
+
+   Author: Ricardo Lima Caratti (PU2CLR) -   April, 2019
 */
 
 #include <si5351.h>
@@ -78,17 +81,17 @@ typedef struct
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
-    {"LW/MW ", 10000000LLU, 170000000LLU}, 
+    {"LW/MW ", 10000000LLU, 170000000LLU},
     {"SW1  ", 170000000LLU, 1000000000LLU},
-    {"SW2  ", 1000000000LLU, 2000000000LLU}, 
-    {"SW3  ", 1100000000LLU, 3000000000LLU}, 
+    {"SW2  ", 1000000000LLU, 2000000000LLU},
+    {"SW3  ", 1100000000LLU, 3000000000LLU},
     {"VHF1 ", 3000000000LLU, 8600000000LLU},
-    {"FM   ", 8600000000LLU, 10800000000LLU},  
+    {"FM   ", 8600000000LLU, 10800000000LLU},
     {"VHF2 ", 10800000000LLU, 16000000000LLU}};
 
 // Calculate the last element position (index) of the array band
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
-volatile int currentBand = 0;                          // First band. For this case, AM is the current band.
+int currentBand = 0;                                   // First band. For this case, AM is the current band.
 
 // Struct for step database
 typedef struct
@@ -104,24 +107,25 @@ Step step[] = {
     {"500Hz ", 50000},
     {"1KHz  ", 100000}, // BFO max. increment / decrement
     {"5KHz  ", 500000},
-    {"50KHz",  5000000},
+    {"50KHz", 5000000},
     {"500KHz", 50000000}}; // VFO max. increment / decrement
+
 // Calculate the index of last position of step[] array (in this case will be 8)
 const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
-volatile int lastStepBFO = 3;                             // index for max. increment / decrement for BFO. In this case will be is 1KHz
-volatile long currentStep = 4;                            // it stores the current step index
+int lastStepBFO = 3;                                      // index for max. increment / decrement for BFO. In this case will be is 1KHz
+long currentStep = 0;                                     // it stores the current step index (50Hz in this case)
 
-volatile boolean isFreqChanged = false;
-volatile boolean clearDisplay = false;
+boolean isFreqChanged = false;
+boolean clearDisplay = false;
 
 // LW/MW is the default band
-volatile uint64_t vfoFreq = band[currentBand].minFreq; // VFO starts on AM
-volatile uint64_t bfoFreq = CENTER_BFO;                // 455 KHz for this project
-// VFO is the Si5351A CLK0
-// BFO is the Si5351A CLK1
-volatile int currentClock = 0; // If 0, then VFO will be controlled else the BFO will be
+uint64_t vfoFreq = band[currentBand].minFreq; // VFO starts on AM
+uint64_t bfoFreq = CENTER_BFO;                // 455 KHz for this project
+                                              // VFO is the Si5351A CLK0
+                                              // BFO is the Si5351A CLK1
+int currentClock = 0;                         // If 0, then VFO will be controlled else the BFO will be
 
-long volatile elapsedTimeInterrupt = millis(); // will control the minimum time to process an interrupt action
+long elapsedButton = millis(); // will control the minimum time to process an interrupt action
 long elapsedTimeEncoder = millis();
 
 // Encoder variable control
@@ -165,14 +169,7 @@ void setup()
   si5351.set_freq(bfoFreq, SI5351_CLK1); // Start CLK1 (BFO)
   si5351.update_status();
   // Show the initial system information
-  delay(500);
-
-  // Will stop what Arduino is doing and call changeStep(), changeBand() or switchVFOBFO
-  attachInterrupt(digitalPinToInterrupt(BUTTON_STEP), changeStep, RISING);      // whenever the BUTTON_STEP goes from LOW to HIGH
-  attachInterrupt(digitalPinToInterrupt(BUTTON_BAND), changeBand, RISING);      // whenever the BUTTON_BAND goes from LOW to HIGH
-  attachInterrupt(digitalPinToInterrupt(BUTTON_VFO_BFO), switchVFOBFO, RISING); // whenever the BUTTON_VFO_BFO goes from LOW to HIGH
-  // wait for 1/2 second and the system will be ready.
-  delay(500);
+  delay(100);
 }
 
 // Blink the STATUS LED
@@ -213,9 +210,6 @@ void displayDial()
     staticFreq = "VFO";
     dinamicFreq = "BFO";
   }
-
-  // display.setCursor(0,0)
-  // display.clear();
 
   display.set2X();
   display.setCursor(0, 0);
@@ -270,48 +264,6 @@ void changeFreq(int direction)
   isFreqChanged = true;
 }
 
-// Change frequency increment rate
-void changeStep()
-{
-  if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
-    return;                                                            // nothing to do if the time less than MIN_ELAPSED_TIME milisecounds
-  noInterrupts();                                                      //// disable global interrupts:
-  if (currentClock == 0)                                               // Is VFO
-    currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0; // Increment the step or go back to the first
-  else                                                                 // Is BFO
-    currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
-  isFreqChanged = true;
-  clearDisplay = true;
-  elapsedTimeInterrupt = millis();
-  interrupts(); // enable interrupts
-}
-
-// Change band
-void changeBand()
-{
-  if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
-    return;                                                       // nothing to do if the time less than 11 milisecounds
-  noInterrupts();                                                 //  disable global interrupts:
-  currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
-  vfoFreq = band[currentBand].minFreq;
-  isFreqChanged = true;
-  elapsedTimeInterrupt = millis();
-  interrupts(); // enable interrupts
-}
-
-// Switch the Encoder control from VFO to BFO and virse versa.
-void switchVFOBFO()
-{
-  if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
-    return;       // nothing to do if the time less than 11 milisecounds
-  noInterrupts(); //  disable global interrupts:
-  currentClock = !currentClock;
-  currentStep = 0; // go back to first Step (100Hz)
-  clearDisplay = true;
-  elapsedTimeInterrupt = millis();
-  interrupts(); // enable interrupts
-}
-
 // main loop
 void loop()
 {
@@ -327,50 +279,6 @@ void loop()
     encoder_prev = encoder_pin_a;
     elapsedTimeEncoder = millis(); // keep elapsedTimeEncoder updated
   }
-
-  // check IR remote control action
-  if (irrecv.decode(&results))
-  {
-    switch (results.value)
-    {
-    case BT_RIGHT_PRESSED:
-    case BT_RIGHT_TOUCH:
-      changeFreq(1);      // VFO or BFO increment 
-      break;
-    case BT_LEFT_PRESSED:
-    case BT_LEFT_TOUCH:
-      changeFreq(-1);      // VFO or BFO decrement
-      break;
-    case BT_UP_PRESSED:
-    case BT_UP_TOUCH:
-      // Go to next band
-      currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
-      vfoFreq = band[currentBand].minFreq;
-      isFreqChanged = true;
-      break;
-    case BT_DOWN_PRESSED:
-    case BT_DOWN_TOUCH:
-      // Go to previous band.  If it is the first go to the last band 
-      currentBand = (currentBand > 0) ? (currentBand + 1) : lastBand; 
-      vfoFreq = band[currentBand].minFreq;
-      isFreqChanged = true;
-      break;
-    case BT_ON_OFF_PRESSED:
-    case BT_ON_OFF_TOUCH:
-         // To do 
-      break;
-    case BT_AV_TV_PRESSED:
-    case BT_AV_TV_TOUCH:
-          currentClock = !currentClock;
-          currentStep = 0; // go back to first Step (100Hz)
-          clearDisplay = true;
-      break;
-    default:
-      break;
-    }
-    irrecv.resume(); // Ready to receive next value
-  }
-
   // check if some action changed the frequency
   if (isFreqChanged)
   {
@@ -385,7 +293,77 @@ void loop()
     isFreqChanged = false;
     displayDial();
   }
-  else if (clearDisplay)
+
+  // check if some button is pressed
+  if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
+  {
+    currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
+    vfoFreq = band[currentBand].minFreq;
+    isFreqChanged = true;
+    elapsedButton = millis();
+  }
+  else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
+  {
+    if (currentClock == 0)                                               // Is VFO
+      currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0; // Increment the step or go back to the first
+    else                                                                 // Is BFO
+      currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
+    isFreqChanged = true;
+    clearDisplay = true;
+    elapsedButton = millis();
+  }
+  else if (digitalRead(BUTTON_VFO_BFO) && (millis() - elapsedButton) > MIN_ELAPSED_TIME == HIGH)
+  {
+    currentClock = !currentClock;
+    currentStep = 0; // go back to first Step
+    clearDisplay = true;
+    elapsedButton = millis();
+  }
+
+  // check IR remote control action
+  if (irrecv.decode(&results))
+  {
+    switch (results.value)
+    {
+    case BT_RIGHT_PRESSED:
+    case BT_RIGHT_TOUCH:
+      changeFreq(1); // VFO or BFO increment
+      break;
+    case BT_LEFT_PRESSED:
+    case BT_LEFT_TOUCH:
+      changeFreq(-1); // VFO or BFO decrement
+      break;
+    case BT_UP_PRESSED:
+    case BT_UP_TOUCH:
+      // Go to next band
+      currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
+      vfoFreq = band[currentBand].minFreq;
+      isFreqChanged = true;
+      break;
+    case BT_DOWN_PRESSED:
+    case BT_DOWN_TOUCH:
+      // Go to previous band.  If it is the first go to the last band
+      currentBand = (currentBand > 0) ? (currentBand + 1) : lastBand;
+      vfoFreq = band[currentBand].minFreq;
+      isFreqChanged = true;
+      break;
+    case BT_ON_OFF_PRESSED:
+    case BT_ON_OFF_TOUCH:
+      // To do
+      break;
+    case BT_AV_TV_PRESSED:
+    case BT_AV_TV_TOUCH:
+      currentClock = !currentClock;
+      currentStep = 0; // go back to first Step (100Hz)
+      clearDisplay = true;
+      break;
+    default:
+      break;
+    }
+    irrecv.resume(); // Ready to receive next value
+  }
+
+  if (clearDisplay)
   {
     display.clear();
     displayDial();
