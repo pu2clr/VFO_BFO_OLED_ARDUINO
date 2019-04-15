@@ -4,7 +4,7 @@ If you have an Arduino UNO, Nano, Mini or other based on Atmega328, you might wa
 
 The main modifications are: 
 
-- No __valitile__ variable was declared;
+- No __valatile__ variable was declared;
 - No external interrupt was used; 
 - All Buttons devices are controlled on main loop.
 
