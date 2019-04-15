@@ -7,7 +7,8 @@
                 "/Applications/Arduino.app/Contents/Java/tools/**",
                 "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/**",
                 "${workspaceFolder}/**",
-                "/Users/rcaratti/Documents/Arduino/libraries/**"
+                "/Users/rcaratti/Documents/Arduino/libraries/**",
+                "/Users/rcaratti/Documents/Arduino/libraries/IRremote"
             ],
             "defines": [],
             "macFrameworkPath": [
