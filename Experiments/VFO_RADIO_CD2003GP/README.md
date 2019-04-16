@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This folder has an example of using the VFO and BFO project with a inexpencive radio based on CD2003GP chip. A $6 comercial radio was modified to be tuned by the VFO with si5351 controlled by Arduino. 
+This folder has an example of using the VFO and BFO project with a inexpencive radio based on CD2003GP chip. A $6 commercial radio was modified to be tuned by the VFO with si5351 controlled by Arduino. 
 
 
 
@@ -27,8 +27,8 @@ This folder has an example of using the VFO and BFO project with a inexpencive r
 
 
 
-#### Inexpensive Comercial Radio
-![Photo 3 - Inexpensive comercial radio](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/inexpensive_receiver_01.jpg)
+#### Inexpensive Commercial Radio
+![Photo 3 - Inexpensive commercial radio](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/inexpensive_receiver_01.jpg)
 
 
 
