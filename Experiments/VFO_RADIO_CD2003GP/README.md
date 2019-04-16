@@ -1,29 +1,17 @@
-# Simple BFO with si5351 controlled by Arduino
+# VFO and BFO project with a inexpencive radio based on CD2003GP 
 
 ## Table of contents
 
-1. [Introduction](https://github.com/pu2clr/BFO#introduction)
-1. [Components](https://github.com/pu2clr/BFO#components)
-1. [Schematic](https://github.com/pu2clr/BFO#this-bfo-interface)
-1. [BFO interface](https://github.com/pu2clr/BFO#bfo-interface)
-1. [Arduino pins and  Encoder, Step, Reset BFO and Turt On or Off commands](https://github.com/pu2clr/BFO#arduino-pins-and--encoder-step-reset-bfo-and-turn-on-or-off-commands)
-1. [SI5351 Calibration](https://github.com/pu2clr/BFO#si5351-calibration)
-1. [References](https://github.com/pu2clr/BFO#references)
-1. [Videos about this project](https://github.com/pu2clr/BFO#videos-about-this-project)
+
 
 
 ## Introduction
 
-The Si5351 is an I2C configurable clock generator that is very appropriate for receivers and transceivers projects in amateur radio applications. It is also suited for replacing crystal oscillators. It has three outputs that you can get three distinct frequencies at the same time. A great feature of the Si5351A is the possibility of using it with a microcontroller or platform like Arduino, PIC family and others. This small project is about a BFO that you can control the output of the Si5351A by using the Arduino Micro (Atmega32u4).  The BFO tested here ocilates from 452KHz to 458KHz. However, you can change this range for other between 8Kz to 160MHz. Click [here](https://youtu.be/AG9XZ8bdaNM) to watch a video about this BFO.
-
-See also the similar project ["VFO and BFO with Si5351 and OLED,  controlled by Arduino (Micro)"](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO) 
+This folder has an example of using the VFO and BFO project with a inexpencive radio based on CD2003GP chip. A $6 comercial radio was modified to be tuned by the VFO with si5351 controlled by Arduino. 
 
 
-### Using this BFO to listening to 15 meters ham radio station on USB mode
 
-The first real test with this BFO project was made with a commercial radio that does not have SSB support. 
-
-The Redsun RP-2100 is a multi-band commercial radio. It has no SSB internal support. However, it has an IF AM output that allows the user to connect a BFO or a Down-Converter (455 KHz to 12 KHz) to provide SSB, DRM and other modes. The photos bellow show the radio and BFO setup. You can also watch the video "[BFO with SI5351 and Arduino test with REDSUN RP2100](https://youtu.be/AG9XZ8bdaNM)".
+### 
 
 #### Photo one
 ![Photo One](/images/BFO_01.png)
