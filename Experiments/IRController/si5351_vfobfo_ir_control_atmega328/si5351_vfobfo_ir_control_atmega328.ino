@@ -20,10 +20,10 @@
 #include <IRremote.h>
 
 // Enconder PINs
-#define ENCODER_PIN_A 8 // Arduino  D08
-#define ENCODER_PIN_B 9 // Arduino  D09
+#define ENCODER_PIN_A 5 // Arduino  D08
+#define ENCODER_PIN_B 6 // Arduino  D09
 
-#define IR_RECEIVER_PIN 6 // Arduino D06 (Receive IR signal)
+#define IR_RECEIVER_PIN 9 // Arduino D06 (Receive IR signal)
 
 // Arduino IR remote control.
 // See how you can know the code returned by your IR remote control on CheckYourRemoteControl
@@ -47,16 +47,16 @@
 // Change this value below  (CORRECTION_FACTOR) to 0 if you do not know the correction factor of your Si5351A.
 #define CORRECTION_FACTOR 80000 // See how to calibrate your Si5351A (0 if you do not want).
 
-#define BUTTON_STEP 0    // Control the frequency increment and decrement
-#define BUTTON_BAND 1    // Controls the band
-#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
+#define BUTTON_STEP 4    // Control the frequency increment and decrement
+#define BUTTON_BAND 3    // Controls the band
+#define BUTTON_VFO_BFO 2 // Switch VFO to BFO
 
 // BFO range for this project is 400KHz to 500KHz. The central frequency is 455KHz.
 #define MAX_BFO 45800000LU    // BFO maximum frequency
 #define CENTER_BFO 45500000LU // BFO centeral frequency
 #define MIN_BFO 45200000LU    // BFO minimum frequency
 
-#define STATUS_LED 10 // Arduino status LED Pin 10
+#define STATUS_LED 13 // Arduino status LED Pin 10
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
 #define MIN_ELAPSED_TIME 300
 
