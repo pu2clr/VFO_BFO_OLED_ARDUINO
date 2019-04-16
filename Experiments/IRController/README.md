@@ -1,6 +1,13 @@
 # IR Remote Control Implemetation for the VFO and BFO
 
 
+
+## Schematic 
+
+
+![Schematic VFO And BFO with SI5351, OLED, IR and Arduino Atmega 328](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/IRController/schematic/vfobfo_ir_schematic.png)
+
+
 Use the sketch [CheckYourRemoteControl.ino](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/IRController/CheckYourRemoteControl/CheckYourRemoteControl.ino) to check your IR remote control. 
 
 
