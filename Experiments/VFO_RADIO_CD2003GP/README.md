@@ -40,15 +40,18 @@ This folder has an example of using the VFO and BFO project with a inexpencive r
 
 
 
+#### Sugested Modification
+
+__IMPORTANTE__: Do not do this if you do not feel safe in doing so.
+
+![Photo 2 - CD2003GP](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/CD2003GP_application_circuit_modification.png)
+
 
 ![Photo 3 - Motification ](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/inexpensive_receiver_03.jpg)
 
 
 
-## Components
 
 
-
-## BFO interface
 
 
