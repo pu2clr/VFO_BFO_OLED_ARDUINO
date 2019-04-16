@@ -20,10 +20,10 @@
 #include <IRremote.h>
 
 // Enconder PINs
-#define ENCODER_PIN_A 5 // Arduino  D08
-#define ENCODER_PIN_B 6 // Arduino  D09
+#define ENCODER_PIN_A 5 // Arduino  Pin 5
+#define ENCODER_PIN_B 6 // Arduino  Pin 6
 
-#define IR_RECEIVER_PIN 9 // Arduino D06 (Receive IR signal)
+#define IR_RECEIVER_PIN 9 // Arduino Pin 9 (Receive IR signal)
 
 // Arduino IR remote control.
 // See how you can know the code returned by your IR remote control on CheckYourRemoteControl
@@ -56,7 +56,7 @@
 #define CENTER_BFO 45500000LU // BFO centeral frequency
 #define MIN_BFO 45200000LU    // BFO minimum frequency
 
-#define STATUS_LED 13 // Arduino status LED Pin 10
+#define STATUS_LED 13 // Arduino status LED Pin 13
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
 #define MIN_ELAPSED_TIME 300
 

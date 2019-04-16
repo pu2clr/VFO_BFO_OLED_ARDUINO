@@ -18,8 +18,8 @@
 #include "SSD1306AsciiAvrI2c.h"
 
 // Enconder PINs
-#define ENCODER_PIN_A 5 // Arduino  D08
-#define ENCODER_PIN_B 6 // Arduino  D09
+#define ENCODER_PIN_A 5 // Arduino  Pin 5
+#define ENCODER_PIN_B 6 // Arduino  Pin 6
 
 // OLED Diaplay constants
 #define I2C_ADDRESS 0x3C
@@ -37,7 +37,7 @@
 #define CENTER_BFO 45500000LU // BFO centeral frequency
 #define MIN_BFO 45200000LU    // BFO minimum frequency
 
-#define STATUS_LED      13     // Arduino status LED Pin 10
+#define STATUS_LED      13     // Arduino status LED Pin 13
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
 #define MIN_ELAPSED_TIME 300
 
