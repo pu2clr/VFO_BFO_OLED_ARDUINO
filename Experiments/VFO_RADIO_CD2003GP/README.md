@@ -26,7 +26,6 @@ This folder has an example of using the VFO and BFO project with a inexpencive r
 [Source - CD2003GP Datasheet](http://www.datasheetcafe.com/cd2003gp-datasheet-pdf/)
 
 
-
 #### Inexpensive Commercial Radio
 ![Photo 3 - Inexpensive commercial radio](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/inexpensive_receiver_01.jpg)
 
