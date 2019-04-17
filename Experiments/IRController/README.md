@@ -4,6 +4,7 @@
 
 ## Schematic 
 
+Suggested schematic to work with si5351, oled, IR and Arduino Atmega328
 
 ![Schematic VFO And BFO with SI5351, OLED, IR and Arduino Atmega 328](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/IRController/schematic/vfobfo_ir_schematic.png)
 

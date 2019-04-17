@@ -348,7 +348,7 @@ void loop()
       case BT_DOWN_PRESSED:
       case BT_DOWN_TOUCH:
         // Go to previous band.  If it is the first go to the last band
-        currentBand = (currentBand > 0) ? (currentBand + 1) : lastBand;
+        currentBand = (currentBand > 0) ? (currentBand - 1) : lastBand;
         vfoFreq = band[currentBand].minFreq;
         isFreqChanged = true;
         break;
@@ -358,8 +358,9 @@ void loop()
         break;
       case BT_AV_TV_PRESSED:
       case BT_AV_TV_TOUCH:
+        // Switch VFO and BFO
         currentClock = !currentClock;
-        currentStep = 0; // go back to first Step (100Hz)
+        currentStep = 0; // go back to first Step 
         clearDisplay = true;
         break;
       default:
