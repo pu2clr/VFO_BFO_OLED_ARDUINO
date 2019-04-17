@@ -15,8 +15,9 @@
 #include "SSD1306AsciiAvrI2c.h"
 
 // Enconder PINs
-#define ENCODER_PIN_A 8 // Arduino  D08
-#define ENCODER_PIN_B 9 // Arduino  D09
+#define ENCODER_PIN_A 5 // Arduino  Pin 5
+#define ENCODER_PIN_B 6 // Arduino  Pin 6
+
 
 // OLED Diaplay constants
 #define I2C_ADDRESS 0x3C
@@ -25,9 +26,10 @@
 // Change this value below  (CORRECTION_FACTOR) to 0 if you do not know the correction factor of your Si5351A.
 #define CORRECTION_FACTOR 80000 // See how to calibrate your Si5351A (0 if you do not want).
 
-#define BUTTON_STEP 0    // Control the frequency increment and decrement
-#define BUTTON_BAND 1    // Controls the band
-#define BUTTON_VFO_BFO 7 // Switch VFO to BFO
+
+#define BUTTON_STEP 4    // Control the frequency increment and decrement
+#define BUTTON_BAND 3    // Controls the band
+#define BUTTON_VFO_BFO 2 // Switch VFO to BFO
 
 // BFO range for this project is 400KHz to 500KHz. The central frequency is 455KHz.
 #define MAX_BFO 45800000LU    // BFO maximum frequency
@@ -35,7 +37,7 @@
 #define MIN_BFO 45200000LU    // BFO minimum frequency
 
 
-#define STATUS_LED 10 // Arduino status LED Pin 10
+#define STATUS_LED 13 // Arduino status LED Pin 10
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
 #define MIN_ELAPSED_TIME 300
 
@@ -95,7 +97,7 @@ volatile uint64_t bfoFreq = CENTER_BFO;                // 455 KHz for this proje
 // BFO is the Si5351A CLK1
 volatile int currentClock = 0; // If 0, then VFO will be controlled else the BFO will be
 
-long volatile elapsedTimeInterrupt = millis(); // will control the minimum time to process an interrupt action
+long volatile elapsedButton = millis(); // will control the minimum time to process an interrupt action
 long elapsedTimeEncoder = millis();
 
 // Encoder variable control
@@ -141,14 +143,7 @@ void setup()
 
   si5351.update_status();
   // Show the initial system information
-  delay(500);
-
-  // Will stop what Arduino is doing and call changeStep(), changeBand() or switchVFOBFO
-  attachInterrupt(digitalPinToInterrupt(BUTTON_STEP), changeStep, RISING);      // whenever the BUTTON_STEP goes from LOW to HIGH
-  attachInterrupt(digitalPinToInterrupt(BUTTON_BAND), changeBand, RISING);      // whenever the BUTTON_BAND goes from LOW to HIGH
-  // attachInterrupt(digitalPinToInterrupt(BUTTON_VFO_BFO), switchVFOBFO, RISING); // whenever the BUTTON_VFO_BFO goes from LOW to HIGH
-  // wait for 1/2 second and the system will be ready.
-  delay(500);
+  delay(100);
 }
 
 // Blink the STATUS LED
@@ -162,6 +157,7 @@ void blinkLed(int pinLed, int blinkDelay)
     delay(blinkDelay);
   }
 }
+
 
 // Show Signal Generator Information
 // Verificar setCursor() em https://github.com/greiman/SSD1306Ascii/issues/53
@@ -177,21 +173,18 @@ void displayDial()
   // Change the display behaviour depending on who is controlled, BFO or BFO.
   if (currentClock == 0)
   { // If the encoder is controlling the VFO
-    mainFreq = String(vfo,3);
-    secoundFreq = String(bfo,3);
+    mainFreq = String(vfo, 3);
+    secoundFreq = String(bfo, 3);
     staticFreq = "BFO";
     dinamicFreq = "VFO";
   }
   else // encoder is controlling the VFO
   {
-    mainFreq = String(bfo,3);
-    secoundFreq = String(vfo,3);
+    mainFreq = String(bfo, 3);
+    secoundFreq = String(vfo, 3);
     staticFreq = "VFO";
     dinamicFreq = "BFO";
   }
-
-  // display.setCursor(0,0)
-  // display.clear();
 
   display.set2X();
   display.setCursor(0, 0);
@@ -212,7 +205,6 @@ void displayDial()
 
   display.print("\n\nCtrl: ");
   display.print(dinamicFreq);
-
 }
 
 // Change the frequency (increment or decrement)
@@ -247,48 +239,6 @@ void changeFreq(int direction)
   isFreqChanged = true;
 }
 
-// Change frequency increment rate
-void changeStep()
-{
-  if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
-    return;                                                            // nothing to do if the time less than MIN_ELAPSED_TIME milisecounds
-  noInterrupts();                                                      //// disable global interrupts:
-  if (currentClock == 0)                                               // Is VFO
-    currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0; // Increment the step or go back to the first
-  else                                                                 // Is BFO
-    currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
-  isFreqChanged = true;
-  clearDisplay = true;
-  elapsedTimeInterrupt = millis();
-  interrupts(); // enable interrupts
-}
-
-// Change band
-void changeBand()
-{
-  if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
-    return;                                                       // nothing to do if the time less than 11 milisecounds
-  noInterrupts();                                                 //  disable global interrupts:
-  currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
-  vfoFreq = band[currentBand].minFreq;
-  isFreqChanged = true;
-  elapsedTimeInterrupt = millis();
-  interrupts(); // enable interrupts
-}
-
-// Switch the Encoder control from VFO to BFO and virse versa.
-void switchVFOBFO()
-{
-  if ((millis() - elapsedTimeInterrupt) < MIN_ELAPSED_TIME)
-    return;       // nothing to do if the time less than 11 milisecounds
-  noInterrupts(); //  disable global interrupts:
-  currentClock = !currentClock;
-  currentStep = 0; // go back to first Step (100Hz)
-  clearDisplay = true;
-  elapsedTimeInterrupt = millis();
-  interrupts(); // enable interrupts
-}
-
 // main loop
 void loop()
 {
@@ -318,7 +268,34 @@ void loop()
     isFreqChanged = false;
     displayDial();
   }
-  else if (clearDisplay)
+  
+  // check if some button is pressed
+  if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
+  {
+    currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
+    vfoFreq = band[currentBand].minFreq;
+    isFreqChanged = true;
+    elapsedButton = millis();
+  }
+  else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
+  {
+    if (currentClock == 0)                                               // Is VFO
+      currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0; // Increment the step or go back to the first
+    else                                                                 // Is BFO
+      currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
+    isFreqChanged = true;
+    clearDisplay = true;
+    elapsedButton = millis();
+  }
+  else if (digitalRead(BUTTON_VFO_BFO) && (millis() - elapsedButton) > MIN_ELAPSED_TIME == HIGH)
+  {
+    currentClock = !currentClock;
+    currentStep = 0; // go back to first Step
+    clearDisplay = true;
+    elapsedButton = millis();
+  }
+  
+  if (clearDisplay)
   {
     display.clear();
     displayDial();
