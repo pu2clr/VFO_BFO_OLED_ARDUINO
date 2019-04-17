@@ -12,6 +12,8 @@ void setup()
   irrecv.enableIRIn(); // Initiate the IR Receiver
 
   Serial.println("Ready to receive...");
+  Serial.println(".");
+  
 }
 
 void loop()
@@ -19,8 +21,8 @@ void loop()
   // Check the IR. Does it have something?  
   if (irrecv.decode(&results))
     { // If so.. 
-     Serial.println("Take note. It is the code for this action: ");
-     Serial.print(results.value);
+     Serial.print("Take note. It is the code for this action: ");
+     Serial.println(results.value);
      irrecv.resume(); // Ready to receive the next value
     }
 }

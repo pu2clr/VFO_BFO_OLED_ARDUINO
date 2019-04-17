@@ -1,8 +1,8 @@
 
 /*
   Experiment 01: VFO and BFO with SI5351 and Arduino controlled by IR Control
-                 Arduino Atmega328 (Nano, Uno, Mini etc) 
-                 
+                 Arduino Atmega328 (Nano, Uno, Mini etc)
+
   Program to control the "Adafruit Si5351A Clock Generator" or similar via Arduino.
   This program control the frequencies of two clocks (CLK) output of the Si5351A
   The CLK 0 can be used as a VFO (100KHz to 160MHz)
@@ -27,18 +27,21 @@
 
 // Arduino IR remote control.
 // See how you can know the code returned by your IR remote control on CheckYourRemoteControl
-#define BT_RIGHT_PRESSED 2064  // right button keep pressed
-#define BT_RIGHT_TOUCH 16      // right button single touch
-#define BT_LEFT_PRESSED 2065   // left button keep pressed
-#define BT_LEFT_TOUCH 17       // left button single touch
-#define BT_UP_PRESSED 2080     // up button keep pressed
-#define BT_UP_TOUCH 32         // up button single touch
-#define BT_DOWN_PRESSED 2081   // down button  keep pressed
-#define BT_DOWN_TOUCH 33       // down button single touch
-#define BT_ON_OFF_PRESSED 2060 // On/Off button keep pressed
-#define BT_ON_OFF_TOUCH 12     // On/OFF button single touch
-#define BT_AV_TV_PRESSED 2059  // AV/TV button keep pressed
-#define BT_AV_TV_TOUCH 11      // AV/TV button sigle touch
+#define BT_RIGHT_PRESSED    2534322984     // right button keep pressed
+#define BT_RIGHT_TOUCH      1538629332     // right button single touch
+#define BT_LEFT_PRESSED     1488296477     // left button keep pressed
+#define BT_LEFT_TOUCH       2483990129     // left button single touch
+#define BT_UP_PRESSED       2524690444     // up button keep pressed
+#define BT_UP_TOUCH         3520384096     // up button single touch
+#define BT_DOWN_PRESSED     2474357589     // down button  keep pressed
+#define BT_DOWN_TOUCH       3470051241     // down button single touch
+#define BT_ON_OFF_PRESSED   1393407612     // On/Off button keep pressed
+#define BT_ON_OFF_TOUCH     397713960      // On/OFF button single touch
+#define BT_AV_TV_PRESSED    2535175576     // AV/TV button keep pressed
+#define BT_AV_TV_TOUCH      3619069895     // AV/TV button sigle touch
+#define BT_MUTE_PRESSED     448046817      // MUTE keep pressed
+#define BT_MUTE_TOUCH       1443740469     // MUTE button sigle touch
+
 
 // OLED Diaplay constants
 #define I2C_ADDRESS 0x3C
@@ -81,13 +84,14 @@ typedef struct
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
-    {"LW/MW ", 10000000LLU, 170000000LLU},
-    {"SW1  ", 170000000LLU, 1000000000LLU},
-    {"SW2  ", 1000000000LLU, 2000000000LLU},
-    {"SW3  ", 1100000000LLU, 3000000000LLU},
-    {"VHF1 ", 3000000000LLU, 8600000000LLU},
-    {"FM   ", 8600000000LLU, 10800000000LLU},
-    {"VHF2 ", 10800000000LLU, 16000000000LLU}};
+  {"LW/MW ", 10000000LLU, 170000000LLU},
+  {"SW1  ", 170000000LLU, 1000000000LLU},
+  {"SW2  ", 1000000000LLU, 2000000000LLU},
+  {"SW3  ", 1100000000LLU, 3000000000LLU},
+  {"VHF1 ", 3000000000LLU, 8600000000LLU},
+  {"FM   ", 8600000000LLU, 10800000000LLU},
+  {"VHF2 ", 10800000000LLU, 16000000000LLU}
+};
 
 // Calculate the last element position (index) of the array band
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
@@ -102,13 +106,14 @@ typedef struct
 
 // Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
-    {"10Hz  ", 1000}, // VFO and BFO min. increment / decrement
-    {"50Hz  ", 5000},
-    {"500Hz ", 50000},
-    {"1KHz  ", 100000}, // BFO max. increment / decrement
-    {"5KHz  ", 500000},
-    {"50KHz", 5000000},
-    {"500KHz", 50000000}}; // VFO max. increment / decrement
+  {"10Hz  ", 1000}, // VFO and BFO min. increment / decrement
+  {"50Hz  ", 5000},
+  {"500Hz ", 50000},
+  {"1KHz  ", 100000}, // BFO max. increment / decrement
+  {"5KHz  ", 500000},
+  {"50KHz", 5000000},
+  {"500KHz", 50000000}
+}; // VFO max. increment / decrement
 
 // Calculate the index of last position of step[] array (in this case will be 8)
 const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
@@ -121,8 +126,8 @@ boolean clearDisplay = false;
 // LW/MW is the default band
 uint64_t vfoFreq = band[currentBand].minFreq; // VFO starts on AM
 uint64_t bfoFreq = CENTER_BFO;                // 455 KHz for this project
-                                              // VFO is the Si5351A CLK0
-                                              // BFO is the Si5351A CLK1
+// VFO is the Si5351A CLK0
+// BFO is the Si5351A CLK1
 int currentClock = 0;                         // If 0, then VFO will be controlled else the BFO will be
 
 long elapsedButton = millis(); // will control the minimum time to process an interrupt action
@@ -273,7 +278,7 @@ void loop()
     encoder_pin_a = digitalRead(ENCODER_PIN_A);
     encoder_pin_b = digitalRead(ENCODER_PIN_B);
     if ((!encoder_pin_a) && (encoder_prev)) // has ENCODER_PIN_A gone from high to low?
-    {                                       // if so,  check ENCODER_PIN_B. It is high then clockwise (1) else counter-clockwise (-1)
+    { // if so,  check ENCODER_PIN_B. It is high then clockwise (1) else counter-clockwise (-1)
       changeFreq(((encoder_pin_b) ? 1 : -1));
     }
     encoder_prev = encoder_pin_a;
@@ -321,46 +326,47 @@ void loop()
   }
 
   // check IR remote control action
-  if (irrecv.decode(&results))
+  if (irrecv.decode(&results) && (millis() - elapsedButton) > MIN_ELAPSED_TIME )
   {
     switch (results.value)
     {
-    case BT_RIGHT_PRESSED:
-    case BT_RIGHT_TOUCH:
-      changeFreq(1); // VFO or BFO increment
-      break;
-    case BT_LEFT_PRESSED:
-    case BT_LEFT_TOUCH:
-      changeFreq(-1); // VFO or BFO decrement
-      break;
-    case BT_UP_PRESSED:
-    case BT_UP_TOUCH:
-      // Go to next band
-      currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
-      vfoFreq = band[currentBand].minFreq;
-      isFreqChanged = true;
-      break;
-    case BT_DOWN_PRESSED:
-    case BT_DOWN_TOUCH:
-      // Go to previous band.  If it is the first go to the last band
-      currentBand = (currentBand > 0) ? (currentBand + 1) : lastBand;
-      vfoFreq = band[currentBand].minFreq;
-      isFreqChanged = true;
-      break;
-    case BT_ON_OFF_PRESSED:
-    case BT_ON_OFF_TOUCH:
-      // To do
-      break;
-    case BT_AV_TV_PRESSED:
-    case BT_AV_TV_TOUCH:
-      currentClock = !currentClock;
-      currentStep = 0; // go back to first Step (100Hz)
-      clearDisplay = true;
-      break;
-    default:
-      break;
+      case BT_RIGHT_PRESSED:
+      case BT_RIGHT_TOUCH:
+        changeFreq(1); // VFO or BFO increment
+        break;
+      case BT_LEFT_PRESSED:
+      case BT_LEFT_TOUCH:
+        changeFreq(-1); // VFO or BFO decrement
+        break;
+      case BT_UP_PRESSED:
+      case BT_UP_TOUCH:
+        // Go to next band
+        currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
+        vfoFreq = band[currentBand].minFreq;
+        isFreqChanged = true;
+        break;
+      case BT_DOWN_PRESSED:
+      case BT_DOWN_TOUCH:
+        // Go to previous band.  If it is the first go to the last band
+        currentBand = (currentBand > 0) ? (currentBand + 1) : lastBand;
+        vfoFreq = band[currentBand].minFreq;
+        isFreqChanged = true;
+        break;
+      case BT_ON_OFF_PRESSED:
+      case BT_ON_OFF_TOUCH:
+        // To do
+        break;
+      case BT_AV_TV_PRESSED:
+      case BT_AV_TV_TOUCH:
+        currentClock = !currentClock;
+        currentStep = 0; // go back to first Step (100Hz)
+        clearDisplay = true;
+        break;
+      default:
+        break;
     }
     irrecv.resume(); // Ready to receive next value
+    elapsedButton = millis();
   }
 
   if (clearDisplay)
