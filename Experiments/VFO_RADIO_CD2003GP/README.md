@@ -10,8 +10,12 @@
 This folder has an example of using the VFO and BFO project with a inexpencive radio based on CD2003GP chip. A $6 commercial radio was modified to be tuned by the VFO with si5351 controlled by Arduino. 
 
 
+## Schematic used with Arduino Atmega328
 
-### Radio based on CD2003GP
+
+
+
+## Radio based on CD2003GP
 
 #### CD2003GP Block Diagram
 
