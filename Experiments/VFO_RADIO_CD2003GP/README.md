@@ -10,11 +10,11 @@
 This folder has an example of using the VFO and BFO project with a inexpencive radio based on CD2003GP chip. A $6 commercial radio was modified to be tuned by the VFO with si5351 controlled by Arduino. 
 
 
-## Schematic used with Arduino Atmega328 (Pro Mini)
+## Schematic used with Arduino Atmega328 (UNO, Pro Mini, Nano etc)
 
 ![Schematic used with Arduino Atmega328](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/vfobfo_ir_schematic_atemega328.png)
 
-Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/source/si5351_vfoCD2003GP_atmega328/si5351_vfoCD2003GP_atmega328.ino) to see the sketch used on Arduino Atmega328 (schematic above).
+__Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/source/si5351_vfoCD2003GP_atmega328/si5351_vfoCD2003GP_atmega328.ino) to see the sketch used on Arduino Atmega328 (schematic above).__
 
 
 
@@ -22,7 +22,7 @@ Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experime
 
 ![Schematic used with Arduino Atmega328](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/bfo_schematic.png)
 
-Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/source/si5351_vfoCD2003GP/si5351_vfoCD2003GP.ino) to see the sketch used on Arduino ATmega32U4 (schematic above).
+__Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/source/si5351_vfoCD2003GP/si5351_vfoCD2003GP.ino) to see the sketch used on Arduino ATmega32U4 (schematic above).__
 
 
 
