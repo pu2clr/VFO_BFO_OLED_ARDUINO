@@ -24,8 +24,12 @@ __English:__ Signal Generetor with Si5351, OLED and Arduino. This project is abo
 	1. [Changing the kind of display device](/Doc/En#changing-the-kind-of-display-device)
 	1. [SI5351 Calibration](/Doc/En#sI5351-calibration)
 1. [Photos](/Doc/En#photos)
-1. [References](/Doc/En#references)
-1. [Videos](/Doc/En#videos)
+1. [Expetiments and Applications](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments)
+   1. [The Arduino Atmega328 sketch of the BFO and VFO without use of external interruptions](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/Atmega328)  
+   2. [IR Remote Control Implemetation for the VFO and BFO (Atmega328)](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/IRController)
+   3. [VFO and BFO project with a inexpencive radio based on CD2003GP](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP)
+2. [References](/Doc/En#references)
+3. [Videos](/Doc/En#videos)
 
 ## Photo
 
