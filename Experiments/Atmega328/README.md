@@ -1,4 +1,4 @@
-# The Arduino sketch of the BFO and VFO without use of interruptions
+# The BFO and VFO impplemented on Atmega328 (without use of external interruptions)
 
 If you have an Arduino UNO, Nano, Mini or other based on Atmega328, you might want to use this sketch instead the original.
 
