@@ -11,8 +11,8 @@
 
 #include <si5351.h>
 #include <Wire.h>
-#include <SSD1306Ascii.h>
-#include <SSD1306AsciiAvrI2c.h>
+#include "SSD1306Ascii.h"
+#include "SSD1306AsciiAvrI2c.h"
 
 // Enconder PINs
 #define ENCODER_PIN_A 5 // Arduino  Pin 5
@@ -51,40 +51,26 @@ Si5351 si5351;
 typedef struct
 {
   char *name;
-  uint64_t minFreq; // Min. frequency value for the band (unit 0.01Hz)
-  uint64_t maxFreq; // Max. frequency value for the band (unit 0.01Hz)
-  uint64_t offset;
+  uint64_t minFreq;  // Min. frequency value for the band (unit 0.01Hz)
+  uint64_t maxFreq;  // Max. frequency value for the band (unit 0.01Hz)
+  uint64_t offset;   // Current frequency minus "offset" will be the real frequency on si5351
+  uint32_t step[4]; // Steps used for certain band
 } Band;
 
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
-    {"MW   ", 50000000LLU, 170000000LLU, 45500000LU}, // 100KHz to 1700KHz, offset 455KHz
-    {"SW1  ", 700000000LLU, 1000000000LLU, 45500000LU},
-    {"SW1  ", 1000000000LLU, 2000000000LLU, 45500000LU},
-    {"FM   ", 7600000000LLU, 10800000000LLU, 1075000000LLU}}; // 86MHz to 108MHz, ofdset 10,75MHz
+    {"MW   ", 50000000LLU, 170000000LLU, 45500000LU,{50000,100000,500000,1000000}},              // offset 455KHz; Steps: 500Hz, 1KHz, 5Khz e 10KHz 
+    {"SW1  ", 700000000LLU, 1000000000LLU, 45500000LU,{10000,100000,500000,1000000}},            // offset 455KHz; Steps: 100Hz, 1KHz, 5Khz e 10KHz 
+    {"SW1  ", 1000000000LLU, 2000000000LLU, 45500000LU,{10000,100000,500000,1000000}},           // offset 455KHz; Steps: 100Hz, 1KHz, 5Khz e 10KHz 
+    {"FM   ", 7600000000LLU, 10800000000LLU, 1075000000LLU,{500000,1000000,5000000,10000000}}};  // offset 10,75MHz; Steps 5KHz, 10KHz, 50KHz e 100KHz
 
 // Calculate the last element position (index) of the array band
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
 volatile int currentBand = 0;                          // First band. For this case, AM is the current band.
 
-// Struct for step database
-typedef struct
-{
-  char *name; // step label: 50Hz, 100Hz, 500Hz, 1KHz, 5KHz, 10KHz and 500KHz
-  long value; // Frequency value (unit 0.01Hz See documentation) to increment or decrement
-} Step;
-
-// Steps database. You can change the Steps and numbers of steps here if you need.
-Step step[] = {
-    {"1KHz  ", 100000}, 
-    {"5KHz  ", 500000},
-    {"50KHz ", 5000000},
-    {"100KHz", 10000000},
-    {"500KHz", 50000000}};
-// Calculate the index of last position of step[] array (in this case will be 8)
-const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
-volatile int lastStepBFO = 3;                             // index for max. increment / decrement for BFO. In this case will be is 1KHz
+const int lastStepVFO = 3;
+volatile int lastStepBFO = 1;                             // index for max. increment / decrement for BFO. In this case will be is 1KHz
 volatile long currentStep = 0;                            // it stores the current step index (50Hz in this case)
 
 volatile boolean isFreqChanged = false;

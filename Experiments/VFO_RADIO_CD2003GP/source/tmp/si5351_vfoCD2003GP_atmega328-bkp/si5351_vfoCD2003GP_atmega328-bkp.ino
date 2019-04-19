@@ -11,8 +11,8 @@
 
 #include <si5351.h>
 #include <Wire.h>
-#include <SSD1306Ascii.h>
-#include <SSD1306AsciiAvrI2c.h>
+#include "SSD1306Ascii.h"
+#include "SSD1306AsciiAvrI2c.h"
 
 // Enconder PINs
 #define ENCODER_PIN_A 5 // Arduino  Pin 5
@@ -77,7 +77,7 @@ typedef struct
 
 // Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
-    {"1KHz  ", 100000}, 
+    {"1KHz  ", 100000}, // BFO max. increment / decrement
     {"5KHz  ", 500000},
     {"50KHz ", 5000000},
     {"100KHz", 10000000},

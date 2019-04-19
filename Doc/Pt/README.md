@@ -444,6 +444,83 @@ Da mesma forma, os Botões, o Encoder e o LED, podem ser instalados em outros pi
 #define BUTTON_VFO_BFO 7 // Switch VFO to BFO
 ```
 
+
+### Explicando como o encoder foi codificado
+
+
+Não uso interrupção nem uma biblioteca específica para encoder. Simplesmente leio os pinos do encoder.
+
+O primeiro passo é informar ao Arduino que os pinos do Encoder são somente de ENTRADA (INPUT). Ver função setup().
+
+```cpp
+ pinMode(ENCODER_PIN_A, INPUT);
+ pinMode(ENCODER_PIN_B, INPUT);
+```
+
+Depois declaro as variáveis de controle do encoder (incluindo o tempo mínimo para a processar a próxima ação)
+
+```cpp
+long elapsedTimeEncoder = millis();
+
+// Encoder variable control
+unsigned char encoder_pin_a;
+unsigned char encoder_prev = 0;
+unsigned char encoder_pin_b;
+```
+
+O tipo unsigned char é na realidade um número inteiro, não sinalizado de 8 bits. Ele admite valores entre 0 e 255.  Poderia ser um int. A questão aqui é de economia de memória e de cíclo de máquina.
+
+a variável __encoder_prev__ armazena a última ação do encoder. Dessa forma, na iteração corrente, é póssivel fazer comparação com a ação anterior do encoder.
+
+Na função  loop(), o processo inicia checando se já ocorreu mais de 5 milisegundos após a última ação do encoder.  Caso não tenha ocorrido mais de 5 milissegundos, não efetua as leituras nos pinos do encoder (ignora o encoder). Isso é útil para eliminar efeitos indesejáveis causados pelo mal contato das placas metálicas do encoder (ver Debounce);
+
+```cpp
+if ((millis() - elapsedTimeEncoder) > 5)
+  {
+    encoder_pin_a = digitalRead(ENCODER_PIN_A);
+    encoder_pin_b = digitalRead(ENCODER_PIN_B);
+    if ((!encoder_pin_a) && (encoder_prev)) // has ENCODER_PIN_A gone from high to low?
+    {                                       // if so,  check ENCODER_PIN_B. It is high then clockwise (1) else counter-clockwise (-1)
+      changeFreq(((encoder_pin_b) ? 1 : -1));
+    }
+    encoder_prev = encoder_pin_a;
+    elapsedTimeEncoder = millis(); // keep elapsedTimeEncoder updated
+  }
+ ```
+
+caso o tempo decorrido entre a última ação do encoder e o tempo atual for maior que 5 milissegundos, eu leio os dois pinos em que o encoder está conectado.
+
+se o pino A (__encoder_pin_a__) estiver em nível lógico baixo (0) e o __encoder_prev__ (situação anterior deste pino) estiver em nível lógico alto (1), então é porque houve mudança no estado do encoder (houve giro).
+Lemvrando que __!encoder_pin_a__ poderá ter os seguintes resultados: se encoder_pin_a for 0, o resultado será 1 (verdadeiro); se  encoder_pin_a for 1, o resultado será 0 (falso).
+
+Se a expressão __if ((!encoder_pin_a) && (encoder_prev))__  for verdadeira, então houve giro no encoder. Agora é preciso determinar qual o sentido (horário ou anti-horário). Quem vai dizer isso é estado do __encoder_pin_b_. 
+Se __encoder_pin_b__ estiver em nível lógico alto (1), então é sentido horário. Caso contrário, nível lógico baixo (0), é anti-horário.
+A linguagem C permite uma atribuição condicional na forma apresentada no exemplo a seguir: 
+
+```cpp
+X = ( A > B)? 1:-1); 
+```
+Neste exemplo, X recebe 1 se A for maior que B; caso contrário, recebe -1.
+
+Observe a expressão dentro da chamada da função changeFreq():
+
+```cpp
+((encoder_pin_b) ? 1 : -1)
+```
+
+A função __changeFreq()__ recebe dois possíveis valores como parâmetros: 1 para incrementar a frequência (sentido horário do encoder); e -1 para decrementar (sentido anti-horário). 
+se __encoder_pin_b__ for 1, então changeFreq() será chamada com o valor 1 (equivalente à chamada changeFreq(1)). Caso contrário, __encoder_pin_b__ for igual a 0, changeFreq() será chamada com o valor -1 (equivalente à chamada changeFreq(-1)).
+
+Note que dentro do bloco atendida pela condição do encoder __[if ((millis() - elapsedTimeEncoder) > 5)]__, a ação corrente da variável __encoder_pin_a__ é armazenada na variável ___encoder_prev__. E também é atualizado o tempo em __elapsedTimeEncoder__.
+
+```cpp
+    encoder_prev = encoder_pin_a;
+    elapsedTimeEncoder = millis(); // keep elapsedTimeEncoder updated
+```
+
+com isso, após 5 milissegundos,  os pinos do encoder poderão ser lidos novamente e também ser feita a verificação de giro do encoder. 
+
+
 ### Interrupções externas
 
 Este projeto implementa os três botões (Band, Step e Switch VFO/BFO) usando o recurso interrupções externas do Arduino. No caso do Atmega32u4, os pinos 0,1,2,3 e 7 podem ser utilizados para esta finalidade. Desta forma, quando um dos botões for pressionado, o Arduido interroperá o fluxo de execução normal para executar o códio conectado a interrupção.  Entenda mais sobre Interrupções no Arduino clicando [aqui](https://www.arduino.cc/reference/pt/language/functions/external-interrupts/attachinterrupt/).
