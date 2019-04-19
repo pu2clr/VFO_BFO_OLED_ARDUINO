@@ -77,6 +77,9 @@ typedef struct
 
 // Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
+    {"10Hz  ",  1000},
+    {"100Hz ",  10000},
+    {"500Hz ",  50000},
     {"1KHz  ", 100000}, 
     {"5KHz  ", 500000},
     {"50KHz ", 5000000},
@@ -107,6 +110,7 @@ unsigned char encoder_pin_b;
 
 void setup()
 {
+  Serial.begin(9600);
   // LED Pin
   pinMode(STATUS_LED, OUTPUT);
   // Encoder pins
@@ -170,6 +174,7 @@ void displayDial()
   String staticFreq;
   String dinamicFreq;
 
+ 
   // Change the display behaviour depending on who is controlled, BFO or BFO.
   if (currentClock == 0)
   { // If the encoder is controlling the VFO
@@ -186,6 +191,7 @@ void displayDial()
     dinamicFreq = "BFO";
   }
 
+   
   display.set2X();
   display.setCursor(0, 0);
   display.print(mainFreq);
@@ -199,7 +205,7 @@ void displayDial()
 
   display.print("\nBand: ");
   display.print(band[currentBand].name);
-
+  
   display.print("\nStep: ");
   display.print(step[currentStep].name);
 
@@ -279,11 +285,11 @@ void loop()
   }
   else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
   {
-    if (currentClock == 0)                                               // Is VFO
+   if (currentClock == 0)                                               // Is VFO
       currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0; // Increment the step or go back to the first
     else                                                                 // Is BFO
       currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
-    isFreqChanged = true;
+    isFreqChanged = false;
     clearDisplay = true;
     elapsedButton = millis();
   }
