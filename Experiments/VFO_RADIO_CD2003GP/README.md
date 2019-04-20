@@ -1,4 +1,4 @@
-# VFO and BFO project with a inexpencive radio based on CD2003GP 
+# VFO and BFO project test with an inexpencive radio based on CD2003GP 
 
 ## Table of contents
 
@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This folder has an example of using the VFO and BFO project with a inexpencive radio based on CD2003GP chip. A $6 commercial radio was modified to be tuned by the VFO with si5351 controlled by Arduino. 
+This folder has an example of using the VFO and BFO project with an inexpencive radio based on CD2003GP chip. A $6 commercial radio was modified to be tuned by the VFO with si5351 controlled by Arduino. 
 
 
 ## Schematic used with Arduino Atmega328 (UNO, Pro Mini, Nano etc)

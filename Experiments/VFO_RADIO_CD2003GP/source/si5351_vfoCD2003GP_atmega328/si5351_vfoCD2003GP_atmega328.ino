@@ -51,18 +51,28 @@ Si5351 si5351;
 typedef struct
 {
   char *name;
-  uint64_t minFreq; // Min. frequency value for the band (unit 0.01Hz)
-  uint64_t maxFreq; // Max. frequency value for the band (unit 0.01Hz)
+  uint64_t minFreq;     // Min. frequency value for the band (unit 0.01Hz)
+  uint64_t maxFreq;     // Max. frequency value for the band (unit 0.01Hz)
   uint64_t offset;
+  char *unitFreq;       // MHz or KHz
+  long divider;         // value that will be the divider of current clock (just to present on display)
+  short decimals;       // number of digits after the comma
+  short initialStepIndex; // Index to the initial step of incrementing 
+  short finalStepIndex;   // Index to the final step of incrementing 
+  short starStepIndex;    // Index to start step of incrementing
 } Band;
 
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
-    {"MW   ", 50000000LLU, 170000000LLU, 45500000LU}, // 100KHz to 1700KHz, offset 455KHz
-    {"SW1  ", 700000000LLU, 1000000000LLU, 45500000LU},
-    {"SW1  ", 1000000000LLU, 2000000000LLU, 45500000LU},
-    {"FM   ", 7600000000LLU, 10800000000LLU, 1075000000LLU}}; // 86MHz to 108MHz, ofdset 10,75MHz
+    {"MW   ", 50000000LLU, 170000000LLU, 45500000LU, " KHz", 100000.0f, 2, 3, 6, 5},
+    {"SW1  ", 170000000LLU, 1000000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 6, 3},
+    {"SW2  ", 1000000000LLU, 2000000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 6, 3},
+    {"SW3  ", 2000000000LLU, 2000000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 6, 3},
+    {"VHF1 ", 3000000000LLU, 7600000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 7, 3},
+    {"FM   ", 7600000000LLU, 10800000000LLU, 1075000000LLU, " MHz", 100000000.0f, 1, 6, 8, 7},
+    {"AIR  ", 10800000000LLU, 13500000000LLU, 1075000000LLU, " MHz", 100000000.0f, 2, 2, 7, 5},
+    {"VFH2 ", 13500000000LLU, 16000000000LLU, 1075000000LLU, " MHz", 100000000.0f, 2, 2, 7, 5}};
 
 // Calculate the last element position (index) of the array band
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
@@ -77,18 +87,20 @@ typedef struct
 
 // Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
-    {"10Hz  ",  1000},
-    {"100Hz ",  10000},
-    {"500Hz ",  50000},
-    {"1KHz  ", 100000}, 
+    {"10Hz  ", 1000},
+    {"100Hz ", 10000},
+    {"500Hz ", 50000},
+    {"1KHz  ", 100000},
     {"5KHz  ", 500000},
+    {"10KHz  ",1000000},
     {"50KHz ", 5000000},
     {"100KHz", 10000000},
     {"500KHz", 50000000}};
+
 // Calculate the index of last position of step[] array (in this case will be 8)
 const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
 volatile int lastStepBFO = 3;                             // index for max. increment / decrement for BFO. In this case will be is 1KHz
-volatile long currentStep = 0;                            // it stores the current step index (50Hz in this case)
+volatile long currentStep = 4;                            // it stores the current step index (50Hz in this case)
 
 volatile boolean isFreqChanged = false;
 volatile boolean clearDisplay = false;
@@ -167,8 +179,8 @@ void blinkLed(int pinLed, int blinkDelay)
 // Verificar setCursor() em https://github.com/greiman/SSD1306Ascii/issues/53
 void displayDial()
 {
-  double vfo = vfoFreq / 100000.0;
-  double bfo = bfoFreq / 100000.0;
+  double vfo = (double)vfoFreq / band[currentBand].divider;
+  double bfo = (double)bfoFreq / 100000.0f;
   String mainFreq;
   String secoundFreq;
   String staticFreq;
@@ -178,15 +190,17 @@ void displayDial()
   // Change the display behaviour depending on who is controlled, BFO or BFO.
   if (currentClock == 0)
   { // If the encoder is controlling the VFO
-    mainFreq = String(vfo, 3);
-    secoundFreq = String(bfo, 3);
+    mainFreq = String(vfo, band[currentBand].decimals);
+    mainFreq.concat(band[currentBand].unitFreq);
+    secoundFreq = String(bfo, 2);
     staticFreq = "BFO";
     dinamicFreq = "VFO";
   }
   else // encoder is controlling the VFO
   {
-    mainFreq = String(bfo, 3);
-    secoundFreq = String(vfo, 3);
+    mainFreq = String(bfo, 2);
+    secoundFreq = String(vfo, band[currentBand].decimals);
+    secoundFreq.concat(band[currentBand].unitFreq);
     staticFreq = "VFO";
     dinamicFreq = "BFO";
   }
@@ -280,13 +294,14 @@ void loop()
   {
     currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
     vfoFreq = band[currentBand].minFreq;
+    currentStep = band[currentBand].starStepIndex;
     isFreqChanged = true;
     elapsedButton = millis();
   }
   else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
   {
    if (currentClock == 0)                                               // Is VFO
-      currentStep = (currentStep < lastStepVFO) ? (currentStep + 1) : 0; // Increment the step or go back to the first
+     currentStep = (currentStep < band[currentBand].finalStepIndex) ? (currentStep + 1) : band[currentBand].initialStepIndex; // Increment the step or go back to the first
     else                                                                 // Is BFO
       currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
     isFreqChanged = false;
