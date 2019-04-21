@@ -53,7 +53,7 @@ typedef struct
   char *name;
   uint64_t minFreq;     // Min. frequency value for the band (unit 0.01Hz)
   uint64_t maxFreq;     // Max. frequency value for the band (unit 0.01Hz)
-  uint64_t offset;
+  long long  offset;
   char *unitFreq;       // MHz or KHz
   float divider;         // value that will be the divider of current clock (just to present on display)
   short decimals;       // number of digits after the comma
