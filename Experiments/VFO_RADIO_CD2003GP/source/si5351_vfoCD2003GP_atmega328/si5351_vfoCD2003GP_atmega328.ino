@@ -55,7 +55,7 @@ typedef struct
   uint64_t maxFreq;     // Max. frequency value for the band (unit 0.01Hz)
   uint64_t offset;
   char *unitFreq;       // MHz or KHz
-  long divider;         // value that will be the divider of current clock (just to present on display)
+  float divider;         // value that will be the divider of current clock (just to present on display)
   short decimals;       // number of digits after the comma
   short initialStepIndex; // Index to the initial step of incrementing 
   short finalStepIndex;   // Index to the final step of incrementing 
@@ -65,14 +65,14 @@ typedef struct
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
-    {"MW   ", 50000000LLU, 170000000LLU, 45500000LU, " KHz", 100000.0f, 2, 3, 6, 5},
-    {"SW1  ", 170000000LLU, 1000000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 6, 3},
-    {"SW2  ", 1000000000LLU, 2000000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 6, 3},
-    {"SW3  ", 2000000000LLU, 3000000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 6, 3},
-    {"VHF1 ", 3000000000LLU, 7600000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 7, 3},
-    {"FM   ", 7600000000LLU, 10800000000LLU, 1075000000LLU, " MHz",  100000000.0f, 1, 6, 8, 7},
-    {"AIR  ", 10800000000LLU, 13500000000LLU, 1075000000LLU, " MHz", 100000000.0f, 2, 2, 7, 5},
-    {"VFH2 ", 13500000000LLU, 16000000000LLU, 1075000000LLU, " MHz", 100000000.0f, 2, 2, 7, 5}};
+    {"MW   ", 50000000LLU, 170000000LLU, 45500000LU, "KHz", 100000.0f, 2, 3, 6, 5},
+    {"SW1  ", 170000000LLU, 1000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 2, 6, 3},
+    {"SW2  ", 1000000000LLU, 2000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 2, 6, 3},
+    {"SW3  ", 2000000000LLU, 3000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 2, 6, 3},
+    {"VHF1 ", 3000000000LLU, 7600000000LLU, 45500000LU, "KHz", 100000.0f, 2, 2, 7, 3},
+    {"FM   ", 7600000000LLU, 10800000000LLU, 1075000000LLU, "MHz",  100000000.0f, 1, 6, 8, 7},
+    {"AIR  ", 10800000000LLU, 13500000000LLU, 1075000000LLU, "MHz", 100000000.0f, 2, 2, 7, 5},
+    {"VFH2 ", 13500000000LLU, 16000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 2, 2, 7, 5}};
 
 // Calculate the last element position (index) of the array band
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
