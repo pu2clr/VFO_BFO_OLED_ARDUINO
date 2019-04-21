@@ -97,7 +97,7 @@ The table below has the following information:
 - __Start Step Index__ - Default step index used for the band (see Step table)
 
 
-### Band information
+### Band Table 
 
 | Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Initial Step Index | Final Step Index | Start Step Index |
 | --------- | ----------------------- | -------------------- | ---------------- | -----------------| --------------- |------------------ | ---------------- | ---------------- |  
@@ -111,7 +111,22 @@ The table below has the following information:
 | VFH2 | 13500000000 | 16000000000 | 1075000000  | MHz| 100000000 | 2 | 2 | 7| 5 |
 
 
-### Step Information
+### Step Table 
+
+```cpp 
+// Steps database. You can change the Steps and numbers of steps here if you need.
+Step step[] = {
+    {"10Hz  ", 1000},
+    {"100Hz ", 10000},
+    {"500Hz ", 50000},
+    {"1KHz  ", 100000},
+    {"5KHz  ", 500000},
+    {"10KHz  ",1000000},
+    {"50KHz ", 5000000},
+    {"100KHz", 10000000},
+    {"500KHz", 50000000}};
+```
+
 
 | Step Index | Step name | Step Value (1/100 Hz) |
 | ---------- | --------- | --------------------- | 
