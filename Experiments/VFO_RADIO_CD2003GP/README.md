@@ -66,6 +66,35 @@ __IMPORTANTE__: Do not do this if you do not feel safe in doing so.
 
 
 
+## Arduino Sketch 
+
+
+
+```cpp
+// Band database. You can change the band ranges if you need.
+// The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
+Band band[] = {
+    {"MW   ", 50000000LLU, 170000000LLU, 45500000LU, " KHz", 100000.0f, 2, 3, 6, 5},
+    {"SW1  ", 170000000LLU, 1000000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 6, 3},
+    {"SW2  ", 1000000000LLU, 2000000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 6, 3},
+    {"SW3  ", 2000000000LLU, 2000000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 6, 3},
+    {"VHF1 ", 3000000000LLU, 7600000000LLU, 45500000LU, " KHz", 100000.0f, 2, 2, 7, 3},
+    {"FM   ", 7600000000LLU, 10800000000LLU, 1075000000LLU, " MHz",  100000000.0f, 1, 6, 8, 7},
+    {"AIR  ", 10800000000LLU, 13500000000LLU, 1075000000LLU, " MHz", 100000000.0f, 2, 2, 7, 5},
+    {"VFH2 ", 13500000000LLU, 16000000000LLU, 1075000000LLU, " MHz", 100000000.0f, 2, 2, 7, 5}};
+```
+
+
+   | Band name | Initial Freq. (1/100 Hz) | Final Freq (1/100Hz) | offset (1/100Hz) | Initial Step Index | final Step Index | start Step Index | 
+    | --------- | ------------------------ | -------------------- | ---------------- | ------------------ | ---------------- | ---------------- |  
+    | MW   | 50000000LL | 170000000LL | 45500000L |  KHz| 100000.0f | 2 | 3 | 6 | 5 |
+    | SW1  | 170000000LL | 1000000000LL | 45500000L  | KHz| 100000.0f | 2 | 2 | 6 | 3 |
+    | SW2  | 1000000000LL | 2000000000LL | 45500000L  | KHz| 100000.0f | 2 | 2 | 6 | 3 |
+    | SW3  | 2000000000LL | 2000000000LL | 45500000L  | KHz| 100000.0f | 2 | 2 | 6 | 3 |
+    | VHF1 | 3000000000LL | 7600000000LL | 45500000L  | KHz| 100000.0f | 2 | 2 | 7 | 3 |
+    | FM   | 7600000000LL | 10800000000LL | 1075000000LL  | MHz|  100000000.0f | 1 | 6 | 8 | 7 |
+    | AIR  | 10800000000LL | 13500000000LL | 1075000000LL  | MHz| 100000000.0f | 2 | 2 | 7 | 5 |
+    | VFH2 | 13500000000LL | 16000000000LL | 1075000000LL  | MHz| 100000000.0f | 2 | 2 | 7| 5 |
 
 
 
