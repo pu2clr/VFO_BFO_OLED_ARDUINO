@@ -84,17 +84,49 @@ Band band[] = {
     {"VFH2 ", 13500000000LLU, 16000000000LLU, 1075000000LLU, " MHz", 100000000.0f, 2, 2, 7, 5}};
 ```
 
+The table below has the following information:
 
-| Band name | Initial Freq (1/100 Hz) | Final Freq (1/100Hz) | offset (1/100Hz) | Freq Unit (Show) | Divider (Show) | Initial Step Index | Final Step Index | Start Step Index |
+- __Band name__ - Band name that will show on display;
+- __Initial Freq.__ -  Lowest band frequency (1/100 Hz);
+- __Final Freq.__ - highest frequency band (1/100 Hz);
+- __offset__ - Shows on the display the frequency of the station and makes the signal generator to oscillate considering the IF (1/100 Hz);
+- __Freq Unit__ - Frequency unit that will be show on the display for the current band;
+- __Divider__ - Divider used to reduce the number of digits in the display;
+- __Initial Step Index__ - Lowest step index used for the band (see Step table)
+- __Final Step Index__ - Highest step index used for the band (see Step table) 
+- __Start Step Index__ - Default step index used for the band (see Step table)
+
+
+### Band information
+
+| Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Initial Step Index | Final Step Index | Start Step Index |
 | --------- | ----------------------- | -------------------- | ---------------- | -----------------| --------------- |------------------ | ---------------- | ---------------- |  
-| MW   | 50000000 | 170000000 | 45500000L |  KHz | 100000.0f | 2 | 3 | 6 | 5 |
-| SW1  | 170000000 | 1000000000 | 45500000  | KHz | 100000.0f | 2 | 2 | 6 | 3 |
-| SW2  | 1000000000 | 2000000000 | 45500000  | KHz | 100000.0f | 2 | 2 | 6 | 3 |
-| SW3  | 2000000000 | 3000000000 | 45500000  | KHz | 100000.0f | 2 | 2 | 6 | 3 |
-| VHF1 | 3000000000 | 7600000000 | 45500000  | KHz | 100000.0f | 2 | 2 | 7 | 3 |
-| FM   | 7600000000 | 10800000000 | 1075000000  | MHz |  100000000.0f | 1 | 6 | 8 | 7 |
-| AIR  | 10800000000 | 13500000000 | 1075000000  | MHz | 100000000.0f | 2 | 2 | 7 | 5 |
-| VFH2 | 13500000000 | 16000000000 | 1075000000  | MHz| 100000000.0f | 2 | 2 | 7| 5 |
+| MW   | 50000000 | 170000000 | 45500000 |  KHz | 100000 | 2 | 3 | 6 | 5 |
+| SW1  | 170000000 | 1000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
+| SW2  | 1000000000 | 2000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
+| SW3  | 2000000000 | 3000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
+| VHF1 | 3000000000 | 7600000000 | 45500000  | KHz | 100000 | 2 | 2 | 7 | 3 |
+| FM   | 7600000000 | 10800000000 | 1075000000  | MHz |  100000000 | 1 | 6 | 8 | 7 |
+| AIR  | 10800000000 | 13500000000 | 1075000000  | MHz | 100000000 | 2 | 2 | 7 | 5 |
+| VFH2 | 13500000000 | 16000000000 | 1075000000  | MHz| 100000000 | 2 | 2 | 7| 5 |
+
+
+### Step Information
+
+| Step Index | Step name | Step Value (1/100 Hz) |
+| ---------- | --------- | --------------------- | 
+| 0          | 10Hz      |     1000 |
+| 1          | 100Hz     |    10000 |
+| 2          | 500Hz     |    50000 |
+| 3          | 1KHz      |   100000 |
+| 4          | 5KHz      |   500000 |
+| 5          | 10KHz     |  1000000 |
+| 6          | 50KHz     |  5000000 |
+| 7          | 100KHz    | 10000000 |
+| 8          | 500KHz    | 50000000 |
+
+
+
 
 
 
