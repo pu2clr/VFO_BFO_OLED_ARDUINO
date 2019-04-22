@@ -18,7 +18,6 @@
 #define ENCODER_PIN_A 5 // Arduino  Pin 5
 #define ENCODER_PIN_B 6 // Arduino  Pin 6
 
-
 // OLED Diaplay constants
 #define I2C_ADDRESS 0x3C
 #define RST_PIN -1 // Define proper RST_PIN if required.
@@ -98,7 +97,7 @@ Step step[] = {
     {"500KHz", 50000000}};
 
 // Calculate the index of last position of step[] array (in this case will be 8)
-const int lastStepVFO = (sizeof step / sizeof(Step)) - 1;     // index for max increment / decrement for VFO
+const short lastStepVFO = (sizeof step / sizeof(Step)) - 1;     // index for max increment / decrement for VFO
 short lastStepBFO = 3;                                 // index for max. increment / decrement for BFO. In this case will be is 1KHz
 uint64_t bfoFreq = CENTER_BFO;                       // 455 KHz for this project
 
@@ -123,7 +122,6 @@ unsigned char encoder_pin_b;
 
 void setup()
 {
-  Serial.begin(9600);
   // LED Pin
   pinMode(STATUS_LED, OUTPUT);
   // Encoder pins
@@ -316,11 +314,7 @@ void loop()
   else if (digitalRead(BUTTON_VFO_BFO) && (millis() - elapsedButton) > MIN_ELAPSED_TIME == HIGH)
   {
     currentClock = !currentClock;
-    if (currentClock == 0 ) {
-      currentStep = band[currentBand].starStepIndex;
-    } else {
-      currentStep = 0;
-    }
+    currentStep = (currentClock == 0) ? band[currentBand].starStepIndex : 0;
     clearDisplay = true;
     elapsedButton = millis();
   }

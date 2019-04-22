@@ -120,7 +120,7 @@ const int lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max incre
 int lastStepBFO = 3;                                      // index for max. increment / decrement for BFO. In this case will be is 1KHz
 long currentStep = 0;                                     // it stores the current step index (50Hz in this case)
 
-boolean isFreqChanged = false;
+boolean isFreqChanged = true;
 boolean clearDisplay = false;
 
 // LW/MW is the default band
