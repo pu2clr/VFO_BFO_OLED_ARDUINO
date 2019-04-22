@@ -22,7 +22,7 @@ __Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experi
 
 ![Schematic used with Arduino Atmega328](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/bfo_schematic.png)
 
-__Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/source/si5351_vfoCD2003GP/si5351_vfoCD2003GP.ino) to see the sketch used on Arduino ATmega32U4 (schematic above).__ 
+__Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/source/si5351_vfoCD2003GP_atmega32u4/si5351_vfoCD2003GP_atmega32u4.ino) to see the sketch used on Arduino ATmega32U4 (schematic above).__ 
 
 
 ## Radio based on CD2003GP
