@@ -615,6 +615,15 @@ if you do not want calibrate, set CORRECTION_FACTOR to 0 as shown below.
 - [Arduino Signal Generator](https://www.youtube.com/watch?v=7M6ghR9tuTk)
 - [Arduino Tutorial: OLED 0.96" I2C/SPI Display](https://www.youtube.com/watch?v=PrIAnDZ9dp8)
 - [Tutorial on I2C OLED Display with Arduino/NodeMCU](https://www.youtube.com/watch?v=_e_0HJY0uIo)
+- [1.7inch 160x128 Color OLED(NHD-1.69-160128UGC3)](https://youtu.be/HjzTwqTvjqQ)
+- [si5351 VFO with adaptive step control bulit by JF3HZB](https://youtu.be/ZkfQFdTcnG8)
+- [Frequency Counter](https://youtu.be/e92y0ONECDc)
+- [VFO Universal protótipo](https://youtu.be/XlEouO-2E3s)
+
+
+
+
+
 
 
 
