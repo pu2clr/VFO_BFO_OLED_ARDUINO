@@ -98,8 +98,7 @@ __IMPORTANTE__: Do not do this if you do not feel safe in doing so.
 #### Coupling
 
 This experiment was based on a FM/AM commercial radio for receiving AM/FM broadcast station. 
-In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) and injected the signal from the si5351 output (CLK0). 
-To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capacitor used by the radio oscillator.
+In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) from the radio board and injected the signal from the si5351 output (CLK0). To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capacitor used by the radio oscillator. The AM section was disabled in the receiver.
 
 
 ![Coupling 01](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/coupling_01.png)
