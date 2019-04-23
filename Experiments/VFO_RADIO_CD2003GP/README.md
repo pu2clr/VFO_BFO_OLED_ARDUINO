@@ -165,6 +165,8 @@ Step step[] = {
 
 
 
+## Vídeos 
 
+- [VFO and BFO project test with an inexpencive radio based on CD2003GP](https://youtu.be/_KgBc6vYWLg)
 
 
