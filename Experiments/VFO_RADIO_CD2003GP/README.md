@@ -74,6 +74,11 @@ __Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experi
 #### Radio Modification
 
 
+This experiment was based on a FM/AM commercial radio for receiving AM/FM broadcast station. 
+In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) and injected the signal from the si5351 output (CLK0). To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capacitor used by the radio oscillator.
+
+
+
 
 ![Photo 3 - Motification ](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/inexpensive_receiver_02.jpg)
 
@@ -87,6 +92,17 @@ __IMPORTANTE__: Do not do this if you do not feel safe in doing so.
 
 
 ![Photo 3 - Motification ](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/inexpensive_receiver_03.jpg)
+
+
+
+#### Coupling
+
+This experiment was based on a FM/AM commercial radio for receiving AM/FM broadcast station. 
+In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) and injected the signal from the si5351 output (CLK0). 
+To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capacitor used by the radio oscillator.
+
+
+
 
 
 
