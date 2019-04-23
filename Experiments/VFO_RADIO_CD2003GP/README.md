@@ -112,7 +112,6 @@ To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capac
 
 
 
-
 ## Arduino Sketch 
 
 
