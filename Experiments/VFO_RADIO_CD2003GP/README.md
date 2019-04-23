@@ -2,12 +2,24 @@
 
 ## Table of contents
 
+1. [Introduction](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#introduction)
+2. [Display layout](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#display-layout)
+3. [Schematic used with Arduino Atmega328 (UNO, Pro Mini, Nano etc)](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#schematic-used-with-arduino-atmega328-uno-pro-mini-nano-etc)
+4. [Schematic used with Arduino ATmega32U4 (Micro)](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#schematic-used-with-arduino-atmega32u4-micro)
+5. [Radio based on CD2003GP](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#radio-based-on-cd2003gp)
+6. [Step Table](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#step-table)
 
 
 
 ## Introduction
 
 This folder has an example of using the VFO and BFO project with an inexpencive radio based on CD2003GP chip. A $6 commercial radio was modified to be tuned by the VFO with si5351 controlled by Arduino. 
+
+The original Arduino sketch was modified to make make this experiment easyest. See below.
+
+- The layout of the OLED display was adjusted 
+- The amount of bands was reduced from 27 to 8. See [Band table below](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#band-table)
+- Each band has a different behavior. That is, frequency unit shown on the display and steps more suitable for the specific band. See [Band table below](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#band-table)
 
 
 ### Display Layout
