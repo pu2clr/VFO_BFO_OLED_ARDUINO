@@ -102,7 +102,13 @@ In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) a
 To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capacitor used by the radio oscillator.
 
 
+![Coupling 01](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/coupling_01.png)
 
+
+![Coupling 02](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/coupling_02.png)
+
+
+![Coupling 03](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/coupling_03.png)
 
 
 
