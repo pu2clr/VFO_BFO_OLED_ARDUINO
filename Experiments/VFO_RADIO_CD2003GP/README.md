@@ -14,7 +14,7 @@ This folder has an example of using the VFO and BFO project with an inexpencive 
 
 
 | Layout |  Layout |
-| ------ | _______ |
+| ------ |  ------ |
 | ![Displau photo 1](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/OLED_01.png)| ![Displau photo 2](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/OLED_02.png) |
 | ![Displau photo 3](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/OLED_03.png)| ![Displau photo 4](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/OLED_04.png)|
 
