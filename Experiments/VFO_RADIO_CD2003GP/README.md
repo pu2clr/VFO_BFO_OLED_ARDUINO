@@ -113,6 +113,34 @@ In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) f
 
 ## Arduino Sketch 
 
+Some original features of the VFO and BFO project was modified to adapt it better to the radio based on CD2003GP. The main modification was the band behaviour. The VFO implemented on Arduino Sketch has the follow information:  
+
+- __Band name__ - Band name that will show on display;
+- __Initial Freq.__ -  Lowest band frequency (1/100 Hz);
+- __Final Freq.__ - highest frequency band (1/100 Hz);
+- __offset__ - Shows on the display the frequency of the station and makes the signal generator to oscillate considering the IF (1/100 Hz);
+- __Freq Unit__ - Frequency unit that will be show on the display for the current band;
+- __Divider__ - Divider used to reduce the number of digits in the display;
+- __Initial Step Index__ - Lowest step index used for the band (see Step table)
+- __Final Step Index__ - Highest step index used for the band (see Step table) 
+- __Start Step Index__ - Default step index used for the band (see Step table)
+
+
+### Band Table 
+
+| Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Initial Step Index | Final Step Index | Start Step Index |
+| --------- | ----------------------- | -------------------- | ---------------- | -----------------| --------------- |------------------ | ---------------- | ---------------- |  
+| MW   | 50000000 | 170000000 | 45500000 |  KHz | 100000 | 2 | 3 | 6 | 5 |
+| SW1  | 170000000 | 1000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
+| SW2  | 1000000000 | 2000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
+| SW3  | 2000000000 | 3000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
+| VHF1 | 3000000000 | 7600000000 | 45500000  | KHz | 100000 | 2 | 2 | 7 | 3 |
+| FM   | 7600000000 | 10800000000 | 1075000000  | MHz |  100000000 | 1 | 6 | 8 | 7 |
+| AIR  | 10800000000 | 13500000000 | 1075000000  | MHz | 100000000 | 2 | 2 | 7 | 5 |
+| VFH2 | 13500000000 | 16000000000 | 1075000000  | MHz| 100000000 | 2 | 2 | 7| 5 |
+
+
+The code below implements the band table of the VFO for the radio used here. 
 
 
 ```cpp
@@ -128,33 +156,6 @@ Band band[] = {
     {"AIR  ", 10800000000LLU, 13500000000LLU, 1075000000LLU, " MHz", 100000000.0f, 2, 2, 7, 5},
     {"VFH2 ", 13500000000LLU, 16000000000LLU, 1075000000LLU, " MHz", 100000000.0f, 2, 2, 7, 5}};
 ```
-
-The table below has the following information:
-
-- __Band name__ - Band name that will show on display;
-- __Initial Freq.__ -  Lowest band frequency (1/100 Hz);
-- __Final Freq.__ - highest frequency band (1/100 Hz);
-- __offset__ - Shows on the display the frequency of the station and makes the signal generator to oscillate considering the IF (1/100 Hz);
-- __Freq Unit__ - Frequency unit that will be show on the display for the current band;
-- __Divider__ - Divider used to reduce the number of digits in the display;
-- __Initial Step Index__ - Lowest step index used for the band (see Step table)
-- __Final Step Index__ - Highest step index used for the band (see Step table) 
-- __Start Step Index__ - Default step index used for the band (see Step table)
-
-
-### Band Table 
-
-| Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Initial Step Index | Final Step Index | Default Step Index |
-| --------- | ----------------------- | -------------------- | ---------------- | -----------------| --------------- |------------------ | ---------------- | ---------------- |  
-| MW   | 50000000 | 170000000 | 45500000 |  KHz | 100000 | 2 | 3 | 6 | 5 |
-| SW1  | 170000000 | 1000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
-| SW2  | 1000000000 | 2000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
-| SW3  | 2000000000 | 3000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
-| VHF1 | 3000000000 | 7600000000 | 45500000  | KHz | 100000 | 2 | 2 | 7 | 3 |
-| FM   | 7600000000 | 10800000000 | 1075000000  | MHz |  100000000 | 1 | 6 | 8 | 7 |
-| AIR  | 10800000000 | 13500000000 | 1075000000  | MHz | 100000000 | 2 | 2 | 7 | 5 |
-| VFH2 | 13500000000 | 16000000000 | 1075000000  | MHz| 100000000 | 2 | 2 | 7| 5 |
-
 
 ### Step Table 
 
