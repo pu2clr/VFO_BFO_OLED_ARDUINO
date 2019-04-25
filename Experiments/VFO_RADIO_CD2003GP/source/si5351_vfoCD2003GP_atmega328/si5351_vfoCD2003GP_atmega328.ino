@@ -136,7 +136,7 @@ void setup()
   STATUSLED(LOW);
   // Initiating the OLED Display
   display.begin(&Adafruit128x64, I2C_ADDRESS);
-  display.setFont(Adafruit5x7);
+  display.setFont(System5x7);
   display.set2X();
   display.clear();
   display.print("\n PU2CLR");

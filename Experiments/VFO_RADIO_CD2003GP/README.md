@@ -18,7 +18,8 @@ April, 2019
 
 ## Introduction
 
-This folder has an example of using the VFO and BFO project with an inexpencive radio based on CD2003GP chip. A $6 commercial radio was modified to be tuned by the VFO with si5351 controlled by Arduino. 
+This folder has an example of using the VFO and BFO project with an inexpencive radio based on CD2003GP chip. A $6 commercial radio for receiving AM/FM broadcast was modified to be tuned by the VFO with si5351 controlled by Arduino. This experiment uses just the FM feature of the radio. 
+
 
 The original Arduino sketch was modified to make make this experiment easyest. See below.
 
@@ -97,8 +98,7 @@ __IMPORTANTE__: Do not do this if you do not feel safe in doing so.
 
 #### Coupling
 
-This experiment was based on a FM/AM commercial radio for receiving AM/FM broadcast station. 
-In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) from the radio board and injected the signal from the si5351 output (CLK0). To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capacitor used by the radio oscillator. The AM section was disabled in the receiver.
+In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) from the radio board and injected the signal from the si5351 output (CLK0). To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capacitor used by the radio oscillator. The AM section was disabled in the receiver for this test.
 
 
 ![Coupling 01](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/coupling_01.png)
@@ -144,7 +144,7 @@ The table below has the following information:
 
 ### Band Table 
 
-| Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Initial Step Index | Final Step Index | Start Step Index |
+| Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Initial Step Index | Final Step Index | Default Step Index |
 | --------- | ----------------------- | -------------------- | ---------------- | -----------------| --------------- |------------------ | ---------------- | ---------------- |  
 | MW   | 50000000 | 170000000 | 45500000 |  KHz | 100000 | 2 | 3 | 6 | 5 |
 | SW1  | 170000000 | 1000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |

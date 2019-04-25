@@ -139,7 +139,7 @@ void setup()
   STATUSLED(LOW);
   // Initiating the OLED Display
   display.begin(&Adafruit128x64, I2C_ADDRESS);
-  display.setFont(Adafruit5x7);
+  display.setFont(System5x7);
   display.set2X();
   display.clear();
   display.print("\n PU2CLR");
@@ -184,6 +184,7 @@ void blinkLed(int pinLed, int blinkDelay)
   }
 }
 
+
 // Show Signal Generator Information
 // Verificar setCursor() em https://github.com/greiman/SSD1306Ascii/issues/53
 void displayDial()
@@ -216,6 +217,7 @@ void displayDial()
   // Show Band information
   display.setCursor(0, 0);
   display.set1X();
+
   strAux = String(band[currentBand].name);
   display.print(strAux);
   strAux = band[currentBand].unitFreq;
@@ -235,6 +237,7 @@ void displayDial()
   display.print(strAux);
 
   display.setCursor(0, 7);
+
   display.set1X();
   // Show VFO or BFO frequency
   strAux = staticFreq + ": " + secoundFreq;
