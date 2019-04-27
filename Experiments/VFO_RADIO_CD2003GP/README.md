@@ -268,7 +268,7 @@ The code below shows the use of callback function when the use changes the band
     vfoFreq = band[currentBand].minFreq;
     currentStep = band[currentBand].starStepIndex;
 
-    // Call callback function if exist something to do for the specific for the band
+    // Call callback function if exist something to do for the specific  band
     if (band[currentBand].f != NULL)
       (band[currentBand].f)();
 
