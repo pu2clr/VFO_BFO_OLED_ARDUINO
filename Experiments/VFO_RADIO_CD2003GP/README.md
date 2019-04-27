@@ -121,6 +121,7 @@ Some original features of the VFO and BFO project was modified to adapt it bette
 - __offset__ - Shows on the display the frequency of the station and makes the signal generator to oscillate considering the IF (1/100 Hz);
 - __Freq Unit__ - Frequency unit that will be show on the display for the current band;
 - __Divider__ - Divider used to reduce the number of digits in the display;
+- __decimals__ - number of decimal places after the comma;
 - __Initial Step Index__ - Lowest step index used for the band (see Step table)
 - __Final Step Index__ - Highest step index used for the band (see Step table) 
 - __Start Step Index__ - Default step index used for the band (see Step table)
@@ -128,8 +129,8 @@ Some original features of the VFO and BFO project was modified to adapt it bette
 
 ### Band Table 
 
-| Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Initial Step Index | Final Step Index | Start Step Index |
-| --------- | ----------------------- | -------------------- | ---------------- | -----------------| --------------- |------------------ | ---------------- | ---------------- |  
+| Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Decimals | Initial Step Index | Final Step Index | Start Step Index |
+| --------- | ----------------------- | -------------------- | ---------------- | -----------------| --------------- |------------------ | ---------------- | ---------------- | -----------|  
 | MW   | 50000000 | 170000000 | 45500000 |  KHz | 100000 | 2 | 3 | 6 | 5 |
 | SW1  | 170000000 | 1000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
 | SW2  | 1000000000 | 2000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
