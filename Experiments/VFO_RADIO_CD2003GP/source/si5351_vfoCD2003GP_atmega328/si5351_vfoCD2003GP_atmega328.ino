@@ -34,7 +34,6 @@
 #define CENTER_BFO 45500000LU // BFO centeral frequency
 #define MIN_BFO 45200000LU    // BFO minimum frequency
 
-
 #define STATUS_LED 13 // Arduino status LED Pin 10
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
 #define MIN_ELAPSED_TIME 300
@@ -45,38 +44,46 @@ SSD1306AsciiAvrI2c display;
 // The Si5351 instance.
 Si5351 si5351;
 
+// Callback functions declarations
+// Depending on the selected band, you may want to perform specific actions
+// The functions declared below will do something for AM and FM BAND. See implementation later.
+// You can implement callback function for other bands
+void amBroadcast(); // See implementation later.
+void fmBroadcast(); // See implementation later.
+
 // Structure for Bands database
 typedef struct
 {
   char *name;
-  uint64_t minFreq;     // Min. frequency value for the band (unit 0.01Hz)
-  uint64_t maxFreq;     // Max. frequency value for the band (unit 0.01Hz)
-  long long  offset;
-  char *unitFreq;       // MHz or KHz
-  float divider;         // value that will be the divider of current clock (just to present on display)
-  short decimals;       // number of digits after the comma
-  short initialStepIndex; // Index to the initial step of incrementing 
-  short finalStepIndex;   // Index to the final step of incrementing 
+  uint64_t minFreq; // Min. frequency value for the band (unit 0.01Hz)
+  uint64_t maxFreq; // Max. frequency value for the band (unit 0.01Hz)
+  long long offset;
+  char *unitFreq;         // MHz or KHz
+  float divider;          // value that will be the divider of current clock (just to present on display)
+  short decimals;         // number of digits after the comma
+  short initialStepIndex; // Index to the initial step of incrementing
+  short finalStepIndex;   // Index to the final step of incrementing
   short starStepIndex;    // Index to start step of incrementing
+  void (*f)(void);        // pointer to the function that handles specific things for the band
 } Band;
 
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
-    {"MW  ", 50000000LLU, 170000000LLU, 45500000LU, "KHz", 100000.0f, 0, 3, 6, 5},
-    {"SW1 ", 170000000LLU, 1000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3},
-    {"SW2 ", 1000000000LLU, 2000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3},
-    {"SW3 ", 2000000000LLU, 3000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3},
-    {"VHF1", 3000000000LLU, 7600000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 7, 3},
-    {"FM  ", 7600000000LLU, 10800000000LLU, 1075000000LLU, "MHz", 100000000.0f, 2, 6, 8, 7},
-    {"AIR ", 10800000000LLU, 13700000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5},
-    {"VHF2", 13700000000LLU, 14400000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5},
-    {"2M  ", 14400000000LLU, 15000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5},
-    {"VFH3", 15000000000LLU, 16000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5}};
+    {"MW  ", 50000000LLU, 170000000LLU, 45500000LU, "KHz", 100000.0f, 0, 3, 6, 5, amBroadcast},
+    {"SW1 ", 170000000LLU, 1000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+    {"SW2 ", 1000000000LLU, 2000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+    {"SW3 ", 2000000000LLU, 3000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+    {"VHF1", 3000000000LLU, 7600000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 7, 3, NULL},
+    {"FM  ", 7600000000LLU, 10800000000LLU, 1075000000LLU, "MHz", 100000000.0f, 2, 6, 8, 7, fmBroadcast},
+    {"AIR ", 10800000000LLU, 13700000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
+    {"VHF2", 13700000000LLU, 14400000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
+    {"2M  ", 14400000000LLU, 15000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
+    {"VFH3", 15000000000LLU, 16000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL}};
 
 // Calculate the last element position (index) of the array band
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
-int currentBand = 0;                          // First band. For this case, AM is the current band.
+short currentBand = 0;                                 // First band. For this case, AM is the current band.
 
 // Struct for step database
 typedef struct
@@ -92,22 +99,22 @@ Step step[] = {
     {"500Hz ", 50000},
     {"1KHz  ", 100000},
     {"5KHz  ", 500000},
-    {"10KHz  ",1000000},
+    {"10KHz  ", 1000000},
     {"50KHz ", 5000000},
     {"100KHz", 10000000},
     {"500KHz", 50000000}};
 
 // Calculate the index of last position of step[] array (in this case will be 8)
-const short lastStepVFO = (sizeof step / sizeof(Step)) - 1;     // index for max increment / decrement for VFO
-short lastStepBFO = 3;                                 // index for max. increment / decrement for BFO. In this case will be is 1KHz
-uint64_t bfoFreq = CENTER_BFO;                       // 455 KHz for this project
+const short lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
+short lastStepBFO = 3;                                      // index for max. increment / decrement for BFO. In this case will be is 1KHz
+uint64_t bfoFreq = CENTER_BFO;                              // 455 KHz for this project
 
 boolean isFreqChanged = true;
 boolean clearDisplay = false;
 
 // LW/MW is the default band
 uint64_t vfoFreq = band[currentBand].minFreq;        // VFO starts on MW
-short  currentStep = band[currentBand].starStepIndex; // Step starts on default MW
+short currentStep = band[currentBand].starStepIndex; // Step starts on default MW
 
 // VFO is the Si5351A CLK0
 // BFO is the Si5351A CLK1
@@ -150,15 +157,23 @@ void setup()
   si5351.set_correction(CORRECTION_FACTOR, SI5351_PLL_INPUT_XO);
   si5351.set_pll(SI5351_PLL_FIXED, SI5351_PLLA);
   si5351.set_freq(vfoFreq - band[currentBand].offset, SI5351_CLK0); // Start CLK0 (VFO)
-  
+
   // To see later
-  // si5351.set_freq(bfoFreq, SI5351_CLK1); 
-  si5351.output_enable(SI5351_CLK1, 0);  
+  // si5351.set_freq(bfoFreq, SI5351_CLK1);
+  si5351.output_enable(SI5351_CLK1, 0);
   si5351.output_enable(SI5351_CLK2, 0);
 
   si5351.update_status();
   // Show the initial system information
-  
+
+  // Set defult Band
+  currentBand = 0;
+  vfoFreq = band[currentBand].minFreq;
+  currentStep = band[currentBand].starStepIndex;
+  if (band[currentBand].f != NULL) // Call callback function if exist something to do for the specific for the band
+    (band[currentBand].f)();
+  isFreqChanged = true;
+
   delay(100);
 }
 
@@ -173,7 +188,6 @@ void blinkLed(int pinLed, int blinkDelay)
     delay(blinkDelay);
   }
 }
-
 
 // Show Signal Generator Information
 // Verificar setCursor() em https://github.com/greiman/SSD1306Ascii/issues/53
@@ -218,7 +232,7 @@ void displayDial()
   strAux = "S:" + String(step[currentStep].name);
   display.print(strAux);
 
-  // Show main frequency (VFO or BFO) 
+  // Show main frequency (VFO or BFO)
   display.set2X();
   display.setCursor(0, 3);
 
@@ -264,6 +278,25 @@ void changeFreq(int direction)
   isFreqChanged = true;
 }
 
+// Callback implementation
+
+// Doing something spefict for AM
+// Example: set Pin 14 of the CD2003GP to LOW; switch filter, turn AM LED on etc
+void amBroadcast()
+{
+  // TO DO
+  STATUSLED(HIGH); // Just testing if it is working - Turn LED ON
+}
+
+// Doing something spefict for FM
+// Example: set Pin 14 of the CD2003GP to HIGH; turn FM LED on etc
+void fmBroadcast()
+{
+  // TO DO
+  STATUSLED(LOW); // Just testing if it is working - Turn LED OFF
+}
+
+
 // main loop
 void loop()
 {
@@ -293,21 +326,26 @@ void loop()
     isFreqChanged = false;
     displayDial();
   }
-  
+
   // check if some button is pressed
   if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
   {
     currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
     vfoFreq = band[currentBand].minFreq;
     currentStep = band[currentBand].starStepIndex;
+
+    // Call callback function if exist something to do for the specific for the band
+    if (band[currentBand].f != NULL)
+      (band[currentBand].f)();
+
     isFreqChanged = true;
     elapsedButton = millis();
   }
   else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
   {
-   if (currentClock == 0)                                               // Is VFO
-     currentStep = (currentStep < band[currentBand].finalStepIndex) ? (currentStep + 1) : band[currentBand].initialStepIndex; // Increment the step or go back to the first
-    else                                                                 // Is BFO
+    if (currentClock == 0)                                                                                                     // Is VFO
+      currentStep = (currentStep < band[currentBand].finalStepIndex) ? (currentStep + 1) : band[currentBand].initialStepIndex; // Increment the step or go back to the first
+    else                                                                                                                       // Is BFO
       currentStep = (currentStep < lastStepBFO) ? (currentStep + 1) : 0;
     clearDisplay = true;
     elapsedButton = millis();
@@ -319,12 +357,11 @@ void loop()
     clearDisplay = true;
     elapsedButton = millis();
   }
-  
+
   if (clearDisplay)
   {
     display.clear();
     displayDial();
     clearDisplay = false;
   }
-  
 }
