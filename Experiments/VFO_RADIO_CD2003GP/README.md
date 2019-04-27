@@ -236,6 +236,8 @@ void amBroadcast(); // See implementation later.
 void fmBroadcast(); // See implementation later.
 ```
 
+The callback functions above are referenced in band database (see Band band[]) above.
+
 
 ```cpp
 // Callback implementation
@@ -256,6 +258,29 @@ void fmBroadcast()
   STATUSLED(LOW); // Just testing if it is working - Turn LED OFF
 }
 ```
+
+The code below shows the use of callback function when the use changes the band
+
+```cpp
+ if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
+  {
+    currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
+    vfoFreq = band[currentBand].minFreq;
+    currentStep = band[currentBand].starStepIndex;
+
+    // Call callback function if exist something to do for the specific for the band
+    if (band[currentBand].f != NULL)
+      (band[currentBand].f)();
+
+    isFreqChanged = true;
+    elapsedButton = millis();
+  }
+```  
+
+
+
+
+
 
 
 ## Vídeos 
