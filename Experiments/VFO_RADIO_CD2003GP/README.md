@@ -125,6 +125,28 @@ Some original features of the VFO and BFO project was modified to adapt it bette
 - __Initial Step Index__ - Lowest step index used for the band (see Step table)
 - __Final Step Index__ - Highest step index used for the band (see Step table) 
 - __Start Step Index__ - Default step index used for the band (see Step table)
+- __callback function__ - point to the function that handles specific things for the band
+
+The implementation of the band information
+
+```cpp
+// Structure for Bands database
+typedef struct
+{
+  char *name;
+  uint64_t minFreq; // Min. frequency value for the band (unit 0.01Hz)
+  uint64_t maxFreq; // Max. frequency value for the band (unit 0.01Hz)
+  long long offset;
+  char *unitFreq;         // MHz or KHz
+  float divider;          // value that will be the divider of current clock (just to present on display)
+  short decimals;         // number of digits after the comma
+  short initialStepIndex; // Index to the initial step of incrementing
+  short finalStepIndex;   // Index to the final step of incrementing
+  short starStepIndex;    // Index to start step of incrementing
+  void (*f)(void);        // pointer to the function that handles specific things for the band
+} Band;
+```
+
 
 
 ### Band Table 
@@ -150,16 +172,21 @@ The code below implements the band table of the VFO for the radio used here.
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
-    {"MW  ", 50000000LLU, 170000000LLU, 45500000LU, "KHz", 100000.0f, 0, 3, 6, 5},
-    {"SW1 ", 170000000LLU, 1000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3},
-    {"SW2 ", 1000000000LLU, 2000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3},
-    {"SW3 ", 2000000000LLU, 3000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3},
-    {"VHF1", 3000000000LLU, 7600000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 7, 3},
-    {"FM  ", 7600000000LLU, 10800000000LLU, 1075000000LLU, "MHz", 100000000.0f, 2, 6, 8, 7},
-    {"AIR ", 10800000000LLU, 13700000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5},
-    {"VHF2", 13700000000LLU, 14400000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5},
-    {"2M  ", 14400000000LLU, 15000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5},
-    {"VFH3", 15000000000LLU, 16000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5}};
+    {"MW  ", 50000000LLU, 170000000LLU, 45500000LU, "KHz", 100000.0f, 0, 3, 6, 5, amBroadcast},
+    {"SW1 ", 170000000LLU, 1000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+    {"SW2 ", 1000000000LLU, 2000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+    {"SW3 ", 2000000000LLU, 3000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+    {"VHF1", 3000000000LLU, 7600000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 7, 3, NULL},
+    {"FM  ", 7600000000LLU, 10800000000LLU, 1075000000LLU, "MHz", 100000000.0f, 2, 6, 8, 7, fmBroadcast},
+    {"AIR ", 10800000000LLU, 13700000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
+    {"VHF2", 13700000000LLU, 14400000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
+    {"2M  ", 14400000000LLU, 15000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
+    {"VFH3", 15000000000LLU, 16000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL}};
+```
+
+__amBroadcast__ and __fmBroadcast__ are functions (callback) that will do something when the band is selected. 
+When callback function is NULL, there is nothing to do. 
+
 
 ### Step Table 
 
@@ -190,6 +217,45 @@ Step step[] = {
 | 7          | 100KHz    | 10000000 |
 | 8          | 500KHz    | 50000000 |
 
+
+
+## Callback functions
+
+This sketch uses callback functions to complement specific actions for a specific band.
+For example, you will need to set the PIN 14 of the CD2003GP to HIGH if you want to work with FM.
+In contrast, you need to set the PIN 14 to LOW if you want to work with AM.
+
+The code below shows the callback functions declaration
+
+```cpp
+// Callback functions declarations
+// Depending on the selected band, you may want to perform specific actions
+// The functions declared below will do something for AM and FM BAND. See implementation later.
+// You can implement callback function for other bands
+void amBroadcast(); // See implementation later.
+void fmBroadcast(); // See implementation later.
+```
+
+
+```cpp
+// Callback implementation
+
+// Doing something spefict for AM
+// Example: set Pin 14 of the CD2003GP to LOW; switch filter, turn AM LED on etc
+void amBroadcast()
+{
+  // TO DO
+  STATUSLED(HIGH); // Just testing if it is working - Turn LED ON
+}
+
+// Doing something spefict for FM
+// Example: set Pin 14 of the CD2003GP to HIGH; turn FM LED on etc
+void fmBroadcast()
+{
+  // TO DO
+  STATUSLED(LOW); // Just testing if it is working - Turn LED OFF
+}
+```
 
 
 ## Vídeos 
