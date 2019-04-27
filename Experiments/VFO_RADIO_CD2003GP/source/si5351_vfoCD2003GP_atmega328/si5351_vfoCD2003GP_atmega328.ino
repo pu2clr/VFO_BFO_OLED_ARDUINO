@@ -25,7 +25,6 @@
 // Change this value below  (CORRECTION_FACTOR) to 0 if you do not know the correction factor of your Si5351A.
 #define CORRECTION_FACTOR 80000 // See how to calibrate your Si5351A (0 if you do not want).
 
-
 #define BUTTON_STEP 4    // Control the frequency increment and decrement
 #define BUTTON_BAND 3    // Controls the band
 #define BUTTON_VFO_BFO 2 // Switch VFO to BFO
