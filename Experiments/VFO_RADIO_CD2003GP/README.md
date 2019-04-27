@@ -129,7 +129,7 @@ Some original features of the VFO and BFO project was modified to adapt it bette
 
 ### Band Table 
 
-| Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Decimals | Initial Step Index | Final Step Index | Start Step Index |
+| Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Dec. | Initial Step Index | Final Step Index | Default |
 | --------- | ----------------------- | -------------------- | ---------------- | -----------------| --------------- |------------------ | ---------------- | ---------------- | -----------|  
 | MW   | 50000000 | 170000000 | 45500000 |  KHz | 100000 | 2 | 3 | 6 | 5 |
 | SW1  | 170000000 | 1000000000 | 45500000  | KHz | 100000 | 2 | 2 | 6 | 3 |
