@@ -133,7 +133,7 @@ Some original features of the VFO and BFO project was modified to adapt it bette
 - __Start Step Index__ - Default step index used for the band (see Step table)
 - __callback function__ - point to the function that handles specific things for the band
 
-The implementation of the band information
+Implementação da Tabela de Bandas
 
 ```cpp
 // Structure for Bands database
@@ -155,7 +155,7 @@ typedef struct
 
 
 
-### Band Table 
+### Tabela de Bandas
 
 | Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Dec. | Initial Step Index | Final Step Index | Default |
 | --------- | ----------------------- | -------------------- | ---------------- | -----------------| --------------- |------------------ | ---------------- | ---------------- | -----------|  
@@ -225,13 +225,13 @@ Step step[] = {
 
 
 
-## Callback functions
+## Funções callback
 
-This sketch uses callback functions to complement specific actions for a specific band.
-For example, you will need to set the PIN 14 of the CD2003GP to HIGH if you want to work with FM.
-In contrast, you need to set the PIN 14 to LOW if you want to work with AM.
+As tabelas anteriores buscam oferecer dados sobre cada banda de tal forma que o processamento levará em consideração esses dados para realizar ações pertinentes a banda em uso. No entanto, para desempenhar ações de mais baixo nível, optou-se por utilizar funções no estilo "callback". Uma chamada callback  é um recurso muito utilizado onde uma função é passada como argumento para outra função poder executá-la. No nosso exemplo, as funções no estilo "callback" não são enviadas como parâmetros. Na realidade, a tabela de bandas possui referências para funções que deverá ser chamada para complementar alguma ação específica para a banda em uso.  Por exemplo, para acionar AM no rádio baseado no CD2003GP, é necessaário que colocar o pino 14 do chip em nível lógico baixo. Em contrapartida, para acionar FM no rádio, é necessário que o pino 14 do CD2003GP esteja em nível lógico alto. 
+Quando uma banda não precisa de função no estilo "callback", há um valo nulo para indicar esta informação. 
 
-The code below shows the callback functions declaration
+
+O código a seguir ilustra a utilização da funções no estilo "callback".
 
 ```cpp
 // Callback functions declarations
