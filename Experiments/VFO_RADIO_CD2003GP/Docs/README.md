@@ -5,18 +5,19 @@ April, 2019
 
 ## Sumário
 
-1. [Introdução]()
-2. [Apresentação do Display]()
-3. [Esquema para Arduino baseado no Atmega328 (UNO, Pro Mini, Nano etc)]()
-4. [Esquema para Arduino baseado ATmega32U4 (Micro)]()
-5. [O Rádio baseado no CD2003GP utilizado no teste]()
-   1. [Diagrama de Bloco do CD2003GP]()
-   2. [Circúito de Aplicação]()
-   3. [Foto do Rádio]()
-   4. [Modificação no estágio de FM]()
-   5. 
-6. [Arduino Sketch]()
-   1. [Tabela de Bandas]()
+1. [Introdução](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#introdução)
+2. [Apresentação do Display](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#apresentação-do-display)
+3. [Esquema para Arduino baseado no Atmega328 (UNO, Pro Mini, Nano etc)](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#esquema-para-arduino-baseado-no-atmega328-uno-pro-mini-nano-etc)
+4. [Esquema para Arduino baseado ATmega32U4 (Micro)](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#esquema-para-arduino-baseado-atmega32u4-micro)
+5. [O Rádio baseado no CD2003GP utilizado no teste](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#o-rádio-baseado-no-cd2003gp-utilizado-no-teste)
+   1. [Diagrama de Bloco do CD2003GP](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#diagrama-de-bloco-do-cd2003gp)
+   2. [Circúito de Aplicação](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#circúito-de-aplicação)
+   3. [Foto do Rádio](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#foto-do-rádio)
+   4. [Modificação no estágio de FM](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#modificação-no-estágio-de-fm)
+   5. [Acoplamento do si5351 no pino 13 do CD2003GP](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#acomplamento-do-si5251-no-pino-13-do-si5351)
+   6. [Sugestões para acoplamento](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#sugestões-para-acoplamento)
+6. [Arduino Sketch](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#arduino-sketch)
+   1. [Tabela de Bandas](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#band-table)
    2. [Tabela de passos]()
 7. [Vídeos]()
 
@@ -35,7 +36,7 @@ Principais mudanças no sketch do Arduino
 - Cada banda tem um comportamento diferente. Passos mais apropriados ee ações podem ser diferentes para bandas diferentes. 
 - That is, frequency unit shown on the display and steps more suitable for the specific band. 
 
-### Apresentação do Display
+## Apresentação do Display
 
 
 | Layout |  Layout |
@@ -193,7 +194,7 @@ __amBroadcast__ and __fmBroadcast__ are functions (callback) that will do someth
 When callback function is NULL, there is nothing to do. 
 
 
-### Step Table 
+### Tabela de Passos
 
 ```cpp 
 // Steps database. You can change the Steps and numbers of steps here if you need.
