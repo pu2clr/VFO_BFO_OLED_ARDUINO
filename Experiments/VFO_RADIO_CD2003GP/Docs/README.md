@@ -1,34 +1,41 @@
-# VFO and BFO project test with an inexpencive radio based on CD2003GP 
+# Testando o VO e BFO em um rádio barato baseado no chip CD2003GP 
 
-By PU2CLR - Ricardo
+Por PU2CLR - Ricardo
 April, 2019
 
-## Table of contents
+## Sumário
 
-1. [Introduction](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#introduction)
-2. [Display layout](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#display-layout)
-3. [Schematic used with Arduino Atmega328 (UNO, Pro Mini, Nano etc)](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#schematic-used-with-arduino-atmega328-uno-pro-mini-nano-etc)
-4. [Schematic used with Arduino ATmega32U4 (Micro)](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#schematic-used-with-arduino-atmega32u4-micro)
-5. [Radio based on CD2003GP](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#radio-based-on-cd2003gp)
-6. [Arduino Sketch](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#arduino-sketch)
-7. [Step Table](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#step-table)
-8. [Videos](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#v%C3%ADdeos)
-
-
-
-## Introduction
-
-This folder has an example of using the VFO and BFO project with an inexpencive radio based on CD2003GP chip. A $6 commercial radio for receiving AM/FM broadcast was modified to be tuned by the VFO with si5351 controlled by Arduino. This experiment uses just the FM feature of the radio. 
-
-
-The original Arduino sketch was modified to make make this experiment easyest. See below.
-
-- The layout of the OLED display was adjusted 
-- The amount of bands was reduced from 27 to 8. See [Band table below](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#band-table)
-- Each band has a different behavior. That is, frequency unit shown on the display and steps more suitable for the specific band. See [Band table below](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP#band-table)
+1. [Introdução]()
+2. [Apresentação do Display]()
+3. [Esquema para Arduino baseado no Atmega328 (UNO, Pro Mini, Nano etc)]()
+4. [Esquema para Arduino baseado ATmega32U4 (Micro)]()
+5. [O Rádio baseado no CD2003GP utilizado no teste]()
+   1. [Diagrama de Bloco do CD2003GP]()
+   2. [Circúito de Aplicação]()
+   3. [Foto do Rádio]()
+   4. [Modificação no estágio de FM]()
+   5. 
+6. [Arduino Sketch]()
+   1. [Tabela de Bandas]()
+   2. [Tabela de passos]()
+7. [Vídeos]()
 
 
-### Display Layout
+
+## Introdução
+
+Este teste modifica o sketch do Arduino original e apresenta duas versões. Uma para Arduino baseado no Atmega328 e outra para o Atmega32U4. 
+O rádio utilizado neste teste é um CMik KK9, baseado no chip CD2003GP ou TA2003. Este rádio foi escolhido pela baixo custo de aquisição ( aproximadamente R$30,00). Trata-se de um receptor de Ondas Médias, Ondas Curtas e FM. Em MW e SW o rádio tem péssima seletividade. Contudo, a escuta de estações locais de AM é possível. Em FM o rádio se comporta um pouco melhor. 
+
+
+Principais mudanças no sketch do Arduino
+
+- Apresentação do Display 
+- Quantidade reduzida de Bandas. Veja a [Tabela de Bandas a seguir]()
+- Cada banda tem um comportamento diferente. Passos mais apropriados ee ações podem ser diferentes para bandas diferentes. 
+- That is, frequency unit shown on the display and steps more suitable for the specific band. 
+
+### Apresentação do Display
 
 
 | Layout |  Layout |
@@ -37,7 +44,7 @@ The original Arduino sketch was modified to make make this experiment easyest. S
 | ![Displau photo 3](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/OLED_03.png)| ![Displau photo 4](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/OLED_04.png) |
 
 
-## Schematic used with Arduino Atmega328 (UNO, Pro Mini, Nano etc)
+## Esquema para Arduino baseado no Atmega328 (UNO, Pro Mini, Nano etc)
 
 ![Schematic used with Arduino Atmega328](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/vfobfo_ir_schematic_atemega328.png)
 
@@ -45,39 +52,38 @@ __Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experi
 
 
 
-## Schematic used with Arduino ATmega32U4 (Micro)
+## Esquema para Arduino baseado ATmega32U4 (Micro)
 
 ![Schematic used with Arduino Atmega328](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/bfo_schematic.png)
 
 __Click [here](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/source/si5351_vfoCD2003GP_atmega32u4/si5351_vfoCD2003GP_atmega32u4.ino) to see the sketch used on Arduino ATmega32U4 (schematic above).__ 
 
 
-## Radio based on CD2003GP
+## O Rádio baseado no CD2003GP utilizado no teste
 
-#### CD2003GP Block Diagram
+### Diagrama de Bloco do CD2003GP 
 
 ![Photo 1 - CD2003GP](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/CD2003GP_block_diagram_01.png)
 
 [Source - CD2003GP Datasheet](http://www.datasheetcafe.com/cd2003gp-datasheet-pdf/)
 
-#### Application Citcuit
+### Circúito de Aplicação
 
 ![Photo 2 - CD2003GP](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/CD2003GP_application_circuit.png)
 
 [Source - CD2003GP Datasheet](http://www.datasheetcafe.com/cd2003gp-datasheet-pdf/)
 
 
-#### Inexpensive Commercial Radio
+### Foto do Rádio
 ![Photo 3 - Inexpensive commercial radio](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/inexpensive_receiver_01.jpg)
 
 
 
-#### Radio Modification
+### Modificação no estágio de FM
 
+Este experimento foi baseado 
 
-This experiment was based on a FM/AM commercial radio for receiving AM/FM broadcast station. 
-In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) and injected the signal from the si5351 output (CLK0). To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capacitor used by the radio oscillator.
-
+No primeiro teste foi isolado o pino 13 do chip CD2003GP e injetado o sinal da saída 0 do si5351 (CLK0). Para conectar essa saída no pino 13 foi utilizado o próprio capacitor de 15Pf que acopla o oscilador do próprio rádio. 
 
 
 
@@ -85,9 +91,8 @@ In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) a
 
 
 
-#### Sugested Modification
+#### Acomplamento do si5251 no pino 13 do si5351 
 
-__IMPORTANTE__: Do not do this if you do not feel safe in doing so.
 
 ![Photo 2 - CD2003GP](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/images/CD2003GP_application_circuit_modification.png)
 
@@ -96,7 +101,7 @@ __IMPORTANTE__: Do not do this if you do not feel safe in doing so.
 
 
 
-#### Coupling
+#### Sugestões para acoplamento
 
 In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) from the radio board and injected the signal from the si5351 output (CLK0). To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capacitor used by the radio oscillator. The AM section was disabled in the receiver for this test.
 

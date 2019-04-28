@@ -1,6 +1,6 @@
 # VFO and BFO project test with an inexpencive radio based on CD2003GP 
 
-Documentação em Português clique [aqui]()
+Documentação em Português clique [aqui](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs).
 
 By PU2CLR - Ricardo
 April, 2019
