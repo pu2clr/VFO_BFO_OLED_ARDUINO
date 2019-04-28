@@ -1,5 +1,7 @@
 # Testando o VO e BFO em um rádio barato baseado no chip CD2003GP 
 
+__Importante: Documentação ainda em construção__
+
 Por PU2CLR - Ricardo
 April, 2019
 
@@ -104,7 +106,7 @@ No primeiro teste foi isolado o pino 13 do chip CD2003GP e injetado o sinal da s
 
 #### Sugestões para acoplamento
 
-In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) from the radio board and injected the signal from the si5351 output (CLK0). To connect the oscillator to pin 13, used a 15pf capacitor. It is the same capacitor used by the radio oscillator. The AM section was disabled in the receiver for this test.
+No primeiro teste, a perna do capacitor de 15Pf que acopla o oscilador local ao pino 13 do CD2003GP foi dessolada, ficando o capacitor e o pino 13 isolado do rádio.  Assim, a perna dessoldada foi conectada à  ao VFO (saída do si5351 - CLK0). 
 
 
 ![Coupling 01](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/Experiments/VFO_RADIO_CD2003GP/schematic/coupling_01.png)
@@ -119,7 +121,6 @@ In my first test, I isolated the pin 13 of the CD2003GP (could be also TA2003) f
 
 ## Arduino Sketch 
 
-Some original features of the VFO and BFO project was modified to adapt it better to the radio based on CD2003GP. The main modification was the band behaviour. The VFO implemented on Arduino Sketch has the follow information:  
 
 - __Band name__ - Band name that will show on display;
 - __Initial Freq.__ -  Lowest band frequency (1/100 Hz);
