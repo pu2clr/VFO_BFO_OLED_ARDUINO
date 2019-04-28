@@ -227,7 +227,7 @@ Step step[] = {
 
 ## Funções callback
 
-As tabelas anteriores buscam oferecer dados sobre cada banda de tal forma que o processamento levará em consideração esses dados para realizar ações pertinentes a banda em uso. No entanto, para desempenhar ações de mais baixo nível, optou-se por utilizar funções no estilo "callback". Uma chamada callback  é um recurso muito utilizado onde uma função é passada como argumento para outra função poder executá-la. No nosso exemplo, as funções no estilo "callback" não são enviadas como parâmetros. Na realidade, a tabela de bandas possui referências para funções que deverá ser chamada para complementar alguma ação específica para a banda em uso.  Por exemplo, para acionar AM no rádio baseado no CD2003GP, é necessaário que colocar o pino 14 do chip em nível lógico baixo. Em contrapartida, para acionar FM no rádio, é necessário que o pino 14 do CD2003GP esteja em nível lógico alto. 
+As tabelas anteriores buscam oferecer dados sobre cada banda de tal forma que o processamento levará em consideração esses dados para realizar ações pertinentes a banda em uso. No entanto, para desempenhar ações de mais baixo nível, optou-se por utilizar funções no estilo "callback". Uma chamada callback é um recurso muito utilizado onde uma função é passada como argumento para outra função poder executá-la. No nosso exemplo, as funções no estilo "callback" não são enviadas como parâmetros. Na realidade, a tabela de bandas possui referências para funções que deverá ser chamada para complementar alguma ação específica para a banda em uso. Por exemplo, para acionar AM no rádio baseado no CD2003GP, é necessário que colocar o pino 14 do chip em nível lógico baixo. Em contrapartida, para acionar FM no rádio, é necessário que o pino 14 do CD2003GP esteja em nível lógico alto. 
 Quando uma banda não precisa de função no estilo "callback", há um valo nulo para indicar esta informação. 
 
 
@@ -241,8 +241,7 @@ O código a seguir ilustra a utilização da funções no estilo "callback".
 void amBroadcast(); // See implementation later.
 void fmBroadcast(); // See implementation later.
 ```
-
-The callback functions above are referenced in band database (see Band band[]) above.
+As funções declaradas anteriormente são referênciadas na estrutura de bandas (veja o array band[]).
 
 
 ```cpp
@@ -265,7 +264,7 @@ void fmBroadcast()
 }
 ```
 
-The code below shows the use of callback function when the use changes the band
+Note no código a seguir que se a banda possuir uma função no estilo "callback" (diferente de nulo - band[currentBand].f != NULL), então a função é executada. 
 
 ```cpp
  if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
@@ -282,10 +281,6 @@ The code below shows the use of callback function when the use changes the band
     elapsedButton = millis();
   }
 ```  
-
-
-
-
 
 
 
