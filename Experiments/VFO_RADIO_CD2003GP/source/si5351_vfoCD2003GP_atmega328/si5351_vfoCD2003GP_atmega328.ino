@@ -99,7 +99,7 @@ Step step[] = {
     {"500Hz ", 50000},
     {"1KHz  ", 100000},
     {"5KHz  ", 500000},
-    {"10KHz  ", 1000000},
+    {"10KHz  ",1000000},
     {"50KHz ", 5000000},
     {"100KHz", 10000000},
     {"500KHz", 50000000}};
@@ -285,7 +285,13 @@ void changeFreq(int direction)
 void amBroadcast()
 {
   // TO DO
+  STATUSLED(HIGH);
+  delay(100);
+  STATUSLED(LOW);
+  delay(100);
   STATUSLED(HIGH); // Just testing if it is working - Turn LED ON
+  delay(200);
+  STATUSLED(LOW);
 }
 
 // Doing something spefict for FM
@@ -293,7 +299,7 @@ void amBroadcast()
 void fmBroadcast()
 {
   // TO DO
-  STATUSLED(LOW); // Just testing if it is working - Turn LED OFF
+  STATUSLED(HIGH); // Just testing if it is working - Turn LED OFF
 }
 
 
