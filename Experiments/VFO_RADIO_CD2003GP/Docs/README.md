@@ -1,7 +1,5 @@
 # VFO and BFO project test with an inexpencive radio based on CD2003GP 
 
-Documentação em Português clique [aqui]()
-
 By PU2CLR - Ricardo
 April, 2019
 
