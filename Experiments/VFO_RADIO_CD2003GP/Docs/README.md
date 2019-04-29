@@ -20,11 +20,12 @@ April, 2019
    6. [Sugestões para acoplamento](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#sugestões-para-acoplamento)
 6. [Arduino Sketch](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#arduino-sketch)
    1. [Tabela de Bandas](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#band-table)
-   2. [Tabela de passos]()
-7. [Explicando o uso de sizeof]()
-8. [Explicando as estruturas Band e Step]()
-9. [Explicando como o Encoder está codificado]()
-10. [Vídeos]()
+   2. [Tabela de passos](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#tabela-de-passos)
+7. [Função no estilo callback]()
+8. [Explicando o uso de sizeof](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-o-uso-de-sizeof)
+9. [Explicando as estruturas Band e Step](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-as-estruturas-band-e-step)
+10. [Explicando como o Encoder está codificado](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-como-o-encoder-está-codificado)
+11. [Vídeos]()
 
 
 
@@ -230,7 +231,7 @@ Step step[] = {
 
 
 
-## Funções callback
+## Funções no estilo callback
 
 As tabelas anteriores buscam oferecer dados sobre cada banda de tal forma que o processamento levará em consideração esses dados para realizar ações pertinentes a banda em uso. No entanto, para desempenhar ações de mais baixo nível, optou-se por utilizar funções no estilo "callback". Uma chamada callback é um recurso muito utilizado onde uma função é passada como argumento para outra função poder executá-la. No nosso exemplo, as funções no estilo "callback" não são enviadas como parâmetros. Na realidade, a tabela de bandas possui referências para funções que deverá ser chamada para complementar alguma ação específica para a banda em uso. Por exemplo, para acionar AM no rádio baseado no CD2003GP, é necessário que colocar o pino 14 do chip em nível lógico baixo. Em contrapartida, para acionar FM no rádio, é necessário que o pino 14 do CD2003GP esteja em nível lógico alto. 
 Quando uma banda não precisa de função no estilo "callback", há um valo nulo para indicar esta informação. 
