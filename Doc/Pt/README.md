@@ -23,6 +23,10 @@
 	* [Modificando o tipo de Display](/Doc/Pt#modificando-o-tipo-de-display)
 * [Considerações finais](/Doc/Pt#considerações-finais)
 * [Fotos](/Doc/Pt#fotos)
+* [Experimentos e Aplicações](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments)
+  * [BFO e VFO implementado no Atmega328 (Sem uso de interrupções)](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/Atmega328)  
+  * [Controle Remoto Infravermelhor para o VFO and BFO (Atmega328)](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/IRController)
+  * [Testando o VFO and BFO em um rádio barato baseado no CD2003GP](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs)
 * [Referências](/Doc/Pt#considerações-finais)
 * [Vídeos](/Doc/Pt#v%C3%ADdeos)
 

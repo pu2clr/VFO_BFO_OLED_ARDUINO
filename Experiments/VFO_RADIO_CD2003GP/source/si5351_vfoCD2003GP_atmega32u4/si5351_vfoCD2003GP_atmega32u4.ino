@@ -35,6 +35,7 @@
 #define MIN_BFO 45200000LU    // BFO minimum frequency
 
 
+
 #define STATUS_LED 10 // Arduino status LED Pin 10
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
 #define MIN_ELAPSED_TIME 300

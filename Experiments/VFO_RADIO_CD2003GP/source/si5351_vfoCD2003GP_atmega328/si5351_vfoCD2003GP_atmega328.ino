@@ -34,6 +34,10 @@
 #define CENTER_BFO 45500000LU // BFO centeral frequency
 #define MIN_BFO 45200000LU    // BFO minimum frequency
 
+#define CD2003GP_SWITCH_AM_FM 10 // Define Arduino Pin 10 to switch AM and FM on CD2003GO based radio (connected to PIN 14 on the CD2003GP)
+#define CD2003GP_AM_LED 11  // Indicate that the radio is working in AM mode
+#define CD2003GP_FM_LED 12  // Indicate that the radio is working in FM mode
+
 #define STATUS_LED 13 // Arduino status LED Pin 10
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
 #define MIN_ELAPSED_TIME 300
@@ -132,6 +136,12 @@ void setup()
 {
   // LED Pin
   pinMode(STATUS_LED, OUTPUT);
+  pinMode(CD2003GP_AM_LED, OUTPUT);
+  pinMode(CD2003GP_FM_LED, OUTPUT);
+
+  // CD2003GP AM and FM controll switch
+  pinMode(CD2003GP_SWITCH_AM_FM, OUTPUT);
+
   // Encoder pins
   pinMode(ENCODER_PIN_A, INPUT);
   pinMode(ENCODER_PIN_B, INPUT);
@@ -139,6 +149,8 @@ void setup()
   pinMode(BUTTON_BAND, INPUT);
   pinMode(BUTTON_STEP, INPUT);
   pinMode(BUTTON_VFO_BFO, INPUT);
+
+
   // The sistem is alive
   blinkLed(STATUS_LED, 100);
   STATUSLED(LOW);
@@ -285,13 +297,10 @@ void changeFreq(int direction)
 void amBroadcast()
 {
   // TO DO
-  STATUSLED(HIGH);
-  delay(100);
-  STATUSLED(LOW);
-  delay(100);
-  STATUSLED(HIGH); // Just testing if it is working - Turn LED ON
-  delay(200);
-  STATUSLED(LOW);
+  digitalWrite(CD2003GP_SWITCH_AM_FM,LOW); // The CD2003GP is seted to AM
+  digitalWrite(CD2003GP_AM_LED, HIGH);     // Turn ON the AM LED
+  digitalWrite(CD2003GP_FM_LED, LOW);      // Turn OFF the FM LED
+
 }
 
 // Doing something spefict for FM
@@ -299,7 +308,9 @@ void amBroadcast()
 void fmBroadcast()
 {
   // TO DO
-  STATUSLED(HIGH); // Just testing if it is working - Turn LED OFF
+  digitalWrite(CD2003GP_SWITCH_AM_FM, HIGH); // The CD2003GP is seted to AM
+  digitalWrite(CD2003GP_AM_LED, LOW);      // Turn OFF the AM LED
+  digitalWrite(CD2003GP_FM_LED, HIGH;       // Turn ON the FM LED
 }
 
 
