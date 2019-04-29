@@ -33,7 +33,6 @@
 
 ## Introdução
 
-
 Este projeto é baseado no gerador de sinal Si5351A que permite operações com alta frequência.  Assim, o VFO deste projeto pode oscilar entre 100KHz e 160MHz. Esta  extensa faixa de frequencia foi dividida em 27 bandas que podem ser mudadas via o pressionamento de um botão (veja tabela a seguir). Um encoder permite que você mude a frequência dentro de uma banda. Quanto ao  BFO, foi projetado para oscilar entre 452KHz e 458KHz.  Um outro botão alterna o controle entre o VFO e o BFO. A frequência do BFO pode ser alterada pelo encoder.  O <B>programa em Arduino  está disponível</B> na pasta <B>source</B> deste repositório ou diretamente por este [link](/source/si5351_vfobfo.ino) e poderá ser adaptado conforme a sua necessidade.  A documentação do código fonte foi escrita no idioma Inglês, porém, não creio que isso será um problema para a maioria dos desenvolvedores. Qualquer dúvida ou problema poderá ser postado via a <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a> .
 
 
@@ -45,7 +44,6 @@ O Si5351A é um gerador de sinal configurável excelente para experimentações 
 ## Arduino ATmega32U4 
 
 Este projeto utiliza o Arduino baseado no ATmega32U4. Versões do arduino com o Atmega32u4 tem 5 pinos com recurso de [interrupções externas](/Doc/Pt#interrupções-externas) (pinos 0,1,2,3 e 7). Este recurso é útil neste projeto para implementar a execução de algumas funções, independente do fluxo de execução normal do Arduino, em especial o pressionamento dos botões Band, Step e VFO/BFO. É importante ressaltar que as mesmas funções poderiam ser implementadas sem o uso desses recurso. Para mais informações sobre o Arduino baseado no Atmega32u4 clique [aqui](https://store.arduino.cc/usa/arduino-micro). 
-
 
 
 
@@ -686,10 +684,10 @@ void displayDial()
 }
 ```
 
+
 ## Considerações finais
 
 O <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/blob/master/source/si5351_vfobfo.ino">código-fonte </a> deste projeto está com uma documentação bem rica que busca dirimir dúvidas quanto ao uso e configuração do Si5351, OLED Display, botões, Encoder e LED. A <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/issues">aba Issues</a>, logo acima desta página, poderá ser utilizado para a publicação de dúvidas ou defeitos encontrados neste projeto.    
-
 
 
 ## Fotos
