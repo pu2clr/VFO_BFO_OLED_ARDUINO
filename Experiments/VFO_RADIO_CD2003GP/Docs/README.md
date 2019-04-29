@@ -21,11 +21,11 @@ April, 2019
 6. [Arduino Sketch](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#arduino-sketch)
    1. [Tabela de Bandas](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#band-table)
    2. [Tabela de passos](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#tabela-de-passos)
-7. [Função no estilo callback](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#funções-no-estilo-callback)
-8. [Explicando o uso de sizeof](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-o-uso-de-sizeof)
-9. [Explicando as estruturas Band e Step](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-as-estruturas-band-e-step)
-10. [Explicando como o Encoder está codificado](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-como-o-encoder-está-codificado)
-11. [Vídeos](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#v%C3%ADdeos)
+   3. [Função no estilo callback](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#funções-no-estilo-callback)
+   4. [Explicando o uso de sizeof](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-o-uso-de-sizeof)
+   5. [Explicando as estruturas Band e Step](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-as-estruturas-band-e-step)
+   6.  [Explicando como o Encoder está codificado](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-como-o-encoder-está-codificado)
+7.  [Vídeos](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#v%C3%ADdeos)
 
 
 
@@ -125,18 +125,23 @@ No primeiro teste, a perna do capacitor de 15Pf que acopla o oscilador local ao 
 
 ## Arduino Sketch 
 
+Esta seção apresenta alguns aspectos da programação do VFO e BFO.  
 
-- __Band name__ - Band name that will show on display;
-- __Initial Freq.__ -  Lowest band frequency (1/100 Hz);
-- __Final Freq.__ - highest frequency band (1/100 Hz);
-- __offset__ - Shows on the display the frequency of the station and makes the signal generator to oscillate considering the IF (1/100 Hz);
-- __Freq Unit__ - Frequency unit that will be show on the display for the current band;
-- __Divider__ - Divider used to reduce the number of digits in the display;
-- __decimals__ - number of decimal places after the comma;
-- __Initial Step Index__ - Lowest step index used for the band (see Step table)
-- __Final Step Index__ - Highest step index used for the band (see Step table) 
-- __Start Step Index__ - Default step index used for the band (see Step table)
-- __callback function__ - point to the function that handles specific things for the band
+O centro das informações do VFO está armazenado em uma tabela com as seguintes informações:  
+
+| Atributo      |  Descrição                                    |  Variável | 
+| ------------- | --------------------------------------------- | --------- | 
+| Nome da Banda | Nome da Banda que será apresentada no Display | *name |
+| Freq. Inicial | Freqência inicial da Banda (1/100 Hz)         | minFreq |
+| Freq. Final   | Freqência final (1/100 Hz) | maxFreq | 
+| Deslocamento  | Deslocamento em 1/100Hz utilizado na banda para compensar a FI (1/100 Hz) | offset |
+| Unidade       | Unidade de freqência utilizada na Banda | unitFreq |
+| Divisor       | Divisor usado para expressar a freqência utilizada na banda | divider | 
+| Casas Decimais| Número de casas decimais depois da vírgula utilizada para a banda | decimals |
+| Menor passo   | Índice para o menor passo utilizado na banda (ver tabela de passos) | finalStepIndex | 
+| Maior passo   | Índice do maior passo utilizado na banda | finalStepIndex |
+| Passo Padrão  | Índice do passo padrão da banda | starStepIndex |
+| Função de chamada | Função que será executada quando uma banda for selecionada | f |
 
 Implementação da Tabela de Bandas
 
@@ -153,11 +158,10 @@ typedef struct
   short decimals;         // number of digits after the comma
   short initialStepIndex; // Index to the initial step of incrementing
   short finalStepIndex;   // Index to the final step of incrementing
-  short starStepIndex;    // Index to start step of incrementing
+  short starStepIndex;    // Default Index for the band
   void (*f)(void);        // pointer to the function that handles specific things for the band
 } Band;
 ```
-
 
 
 ### Tabela de Bandas
@@ -202,6 +206,17 @@ When callback function is NULL, there is nothing to do.
 
 ### Tabela de Passos
 
+A tabela de passos foi implementada com um array de estrutura conforme mostrado a seguir.
+
+```cpp
+// Struct for step database
+typedef struct
+{
+  char *name; // step label: 50Hz, 100Hz, 500Hz, 1KHz, 5KHz, 10KHz and 500KHz
+  long value; // Frequency value (unit 0.01Hz See documentation) to increment or decrement
+} Step;
+```
+
 ```cpp 
 // Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
@@ -216,6 +231,7 @@ Step step[] = {
     {"500KHz", 50000000}};
 ```
 
+Os atributos __initialStepIndex__, __finalStepIndex__ e  __starStepIndex__, armazenam os índices do array __step[]__.    
 
 | Step Index | Step name | Step Value (1/100 Hz) |
 | ---------- | --------- | --------------------- | 
@@ -231,7 +247,7 @@ Step step[] = {
 
 
 
-## Funções no estilo callback
+### Funções no estilo callback
 
 As tabelas anteriores buscam oferecer dados sobre cada banda de tal forma que o processamento levará em consideração esses dados para realizar ações pertinentes a banda em uso. No entanto, para desempenhar ações de mais baixo nível, optou-se por utilizar funções no estilo "callback". Uma chamada callback é um recurso muito utilizado onde uma função é passada como argumento para outra função poder executá-la. No nosso exemplo, as funções no estilo "callback" não são enviadas como parâmetros. Na realidade, a tabela de bandas possui referências para funções que deverá ser chamada para complementar alguma ação específica para a banda em uso. Por exemplo, para acionar AM no rádio baseado no CD2003GP, é necessário que colocar o pino 14 do chip em nível lógico baixo. Em contrapartida, para acionar FM no rádio, é necessário que o pino 14 do CD2003GP esteja em nível lógico alto. 
 Quando uma banda não precisa de função no estilo "callback", há um valo nulo para indicar esta informação. 
@@ -290,7 +306,7 @@ Note no código a seguir que se a banda possuir uma função no estilo "callback
 
 
 
-## Explicando o uso de sizeof
+### Explicando o uso de sizeof
 
 o sizeof é um operador muito utilizado no C para obter o tamanho em bytes de estruturas de dados, array e tipos primitivos de dados (int, char, long etc). 
 Por exemplo: 
@@ -320,7 +336,7 @@ Tamanho da variável Band é:  (o tamanho do ponteiro char para nome) + (o taman
  
 Diante disso, o tamanho do tipo definido que foi criado seria: 4 + 8 + 8 = 20 bytes. 
  
-### Por que usar o operador sizeof? 
+#### Por que usar o operador sizeof? 
  
 Há várias razões.
  
@@ -337,9 +353,9 @@ typedef struct
 ```
 
 Observe no código acima a inclusão de __offset__. A mudança mostrada no código acima, não demanda a necessidade de recalcular o novo tamanho da estrutura se for usado sizeof. Isto é, sizeof agora retornará 28 bytes.  
- 3.     Facilita a migração do código para outras plataformas de microcontroladores. Outros microcontroladores podem usar tamanho padrões de tipos primitivos diferentes do Arduino, por exemplo. Há plataformas que o tipo int é de 32 bits (4 bytes)  e não 16 bits (2 bytes) e há plataformas que usam diferentes tamanhos para ponteiros (dependendo como essas plataformas trabalham com endereçamento de memória).  Com o uso do sizeof, eu não preciso me preocupar com isso neste contexto (tamanho em bytes).
+ 1.     Facilita a migração do código para outras plataformas de microcontroladores. Outros microcontroladores podem usar tamanho padrões de tipos primitivos diferentes do Arduino, por exemplo. Há plataformas que o tipo int é de 32 bits (4 bytes)  e não 16 bits (2 bytes) e há plataformas que usam diferentes tamanhos para ponteiros (dependendo como essas plataformas trabalham com endereçamento de memória).  Com o uso do sizeof, eu não preciso me preocupar com isso neste contexto (tamanho em bytes).
  
-### Qual o objetivo do sizeof no sketch? 
+#### Qual o objetivo do sizeof no sketch? 
  
 A principal razão é a tabela de bandas. Veja o exemplo a seguir: 
 
@@ -374,7 +390,7 @@ Para evitar esse desconforto e preocupação eu uso a expressão a seguir:
 
 const int lastBand = (sizeof band / sizeof(Band)) - 1;
  
-### O que ela faz? 
+#### O que ela faz? 
  
 Calcula o número de elementos do array band[] e subtrai de 1 porque 4 é o último elemento do array (lembre-se que em C o primeiro elemento é o 0). 
 
@@ -388,7 +404,7 @@ Só mais uma coisa que talvez possa gerar dúvida:
 As constantes “MW.  “, “SW1 “, “FM  “ etc.. NÃO fazem parte da estrutura implícita do array do tipo definido Band. A estrutura apenas armazena ponteiros para estas constantes. Em outras palavras, elas não são somadas ao tamanho em bytes da estrutura. Apenas os ponteiros para essas constantes são. 
 
 
-## Explicando as estruturas Band e Step.
+### Explicando as estruturas Band e Step.
 
 A ideia dessas estruturas é melhorar a manutenibilidade do código com a evolução do projeto. Essas estruturas foram projetadas para oferecer um comportamento distinto para cada banda. Ou seja,  para sintonizar estações de FM, por exemplo, só é necessário 1 dígito para casa decimal, passos entre 50KHz e 500KHz são mais apropriados que passos muito pequenos como 1KHz usado em SW. Já em AM, passos entre 500Hz e 50KHz,  bem como 2 dígitos após a vírgula, creio que funcionam bem . Em SW, é desejável uma precisão melhor, então o passo entre 100Hz e 50KHz, bem como duas casas após a vírgula pode ser mais interessante.  Então vamos a tabela para implementar comportamentos distintos por banda:
 
@@ -580,7 +596,7 @@ Por fim, foi apresentado os elementos do uso das tabelas band[] e step[]. É pos
 3. Na mesma analogia com o item anterior, se você precisar adicionar mais uma banda (subdividindo as outras), tudo que é preciso fazer é adicionar mais uma linha com as informações da nova banda na tabela band[]. Como seria usando codificação como __IF, ELSE ou CASE__? Mais fácil?    
 
 
-## Explicando como o Encoder está codificado 
+### Explicando como o Encoder está codificado 
 
 Não há uso de interrupção nem uma biblioteca específica para trabalhar no encoder no código deste projeto. Simplesmente é feita a leitura nos pinos do encoder. 
 

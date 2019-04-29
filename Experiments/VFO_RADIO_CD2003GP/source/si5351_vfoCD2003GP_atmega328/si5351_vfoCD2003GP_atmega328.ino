@@ -63,7 +63,7 @@ typedef struct
   short decimals;         // number of digits after the comma
   short initialStepIndex; // Index to the initial step of incrementing
   short finalStepIndex;   // Index to the final step of incrementing
-  short starStepIndex;    // Index to start step of incrementing
+  short starStepIndex;    // Default Index for the band
   void (*f)(void);        // pointer to the function that handles specific things for the band
 } Band;
 
