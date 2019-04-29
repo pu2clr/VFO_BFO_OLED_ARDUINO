@@ -168,7 +168,7 @@ typedef struct
 
 
 The code below implements the band table of the VFO for the radio used here. 
-The data amBroadcast and fmBroadcast are function that execute some specific actions for the band. When this value is NULL, no action will be executed.  
+The values amBroadcast, fmBroadcast and NULL are function that execute some specific actions for the band. When the value is NULL, no action will be executed.  
 
 ```cpp
 // Band database. You can change the band ranges if you need.
@@ -186,8 +186,6 @@ Band band[] = {
     {"VFH3", 15000000000LLU, 16000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL}};
 ```
 
-__amBroadcast__ and __fmBroadcast__ are functions (callback) that will do something when the band is selected. 
-When callback function is NULL, there is nothing to do. 
 
 
 ### Step Table 
