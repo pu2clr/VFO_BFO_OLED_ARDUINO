@@ -47,11 +47,13 @@ Si5351 si5351;
 
 
 // Callback functions declarations
+
 // Depending on the selected band, you may want to perform specific actions
 // The functions declared below will do something for AM and FM BAND. See implementation later.
 // You can implement callback function for other bands
 void amBroadcast(); // See implementation later.
 void fmBroadcast(); // See implementation later.
+
 
 // Structure for Bands database
 typedef struct
