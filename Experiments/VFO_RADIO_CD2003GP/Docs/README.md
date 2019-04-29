@@ -503,8 +503,9 @@ currentStep = band[currentBand].starStepIndex;
 
 o código acima faz o step na informação guardada em startStepIndex.
 
-Mudança do Step:
+Mudança do Step: 
 
+```cpp 
 else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
   {
    if (currentClock == 0)                                               // Is VFO
@@ -515,7 +516,8 @@ else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedButton) > MIN_EL
     clearDisplay = true;
     elapsedButton = millis();
   }
- 
+ ```
+
 Na mudança de step, verifico os limites permitidos para o step. Onserve o código
   currentStep = (currentStep < band[currentBand].finalStepIndex) ? (currentStep + 1) : band[currentBand].initialStepIndex; 
 
@@ -523,7 +525,7 @@ Neste código, testo se o passo corrente (currentStep) é menor que o máximo pe
 
 
 Na função Display, também uso esta tabela. Observe: 
-
+```cpp
 void displayDial()
 {
   double vfo = (double)vfoFreq / band[currentBand].divider;
@@ -554,7 +556,7 @@ void displayDial()
 
 
 ...
-
+```
 
 No código
 double vfo = (double)vfoFreq / band[currentBand].divider;
@@ -571,11 +573,11 @@ mainFreq.concat(band[currentBand].unitFreq);
 
 obs: concat é um método da classe string que junta duas strings.  Dessa forma a frequência e a unidade ficarão na mesma string.
 
-Bom, tentei apresentar os elementos do uso das tabelas band[] e step[]. Sei que devo ter deixado a solução um pouco mais complexa de entender no início. PORÉM imagine o seguinte: 
+Por fim, foi apresentado os elementos do uso das tabelas band[] e step[]. É possível que o leitor tenha achado a solução um pouco mais complexa de entender no início. __PORÉM__ imagine o seguinte: 
 
-1)	Se eu tivesse que  implementar o comportamento de cada banda com IF e ELSE ou CASE no código. Como ficaria esse código? Mais legível? Para uma ou duas  Bandas provavelmente sim, para várias bandas, certamente não. 
-2)	Se eu precisar retirar uma banda do meu sistema é só excluir a linha da tabela referente a banda. Não preciso fazer mais nada no código. Só compilar e aquela banda não fará mais parte do sistema. E como seria se você tivesse implementado a banda no código? Procuraria o IF, ELSE ou CASE relacionados e removeria o código. Mas será que isso não é mais trabalhoso e sujeito a incluir erros no código?   
-3)	Na mesma analogia com o item anterior, se eu precisar adicionar mais uma banda (subdividindo as outras), tudo que é preciso fazer é adicionar mais uma linha com as informações da nova banda na tabela band[]. Como seria usando codificação com IF, ELSE ou CASE? Mais fácil?    
+1. Se você tivesse que  implementar o comportamento de cada banda com __IF e ELSE ou CASE__ no código, como ficaria esse código? Mais legível? Para uma ou duas  Bandas provavelmente sim, para várias bandas, certamente não. 
+2. Se você precisar retirar uma banda do sistema é só excluir a linha da tabela referente a banda. Não será preciso fazer mais nada no código. Só compilar e aquela banda não fará mais parte do sistema. E como seria se você tivesse implementado a banda no código? Procuraria o __IF, ELSE ou CASE__ relacionados e removeria o código. Mas será que isso não é mais trabalhoso e sujeito a incluir erros no código?   
+3. Na mesma analogia com o item anterior, se você precisar adicionar mais uma banda (subdividindo as outras), tudo que é preciso fazer é adicionar mais uma linha com as informações da nova banda na tabela band[]. Como seria usando codificação como __IF, ELSE ou CASE__? Mais fácil?    
 
 
 ## Explicando como o Encoder está codificado 
