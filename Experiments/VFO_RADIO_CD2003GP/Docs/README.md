@@ -127,7 +127,7 @@ No primeiro teste, a perna do capacitor de 15Pf que acopla o oscilador local ao 
 
 Esta seção apresenta alguns aspectos da programação do VFO e BFO.  
 
-O centro das informações do VFO está armazenado em uma tabela com as seguintes informações:  
+O centro das informações do VFO está armazenado em uma tabela cuja cada banda tem as seguintes informações:  
 
 | Atributo      |  Descrição                                    |  Variável | 
 | ------------- | --------------------------------------------- | --------- | 
@@ -135,15 +135,15 @@ O centro das informações do VFO está armazenado em uma tabela com as seguinte
 | Freq. Inicial | Freqência inicial da Banda (1/100 Hz)         | minFreq |
 | Freq. Final   | Freqência final (1/100 Hz) | maxFreq | 
 | Deslocamento  | Deslocamento em 1/100Hz utilizado na banda para compensar a FI (1/100 Hz) | offset |
-| Unidade       | Unidade de freqência utilizada na Banda | unitFreq |
+| Unidade       | Unidade de freqência utilizada na Banda | *unitFreq |
 | Divisor       | Divisor usado para expressar a freqência utilizada na banda | divider | 
 | Casas Decimais| Número de casas decimais depois da vírgula utilizada para a banda | decimals |
 | Menor passo   | Índice para o menor passo utilizado na banda (ver tabela de passos) | finalStepIndex | 
 | Maior passo   | Índice do maior passo utilizado na banda | finalStepIndex |
 | Passo Padrão  | Índice do passo padrão da banda | starStepIndex |
-| Função de chamada | Função que será executada quando uma banda for selecionada | f |
+| Função de chamada | Função que será executada quando uma banda for selecionada | *f |
 
-Implementação da Tabela de Bandas
+A representação em C para as informações de uma banda no tipo definido __Band__.
 
 ```cpp
 // Structure for Bands database
@@ -163,8 +163,9 @@ typedef struct
 } Band;
 ```
 
-
 ### Tabela de Bandas
+
+Um array da estrutura __Band__ é criado para representar todo o conjunto de bandas que serão trabalhadas no VFO. 
 
 | Band name | Initial Freq.  | Final Freq. | offset | Freq Unit | Divider | Dec. | Initial Step Index | Final Step Index | Default |
 | --------- | ----------------------- | -------------------- | ---------------- | -----------------| --------------- |------------------ | ---------------- | ---------------- | -----------|  
@@ -179,8 +180,7 @@ typedef struct
 | 2M  | 14400000000 | 15000000000 | 1075000000  | MHz | 100000000 | 2 | 2 | 8 | 5 |
 | VFH3 | 15000000000 | 16000000000 | 1075000000  | MHz| 100000000 | 2 | 2 | 8| 5 |
 
-
-O código a seguir implementa a tabela de banda para do BFO. 
+O código a seguir implementa a tabela de banda para do VFO. 
 O campo contendo __amBroadcast__, __fmBroadcast__ ou __NULL__ são referências para funções que executarão algumas ações específicas para a banda tão logo a banda seja selecionada. Quando a referência for __NULL__ para a banda, nenhuma função será executada. 
 
 
@@ -199,9 +199,6 @@ Band band[] = {
     {"2M  ", 14400000000LLU, 15000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
     {"VFH3", 15000000000LLU, 16000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL}};
 ```
-
-__amBroadcast__ and __fmBroadcast__ are functions (callback) that will do something when the band is selected. 
-When callback function is NULL, there is nothing to do. 
 
 
 ### Tabela de Passos
