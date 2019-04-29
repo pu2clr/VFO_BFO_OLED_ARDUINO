@@ -24,14 +24,14 @@ April, 2019
    3. [Função no estilo callback](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#funções-no-estilo-callback)
    4. [Explicando o uso de sizeof](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-o-uso-de-sizeof)
    5. [Explicando as estruturas Band e Step](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-as-estruturas-band-e-step)
-   6.  [Explicando como o Encoder está codificado](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-como-o-encoder-está-codificado)
+   6. [Explicando como o Encoder está codificado](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-como-o-encoder-está-codificado)
 7.  [Vídeos](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#v%C3%ADdeos)
 
 
 
 ## Introdução
 
-Este teste modifica o sketch do Arduino original e apresenta duas versões. Uma para Arduino baseado no Atmega328 e outra para o Atmega32U4. 
+Este teste modifica o sketch do Arduino original e apresenta duas versões. Há duas versões do sketch, uma para Arduino baseado no Atmega328 e outra para o Atmega32U4. 
 O rádio utilizado neste teste é um CMik KK9, baseado no chip CD2003GP ou TA2003. Este rádio foi escolhido pela baixo custo de aquisição ( aproximadamente R$30,00). Trata-se de um receptor de Ondas Médias, Ondas Curtas e FM. Em MW e SW o rádio tem péssima seletividade. Contudo, a escuta de estações locais de AM é possível. Em FM o rádio se comporta um pouco melhor. 
 
 
@@ -125,9 +125,9 @@ No primeiro teste, a perna do capacitor de 15Pf que acopla o oscilador local ao 
 
 ## Arduino Sketch 
 
-Esta seção apresenta alguns aspectos da programação do VFO e BFO.  
+Esta seção apresenta alguns aspectos da programação do VFO e BFO.  É importante ressaltar que alguns recursos previstos neste sketch podem não ser implementados no rádio usado como exemplo. 
 
-O centro das informações do VFO está armazenado em uma tabela cuja cada banda tem as seguintes informações:  
+O centro das informações do VFO está armazenado em uma tabela seguintes informações para cada banda:  
 
 | Atributo      |  Descrição                                    |  Variável | 
 | ------------- | --------------------------------------------- | --------- | 
@@ -203,7 +203,7 @@ Band band[] = {
 
 ### Tabela de Passos
 
-A tabela de passos foi implementada com um array de estrutura conforme mostrado a seguir.
+A tabela de passos foi implementada com um array de estrutura conforme mostrado a seguir. É importante ressaltar que cada pbanda usar somente um subconjunto de passos contidos na tabela. Este subconjunto está definido na tabela de bandas (band[]).
 
 ```cpp
 // Struct for step database

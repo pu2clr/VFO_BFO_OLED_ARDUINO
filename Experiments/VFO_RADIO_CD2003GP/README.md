@@ -190,6 +190,19 @@ Band band[] = {
 
 ### Step Table 
 
+The step table is implemented by the code below.  Each band uses a subset of the band table. This will depend on the characteristics of the band.
+
+
+```cpp
+// Struct for step database
+typedef struct
+{
+  char *name; // step label: 50Hz, 100Hz, 500Hz, 1KHz, 5KHz, 10KHz and 500KHz
+  long value; // Frequency value (unit 0.01Hz See documentation) to increment or decrement
+} Step;
+```
+
+
 ```cpp 
 // Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
@@ -203,6 +216,7 @@ Step step[] = {
     {"100KHz", 10000000},
     {"500KHz", 50000000}};
 ```
+
 
 
 | Step Index | Step name | Step Value (1/100 Hz) |
