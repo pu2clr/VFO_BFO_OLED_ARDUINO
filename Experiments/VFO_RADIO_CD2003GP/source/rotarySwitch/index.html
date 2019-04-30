@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VFO Test</title>
+    <link href="jquery.rotaryswitch.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .container {
+            margin: 150px auto;
+            max-width: 640px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div>
+            <h2>Tune</h2>
+            <input type="text" class="rotarySwitch" value="0">
+        </div>
+        <div>
+            <h2>Fine Tune</h2>
+            <input type="text" class="rotarySwitch2" value="0">
+        </div>
+
+    </div>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script src="jquery.rotaryswitch.js"></script>
+    <script>
+        $(function () {
+
+            var lastPos = parseInt($('.rotarySwitch').val());
+            var freq = 500;
+
+            $('.rotarySwitch').rotaryswitch({ themeClass: 'big' });
+            $('.rotarySwitch2').rotaryswitch({ showMarks: true, themeClass: 'light' });
+
+            var demo = $('.rotarySwitch').rotaryswitch();
+            demo.on('change', function () {
+
+
+                var currentPos = parseInt($('.rotarySwitch').val());
+                if (currentPos == 0 && lastPos == 29) {
+                    freq += 10;
+                } else if ( currentPos == 29 && lastPos == 0) {
+                    freq -= 10;
+                } else  if (currentPos < lastPos ) {
+                    freq -= 10;
+                } else if (currentPos > lastPos)  {
+                    freq += 10;
+                }
+                console.log("Anterior: " + lastPos + " Atual: " + currentPos + " => " + freq);                
+                lastPos = parseInt($('.rotarySwitch').val());
+            });
+
+
+        });
+    </script>
+
+</body>
+
+</html>

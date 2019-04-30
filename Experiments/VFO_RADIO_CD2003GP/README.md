@@ -300,5 +300,6 @@ The code below shows the use of callback function when the use changes the band
 ## Vídeos 
 
 - [VFO and BFO project test with an inexpencive radio based on CD2003GP](https://youtu.be/_KgBc6vYWLg)
+- [Testing the VFO with a CD2003GM HOMEBREW FM RECEIVER](https://youtu.be/JfgRjDK8LTE)
 
 
