@@ -23,7 +23,7 @@
 #define RST_PIN -1 // Define proper RST_PIN if required.
 
 // Change this value below  (CORRECTION_FACTOR) to 0 if you do not know the correction factor of your Si5351A.
-#define CORRECTION_FACTOR 80000 // See how to calibrate your Si5351A (0 if you do not want).
+#define CORRECTION_FACTOR 0 // See how to calibrate your Si5351A (0 if you do not want).
 
 #define BUTTON_STEP 4    // Control the frequency increment and decrement
 #define BUTTON_BAND 3    // Controls the band
@@ -310,7 +310,7 @@ void fmBroadcast()
   // TO DO
   digitalWrite(CD2003GP_SWITCH_AM_FM, HIGH); // The CD2003GP is seted to AM
   digitalWrite(CD2003GP_AM_LED, LOW);      // Turn OFF the AM LED
-  digitalWrite(CD2003GP_FM_LED, HIGH;       // Turn ON the FM LED
+  digitalWrite(CD2003GP_FM_LED, HIGH);       // Turn ON the FM LED
 }
 
 

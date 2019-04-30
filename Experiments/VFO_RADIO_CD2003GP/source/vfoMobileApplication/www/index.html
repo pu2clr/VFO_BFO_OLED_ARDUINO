@@ -19,51 +19,39 @@
 </head>
 
 <body>
-    <div data-role="page" id="pg_bemvindo" data-theme="d" style="margin:3px;width: 95%; padding: 5px;">
+    <div data-role="page" id="pg_bemvindo" data-theme="d">
 
-        <div class="topcoat-navigation-bar">
-            <div class="topcoat-navigation-bar__item center full">
-                <h1 class="topcoat-navigation-bar__title">VFO-PU2CLR</h1>
-            </div>
-        </div>
+
+        <div data-role="header" data-position="fixed">
+            <h4>VFO - By PU2CLR</h4>
+        </div><!-- /header -->
 
         <div id="connectionScreen">
             <ul id="deviceList" class="topcoat-list">
             </ul>
-            <div style="margin: 10px">
+            <div >
                 <button class="topcoat-button" id="refreshButton">Refresh</button>
             </div>
         </div>
 
+        <div id="slider"></div>
+
         <div id="messageDiv">
-
-            <div data-role="header" data-position="fixed">
-                <h4>Generic VFO - By PU2CLR</h4>
-            </div><!-- /header -->
-
-            <h4 align="center"><b><i>Frequency</i></b></h4>
-
-            <div style="text-align:center;vertical-align:middle;">
-                <img src="img/enquete.png" alt="euOpino Enquetes" style="margin-left: auto; margin-right: auto;">
-            </div>
+        </div>
 
 
-            <div id="div_bt_acao" data-theme="d">
-
-            </div>
-
-            <!-- correção para wp8 -->
-            <div data-role="footer" data-id="persistent_navbar" data-position="fixed">
-                <div data-role="navbar">
-                    <ul data-mini="true">
-                        <li><a href="#pg_AM" data-transition="flip" data-icon="audio">AM</a></li>
-                        <li><a href="#pg_SW" data-transition="flip" data-icon="location">SW</a></li>
-                        <li><a href="#pg_FM" data-transition="flip" data-icon="audio">FM</a></li>
-                        <li><a href="#pg_VHF" data-transition="flip" data-icon="location">VHF</a></li>
-                    </ul>
-                </div>
+        <!-- correção para wp8 -->
+        <div data-role="footer" data-id="persistent_navbar" data-position="fixed">
+            <div data-role="navbar">
+                <ul data-mini="true">
+                    <li><a href="#pg_AM" data-transition="flip" data-icon="audio">AM</a></li>
+                    <li><a href="#pg_SW" data-transition="flip" data-icon="location">SW</a></li>
+                    <li><a href="#pg_FM" data-transition="flip" data-icon="audio">FM</a></li>
+                    <li><a href="#pg_VHF" data-transition="flip" data-icon="location">VHF</a></li>
+                </ul>
             </div>
         </div>
+
 
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
@@ -72,6 +60,12 @@
         <script src="js/jquery-ui.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/fastclick.js"></script>
         <script type="text/javascript" src="js/controle.js"></script>
+
+        <script>
+            $(function () {
+                $("#slider").slider();
+            });
+        </script>
 
         <script type="text/javascript">
             app.initialize();
