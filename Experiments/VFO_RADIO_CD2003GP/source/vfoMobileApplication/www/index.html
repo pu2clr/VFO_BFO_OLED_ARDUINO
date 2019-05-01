@@ -29,7 +29,7 @@
         </div><!-- /header -->
 
         <div>
-            Click on Button <b>Refresh</b> to select the Bluetooth 
+            Click on Button <b>Refresh</b> to select the Bluetooth
         </div>
 
         <div id="connectionScreen">
@@ -105,16 +105,18 @@
 
         <div data-role="main" class="ui-content" style="text-align:justify;vertical-align:middle;">
             <p>
-                VFO and BFO Bluetooth (BLE) remote control. 
+                VFO and BFO Bluetooth (BLE) remote control.
                 By PU2CLR.
                 Ricardo Lima Caratti
             </p>
             <p>
-                This application is a remote control to the VFO and BFO project that you can control two clock outputs of the Si5351A by
-                using the Arduino. The VFO (CLK0) can oscillate from 100KHz to 160MHz and the second (CLK1) can oscillate from 452KHz to
+                This application is a remote control to the VFO and BFO project that you can control two clock outputs
+                of the Si5351A by
+                using the Arduino. The VFO (CLK0) can oscillate from 100KHz to 160MHz and the second (CLK1) can
+                oscillate from 452KHz to
                 458KHz.
 
-                Click <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Doc/En">here</a> for detail 
+                Click <a href="https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Doc/En">here</a> for detail
             </p>
 
         </div>
@@ -143,13 +145,17 @@
         $(function () {
             // alert ("Aqui");
             var lastPos = parseInt($('#tune').val());
+            var lastPosFineTune = parseInt($('#fineTune').val());
             var freq = 500;
-            var c;
 
             $('#tune').rotaryswitch({ themeClass: 'big' });
             $('#fineTune').rotaryswitch({ themeClass: 'big' });
-            var demo = $('#tune').rotaryswitch();
-            demo.on('change', function () {
+
+            var tune = $('#tune').rotaryswitch();
+
+            // It is executed whenever you rotate the Tune knob
+            tune.on('change', function () {
+                var c;
                 var currentPos = parseInt($('#tune').val());
                 if (currentPos == 0 && lastPos == 29) {
                     freq += 10;
@@ -166,6 +172,28 @@
                 }
                 $('#freq').val(freq);
                 lastPos = parseInt($('#tune').val());
+                app.sendToArduino(c);
+            });
+
+            var fineTune = $('#fineTune').rotaryswitch();
+            // It is executed whenever you rotate the fineTune knob
+            fineTune.on('change', function () {
+                var c;
+                var currentPos = parseInt($('#tune').val());
+                if (currentPos == 0 && lastPosFineTune == 29) {
+                    freq += 10;
+                    c = ">";
+                } else if (currentPos == 29 && lastPosFineTune == 0) {
+                    freq -= 10;
+                    c = "<";
+                } else if (currentPos < lastPosFineTune) {
+                    freq -= 10;
+                    c = "<";
+                } else if (currentPos > lastPosFineTune) {
+                    freq += 10;
+                    c = ">";
+                }
+                lastPosFineTune = parseInt($('#fineTune').val());
                 app.sendToArduino(c);
             });
 
