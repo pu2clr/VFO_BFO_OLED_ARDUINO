@@ -50,8 +50,8 @@
 }
 
 .rotaryswitchPlugin.big {
-  width: 186px;
-  height: 186px;
+  width: 140px;
+  height: 140px;
   background: url(theme/darkBigBackground.png) no-repeat;
 }
  @media only screen and (-moz-min-device-pixel-ratio: 2),  only screen and (-o-min-device-pixel-ratio: 2/1),  only screen and (-webkit-min-device-pixel-ratio: 2),  only screen and (min-device-pixel-ratio: 2) {

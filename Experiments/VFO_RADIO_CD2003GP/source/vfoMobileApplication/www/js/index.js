@@ -70,7 +70,7 @@ var app = {
         return color.join(',');
     },
     sendToArduino: function (c) {
-        bluetoothSerial.write("c" + c + "\n");
+        bluetoothSerial.write(c);
     },
     timeoutId: 0,
     setStatus: function (status) {
