@@ -28,7 +28,7 @@ limitations under the License.
 			lengthDeg: 360,	// Length in deg
 			minimumOverMaximum: true, // Which value will used, if the the start and the end point at the same deg.
 			showInput: false, // Show input element
-			showMarks: true, // Show deg marks
+			showMarks: false, // Show deg marks
 			themeClass: 'defaultTheme' // Theme class
 		};
 	
