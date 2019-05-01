@@ -2,9 +2,6 @@
 /* global cordova, console, $, bluetoothSerial, _, refreshButton, deviceList, previewColor, red, green, blue, disconnectButton, connectionScreen, colorScreen, rgbText, messageDiv */
 'use strict';
 
-// Usar Knob JQuery: https://www.jqueryscript.net/other/Minimal-SVG-Based-Knob-Widget-For-jQuery-UI-Knob-js.html
-// https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxknob/index.htm#demos/jqxknob/knob-with-arrow-pointer.htm
-
 var app = {
     initialize: function () {
         this.bind();

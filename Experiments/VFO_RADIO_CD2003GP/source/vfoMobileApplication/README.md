@@ -49,4 +49,10 @@ Compile and run the application
     $ cordova run android --device
 
 
-    
+
+# Useful commands    
+
+cd Experiments/VFO_RADIO_CD2003GP/source/vfoMobileApplication/
+~/Library/Android/sdk/tools/emulator -list-avds
+~/Library/Android/sdk/tools/emulator -avd Nexus_6P_API_25 &
+
