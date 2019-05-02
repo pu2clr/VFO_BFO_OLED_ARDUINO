@@ -71,7 +71,7 @@
                         <h4>VFO</h4>
                         <input type="text" id="tune" value="0">
                     </li>
-                    <li></li>
+
                     <li>
                         <h4>BFO</h4>
                         <input type="text" id="fineTune" value="0">
@@ -160,7 +160,6 @@
             var lastPosFineTune = parseInt($('#fineTune').val());
 
             // Frequency will be get from Arduino VFO
-            var freq = 500;
 
             $('#tune').rotaryswitch({ themeClass: 'big' });
             $('#fineTune').rotaryswitch({ themeClass: 'big' });
@@ -172,19 +171,15 @@
                 var c;
                 var currentPos = parseInt($('#tune').val());
                 if (currentPos == 0 && lastPos == 29) {
-                    freq += 10;
                     c = "+";
                 } else if (currentPos == 29 && lastPos == 0) {
-                    freq -= 10;
                     c = "-";
                 } else if (currentPos < lastPos) {
-                    freq -= 10;
                     c = "-";
                 } else if (currentPos > lastPos) {
                     freq += 10;
                     c = "+";
                 }
-                $('#freq').val(freq);
                 lastPos = parseInt($('#tune').val());
                 app.sendToArduino(c);
             });

@@ -8,12 +8,12 @@ var app = {
     },
     bind: function () {
         document.addEventListener('deviceready', this.deviceready, false);
- 
+
     },
     deviceready: function () {
 
         // wire buttons to functions
-        deviceList.ontouchstart = app.connect; 
+        deviceList.ontouchstart = app.connect;
         refreshButton.ontouchstart = app.list;
         sendFreq.ontouchstart = app.sendData;
         disconnectButton.ontouchstart = app.disconnect;
@@ -34,8 +34,12 @@ var app = {
         app.setStatus("Connecting...");
         var device = e.target.getAttribute('deviceId');
         console.log("Requesting connection to " + device);
+        var deviceId = e.target.dataset.deviceId;
+        if (!deviceId) { // try the parent
+            deviceId = e.target.parentNode.dataset.deviceId;
+        }
         bluetoothSerial.connect(device, app.onconnect, app.ondisconnect);
-    },
+      },
     disconnect: function (event) {
         if (event) {
             event.preventDefault();
@@ -45,9 +49,11 @@ var app = {
         bluetoothSerial.disconnect(app.ondisconnect);
     },
     onconnect: function () {
+        bluetoothSerial.subscribe('\n', app.onData, app.generateFailureFunction);
         connectionScreen.hidden = true;
         colorScreen.hidden = false;
         app.setStatus("Connected.");
+
     },
     ondisconnect: function () {
         connectionScreen.hidden = false;
@@ -71,13 +77,14 @@ var app = {
         bluetoothSerial.write(c);
     },
     onData: function (data) { // data received from Arduino
-        // console.log(data);
+        console.log("Recebido" + data);
         // resultDiv.innerHTML = resultDiv.innerHTML + "Received: " + data + "<br/>";
         // resultDiv.scrollTop = resultDiv.scrollHeight;
+        $("#freq").val(data);
     },
     sendData: function (event) { // send data to Arduino
         // Do something if success
-        $("#freq").val(parseInt(messageInput.value)); 
+        $("#freq").val(parseInt(messageInput.value));
         var success = function () {
             // $("#freq").val(messageInput.value); 
         };
@@ -87,7 +94,7 @@ var app = {
         };
         // var data = messageInput.value;
         // bluetoothSerial.write(data, success, failure);
-    },   
+    },
     timeoutId: 0,
     setStatus: function (status) {
         if (app.timeoutId) {
@@ -139,5 +146,8 @@ var app = {
             app.setStatus(message + details);
         };
         return func;
+    },
+    onError: function (reason) {
+        alert("ERROR: " + reason); // real apps should use notification.alert
     }
 };
