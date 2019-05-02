@@ -71,6 +71,7 @@
                         <h4>VFO</h4>
                         <input type="text" id="tune" value="0">
                     </li>
+                    <li></li>
                     <li>
                         <h4>BFO</h4>
                         <input type="text" id="fineTune" value="0">
@@ -79,6 +80,17 @@
             </div>
         </div>
 
+        <div data-role="fieldcontain" style="text-align:left;vertical-align:middle; z-index: 10000;">
+            <div style="width: 100%; display: table;" data-mini="true">
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <legend>Frequency:</legend>
+                    <div data-role="content">
+                        <input type="number" id="messageInput" value="" />
+                        <button id="sendFreq">Enter</button>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
 
         <!-- correção para wp8 -->
         <div data-role="footer" data-id="persistent_navbar" data-position="fixed">
@@ -146,6 +158,8 @@
             // alert ("Aqui");
             var lastPos = parseInt($('#tune').val());
             var lastPosFineTune = parseInt($('#fineTune').val());
+
+            // Frequency will be get from Arduino VFO
             var freq = 500;
 
             $('#tune').rotaryswitch({ themeClass: 'big' });

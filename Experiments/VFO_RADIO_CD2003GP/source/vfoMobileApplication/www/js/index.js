@@ -15,6 +15,7 @@ var app = {
         // wire buttons to functions
         deviceList.ontouchstart = app.connect; 
         refreshButton.ontouchstart = app.list;
+        sendFreq.ontouchstart = app.sendData;
         disconnectButton.ontouchstart = app.disconnect;
 
         // throttle changes
@@ -69,6 +70,24 @@ var app = {
     sendToArduino: function (c) {
         bluetoothSerial.write(c);
     },
+    onData: function (data) { // data received from Arduino
+        // console.log(data);
+        // resultDiv.innerHTML = resultDiv.innerHTML + "Received: " + data + "<br/>";
+        // resultDiv.scrollTop = resultDiv.scrollHeight;
+    },
+    sendData: function (event) { // send data to Arduino
+        // Do something if success
+        $("#freq").val(parseInt(messageInput.value)); 
+        var success = function () {
+            // $("#freq").val(messageInput.value); 
+        };
+        // do something if failure
+        var failure = function () {
+            alert("Failed sending data to Arduino VFO");
+        };
+        // var data = messageInput.value;
+        // bluetoothSerial.write(data, success, failure);
+    },   
     timeoutId: 0,
     setStatus: function (status) {
         if (app.timeoutId) {
