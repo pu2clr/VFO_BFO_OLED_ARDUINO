@@ -19,18 +19,6 @@ You have to install [Xcode](https://developer.apple.com/xcode/) on your Mac comp
 
 
 
-## Android 
-
-### Android Studio
-
-
-
-
-## iOS
-
-### Xcode
-
-
 ### Pair your phone
 
 You have to pair your Android phone with the HM10 Bluetooth Shield.
