@@ -49,8 +49,9 @@ var app = {
         bluetoothSerial.disconnect(app.ondisconnect);
     },
     onconnect: function () {
-        bluetoothSerial.subscribe('\n', app.onData, app.generateFailureFunction);
         
+        bluetoothSerial.subscribe('\n', app.onData, app.generateFailureFunction);
+
         connectionScreen.hidden = true;
         colorScreen.hidden = false;
         app.setStatus("Connected.");
@@ -61,6 +62,7 @@ var app = {
         colorScreen.hidden = true;
         app.setStatus("Disconnected.");
     },
+    /*
     onColorChange: function (evt) {
         var c = app.getColor();
         rgbText.innerText = c;
@@ -74,14 +76,13 @@ var app = {
         color.push(blue.value);
         return color.join(',');
     },
+    */
     sendToArduino: function (c) {
         bluetoothSerial.write(c);
     },
     onData: function (data) { // data received from Arduino
         console.log("Recebido" + data);
-        // resultDiv.innerHTML = resultDiv.innerHTML + "Received: " + data + "<br/>";
-        // resultDiv.scrollTop = resultDiv.scrollHeight;
-        $("#freq").val(data);
+        // $("#freq").val(data);
     },
     sendData: function (event) { // send data to Arduino
         // Do something if success

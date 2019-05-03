@@ -3,17 +3,27 @@
 
 __This application is under construction...  Please wait...__ 
 
-Simple Bluetooth Remote Control for the BFO. 
-With this application you can control the VFO via a Smartphone iOS or Android.
-    
+## Introduction 
+
+The reduced length of the Oled display might limit some VFO functionalities.  The goal of this mobile application is improve the VFO control and visualization. 
+
+
+
+## Compile and deploy this mobile application
+
 Please copy the project to a local folder and follow the steps bellow
+
+You have to install [Android Studio](http://developer.android.com/sdk/index.html) on your computer to compile and deploy this application on your Android.
+
+You have to install [Xcode](https://developer.apple.com/xcode/) on your Mac computer to compile and deploy this application on your iPhone or iPad.  
+
 
 
 ## Android 
 
 ### Android Studio
 
-You have to install [Android Studio](http://developer.android.com/sdk/index.html) on your computer to compile and deploy this application on your Smartphone.
+
 
 
 ## iOS

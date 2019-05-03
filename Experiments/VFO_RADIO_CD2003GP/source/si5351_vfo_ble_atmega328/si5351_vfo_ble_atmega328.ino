@@ -245,7 +245,8 @@ void displayDial()
     dinamicFreq = "BFO";
   }
 
-  bluetooth.print(mainFreq); 
+  // use println instead print to send message to mobile device
+  bluetooth.println(mainFreq); 
   
   // Show Band information
   display.setCursor(0, 0);
