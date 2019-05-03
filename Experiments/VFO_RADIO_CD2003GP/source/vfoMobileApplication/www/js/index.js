@@ -50,6 +50,7 @@ var app = {
     },
     onconnect: function () {
         bluetoothSerial.subscribe('\n', app.onData, app.generateFailureFunction);
+        
         connectionScreen.hidden = true;
         colorScreen.hidden = false;
         app.setStatus("Connected.");
