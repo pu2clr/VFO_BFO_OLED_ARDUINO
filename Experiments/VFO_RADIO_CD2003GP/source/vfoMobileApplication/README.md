@@ -48,9 +48,15 @@ Compile and run the application
 
 
 
-# Useful commands    
+## Useful commands    
 
 cd Experiments/VFO_RADIO_CD2003GP/source/vfoMobileApplication/
 ~/Library/Android/sdk/tools/emulator -list-avds
 ~/Library/Android/sdk/tools/emulator -avd Nexus_6P_API_25 &
 
+
+
+## References
+
+- [UI Plugin For Seven-Segment Indicator - sevenSeg.js](https://www.jqueryscript.net/demo/jQuery-jQuery-UI-Plugin-For-Seven-Segment-Indicator-sevenSeg-js/)
+- 

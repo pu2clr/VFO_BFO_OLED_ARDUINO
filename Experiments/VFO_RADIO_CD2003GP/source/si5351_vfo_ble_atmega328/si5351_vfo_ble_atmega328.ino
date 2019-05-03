@@ -16,8 +16,8 @@
 #include <SoftwareSerial.h>
 
 
-#define BLUETOOTH_TX 10 // Could be D8
-#define BLUETOOTH_RX 11 // Could be D7
+#define BLUETOOTH_TX 8  
+#define BLUETOOTH_RX 7  
 
 // Initiate BLE (HM10) Instance
 SoftwareSerial bluetooth(BLUETOOTH_TX, BLUETOOTH_RX);
@@ -164,7 +164,8 @@ void setup()
 
 
   // Start bluetooth serial at 9600 bps.
-  bluetooth.begin(9600);
+  Serial.begin(9600);
+  bluetooth.begin(57600);
 
   // The sistem is alive
   blinkLed(STATUS_LED, 100);
@@ -246,7 +247,8 @@ void displayDial()
   }
 
   // use println instead print to send message to mobile device
-  bluetooth.println(mainFreq); 
+  // bluetooth.print(mainFreq); 
+  bluetooth.write("TESTE");
   
   // Show Band information
   display.setCursor(0, 0);
@@ -409,6 +411,7 @@ void loop()
       default:
         break;
     }
+    Serial.println(c);
   }
 
   if (clearDisplay)
