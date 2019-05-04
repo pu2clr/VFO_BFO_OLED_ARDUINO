@@ -15,13 +15,11 @@
 #include <SSD1306AsciiAvrI2c.h>
 #include <SoftwareSerial.h>
 
-
 #define BLUETOOTH_TX 10 // Could be D8
 #define BLUETOOTH_RX 11 // Could be D7
 
 // Initiate BLE (HM10) Instance
 SoftwareSerial bluetooth(BLUETOOTH_TX, BLUETOOTH_RX);
-
 
 // Enconder PINs
 #define ENCODER_PIN_A 5 // Arduino  Pin 5
@@ -44,8 +42,8 @@ SoftwareSerial bluetooth(BLUETOOTH_TX, BLUETOOTH_RX);
 #define MIN_BFO 45200000LU    // BFO minimum frequency
 
 #define CD2003GP_SWITCH_AM_FM 7 // Define Arduino Pin 10 to switch AM and FM on CD2003GO based radio (connected to PIN 14 on the CD2003GP)
-#define CD2003GP_AM_LED 8  // Indicate that the radio is working in AM mode
-#define CD2003GP_FM_LED 9  // Indicate that the radio is working in FM mode
+#define CD2003GP_AM_LED 8       // Indicate that the radio is working in AM mode
+#define CD2003GP_FM_LED 9       // Indicate that the radio is working in FM mode
 
 #define STATUS_LED 13 // Arduino status LED Pin 10
 #define STATUSLED(ON_OFF) digitalWrite(STATUS_LED, ON_OFF)
@@ -63,7 +61,6 @@ Si5351 si5351;
 // You can implement callback function for other bands
 void amBroadcast(); // See implementation later.
 void fmBroadcast(); // See implementation later.
-
 
 // Structure for Bands database
 typedef struct
@@ -84,17 +81,16 @@ typedef struct
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
 Band band[] = {
-  {"MW  ", 50000000LLU, 170000000LLU, 45500000LU, "KHz", 100000.0f, 0, 3, 6, 5, amBroadcast},
-  {"SW1 ", 170000000LLU, 1000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
-  {"SW2 ", 1000000000LLU, 2000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
-  {"SW3 ", 2000000000LLU, 3000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
-  {"VHF1", 3000000000LLU, 7600000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 7, 3, NULL},
-  {"FM  ", 7600000000LLU, 10800000000LLU, 1075000000LLU, "MHz", 100000000.0f, 2, 6, 8, 7, fmBroadcast},
-  {"AIR ", 10800000000LLU, 13700000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
-  {"VHF2", 13700000000LLU, 14400000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
-  {"2M  ", 14400000000LLU, 15000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
-  {"VFH3", 15000000000LLU, 16000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL}
-};
+    {"MW  ", 50000000LLU, 170000000LLU, 45500000LU, "KHz", 100000.0f, 0, 3, 6, 5, amBroadcast},
+    {"SW1 ", 170000000LLU, 1000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+    {"SW2 ", 1000000000LLU, 2000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+    {"SW3 ", 2000000000LLU, 3000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+    {"VHF1", 3000000000LLU, 7600000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 7, 3, NULL},
+    {"FM  ", 7600000000LLU, 10800000000LLU, 1075000000LLU, "MHz", 100000000.0f, 2, 6, 8, 7, fmBroadcast},
+    {"AIR ", 10800000000LLU, 13700000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
+    {"VHF2", 13700000000LLU, 14400000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
+    {"2M  ", 14400000000LLU, 15000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
+    {"VFH3", 15000000000LLU, 16000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL}};
 
 // Calculate the last element position (index) of the array band
 const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
@@ -109,16 +105,15 @@ typedef struct
 
 // Steps database. You can change the Steps and numbers of steps here if you need.
 Step step[] = {
-  {"10Hz  ", 1000},
-  {"100Hz ", 10000},
-  {"500Hz ", 50000},
-  {"1KHz  ", 100000},
-  {"5KHz  ", 500000},
-  {"10KHz  ", 1000000},
-  {"50KHz ", 5000000},
-  {"100KHz", 10000000},
-  {"500KHz", 50000000}
-};
+    {"10Hz  ", 1000},
+    {"100Hz ", 10000},
+    {"500Hz ", 50000},
+    {"1KHz  ", 100000},
+    {"5KHz  ", 500000},
+    {"10KHz  ", 1000000},
+    {"50KHz ", 5000000},
+    {"100KHz", 10000000},
+    {"500KHz", 50000000}};
 
 // Calculate the index of last position of step[] array (in this case will be 8)
 const short lastStepVFO = (sizeof step / sizeof(Step)) - 1; // index for max increment / decrement for VFO
@@ -162,9 +157,8 @@ void setup()
   pinMode(BUTTON_STEP, INPUT);
   pinMode(BUTTON_VFO_BFO, INPUT);
 
-
   // Start bluetooth serial at 9600 bps.
-  bluetooth.begin(9600);
+  blebegin(9600);
 
   // The sistem is alive
   blinkLed(STATUS_LED, 100);
@@ -245,8 +239,8 @@ void displayDial()
     dinamicFreq = "BFO";
   }
 
-  bluetooth.print(mainFreq); 
-  
+  bleprint(mainFreq);
+
   // Show Band information
   display.setCursor(0, 0);
   display.set1X();
@@ -315,9 +309,8 @@ void amBroadcast()
 {
   // TO DO
   digitalWrite(CD2003GP_SWITCH_AM_FM, LOW); // The CD2003GP is seted to AM
-  digitalWrite(CD2003GP_AM_LED, HIGH);     // Turn ON the AM LED
-  digitalWrite(CD2003GP_FM_LED, LOW);      // Turn OFF the FM LED
-
+  digitalWrite(CD2003GP_AM_LED, HIGH);      // Turn ON the AM LED
+  digitalWrite(CD2003GP_FM_LED, LOW);       // Turn OFF the FM LED
 }
 
 // Doing something spefict for FM
@@ -326,10 +319,14 @@ void fmBroadcast()
 {
   // TO DO
   digitalWrite(CD2003GP_SWITCH_AM_FM, HIGH); // The CD2003GP is seted to AM
-  digitalWrite(CD2003GP_AM_LED, LOW);      // Turn OFF the AM LED
+  digitalWrite(CD2003GP_AM_LED, LOW);        // Turn OFF the AM LED
   digitalWrite(CD2003GP_FM_LED, HIGH);       // Turn ON the FM LED
 }
 
+// Send VFO/BFO database to mobile device
+void getDatabase() {
+  // TO DO
+}
 
 // main loop
 void loop()
@@ -340,7 +337,7 @@ void loop()
     encoder_pin_a = digitalRead(ENCODER_PIN_A);
     encoder_pin_b = digitalRead(ENCODER_PIN_B);
     if ((!encoder_pin_a) && (encoder_prev)) // has ENCODER_PIN_A gone from high to low?
-    { // if so,  check ENCODER_PIN_B. It is high then clockwise (1) else counter-clockwise (-1)
+    {                                       // if so,  check ENCODER_PIN_B. It is high then clockwise (1) else counter-clockwise (-1)
       changeFreq(((encoder_pin_b) ? 1 : -1));
     }
     encoder_prev = encoder_pin_a;
@@ -384,29 +381,41 @@ void loop()
     clearDisplay = true;
     elapsedButton = millis();
   }
-  /*
-    else if (digitalRead(BUTTON_VFO_BFO) && (millis() - elapsedButton) > MIN_ELAPSED_TIME == HIGH)
-    {
+  else if (digitalRead(BUTTON_VFO_BFO) && (millis() - elapsedButton) > MIN_ELAPSED_TIME == HIGH)
+  {
     currentClock = !currentClock;
     currentStep = (currentClock == 0) ? band[currentBand].starStepIndex : 0;
     clearDisplay = true;
     elapsedButton = millis();
-    }
-  */
+  }
 
-  if (bluetooth.available())
+  // Check if mobile device sent something 
+  if (bleavailable())
   {
-    char c = bluetooth.read(); // Get message from mobile device (Smartphone)
+    char c = bleread(); // Get message from mobile device (Smartphone)
     switch (c)
     {
-      case '+':
-        changeFreq(+1); // Increment
-        break;
-      case '-':
-        changeFreq(-1); // Decrement
-        break;
-      default:
-        break;
+    case '+':
+      currentClock = 0;
+      changeFreq(+1); // Increment VFO
+      break;
+    case '-':
+      currentClock = 0;
+      changeFreq(-1); // Decrement VFO
+      break;
+    case '>':
+      currentClock = 1;
+      changeFreq(+1); // Increment BFO
+      break;
+    case '<':
+      currentClock = 0;
+      changeFreq(-1); // Decrement BFO
+      break;
+    case 'd': 
+      sendDatabase();  // Send VFO/BFO information (Bands, Steps and current status) to mobile device
+      break;  
+    default:
+      break;
     }
   }
 

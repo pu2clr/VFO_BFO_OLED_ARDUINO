@@ -18,7 +18,6 @@ You have to install [Android Studio](http://developer.android.com/sdk/index.html
 You have to install [Xcode](https://developer.apple.com/xcode/) on your Mac computer to compile and deploy this application on your iPhone or iPad.  
 
 
-
 ### Pair your phone
 
 You have to pair your Android phone with the HM10 Bluetooth Shield.
