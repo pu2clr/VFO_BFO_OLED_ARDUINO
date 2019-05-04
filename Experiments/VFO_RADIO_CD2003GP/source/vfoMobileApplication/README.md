@@ -1,6 +1,5 @@
 # VFO Mobile Remote Control for iPhone and Android
 
-
 __This application is under construction...  Please wait...__ 
 
 ## Introduction 
