@@ -8,10 +8,8 @@ var app = {
     },
     bind: function () {
         document.addEventListener('deviceready', this.deviceready, false);
-
     },
     deviceready: function () {
-
         // wire buttons to functions
         deviceList.ontouchstart = app.connect;
         refreshButton.ontouchstart = app.list;
@@ -38,22 +36,20 @@ var app = {
         if (!deviceId) { // try the parent
             deviceId = e.target.parentNode.dataset.deviceId;
         }
+        bluetoothSerial.subscribe('\n', app.onData, app.generateFailureFunction);
         bluetoothSerial.connect(device, app.onconnect, app.ondisconnect);
       },
     disconnect: function (event) {
         if (event) {
             event.preventDefault();
         }
-
         app.setStatus("Disconnecting...");
         bluetoothSerial.disconnect(app.ondisconnect);
     },
     onconnect: function () {
-        bluetoothSerial.subscribe('\n', app.onData, app.generateFailureFunction);
         connectionScreen.hidden = true;
         colorScreen.hidden = false;
         app.setStatus("Connected.");
-
     },
     ondisconnect: function () {
         connectionScreen.hidden = false;
@@ -78,22 +74,7 @@ var app = {
     },
     onData: function (data) { // data received from Arduino
         console.log("Recebido" + data);
-        // resultDiv.innerHTML = resultDiv.innerHTML + "Received: " + data + "<br/>";
-        // resultDiv.scrollTop = resultDiv.scrollHeight;
         $("#freq").val(data);
-    },
-    sendData: function (event) { // send data to Arduino
-        // Do something if success
-        $("#freq").val(parseInt(messageInput.value));
-        var success = function () {
-            // $("#freq").val(messageInput.value); 
-        };
-        // do something if failure
-        var failure = function () {
-            alert("Failed sending data to Arduino VFO");
-        };
-        // var data = messageInput.value;
-        // bluetoothSerial.write(data, success, failure);
     },
     timeoutId: 0,
     setStatus: function (status) {
@@ -105,7 +86,6 @@ var app = {
     },
     ondevicelist: function (devices) {
         var listItem, deviceId;
-
         // remove existing devices
         deviceList.innerHTML = "";
         app.setStatus("");
@@ -146,8 +126,5 @@ var app = {
             app.setStatus(message + details);
         };
         return func;
-    },
-    onError: function (reason) {
-        alert("ERROR: " + reason); // real apps should use notification.alert
     }
 };

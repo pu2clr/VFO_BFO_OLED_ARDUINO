@@ -56,5 +56,7 @@ cd Experiments/VFO_RADIO_CD2003GP/source/vfoMobileApplication/
 
 ## References
 
+- [Bluetooth Serial Plugin for PhoneGap](https://github.com/digistump/Digispark_Cordova_BTShieldEcho/tree/master/plugins/com.megster.cordova.bluetoothserial)
+- [Bluetooth Serial Plugin for PhoneGap](https://github.com/don/BluetoothSerial)
 - [UI Plugin For Seven-Segment Indicator - sevenSeg.js](https://www.jqueryscript.net/demo/jQuery-jQuery-UI-Plugin-For-Seven-Segment-Indicator-sevenSeg-js/)
 - 
