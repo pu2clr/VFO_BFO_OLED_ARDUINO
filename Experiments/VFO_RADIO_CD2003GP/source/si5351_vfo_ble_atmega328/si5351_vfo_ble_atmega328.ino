@@ -419,6 +419,7 @@ void loop()
     }
   }
 
+  // Check if it is necessary to refresh the display
   if (clearDisplay)
   {
     display.clear();
