@@ -19,7 +19,7 @@
 #define BLUETOOTH_RX 11 // Could be D7
 
 // Initiate BLE (HM10) Instance
-SoftwareSerial bluetooth(BLUETOOTH_TX, BLUETOOTH_RX);
+SoftwareSerial ble(BLUETOOTH_TX, BLUETOOTH_RX);
 
 // Enconder PINs
 #define ENCODER_PIN_A 5 // Arduino  Pin 5
@@ -158,7 +158,7 @@ void setup()
   pinMode(BUTTON_VFO_BFO, INPUT);
 
   // Start bluetooth serial at 9600 bps.
-  blebegin(9600);
+  ble.begin(9600);
 
   // The sistem is alive
   blinkLed(STATUS_LED, 100);
@@ -239,7 +239,7 @@ void displayDial()
     dinamicFreq = "BFO";
   }
 
-  bleprint(mainFreq);
+  ble.print(mainFreq);
 
   // Show Band information
   display.setCursor(0, 0);
@@ -324,7 +324,7 @@ void fmBroadcast()
 }
 
 // Send VFO/BFO database to mobile device
-void getDatabase() {
+void sendDatabase() {
   // TO DO
 }
 
@@ -356,7 +356,7 @@ void loop()
     }
     isFreqChanged = false;
     displayDial();
-  }
+  } //  end encoder control
 
   // check if some button is pressed
   if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
@@ -387,12 +387,12 @@ void loop()
     currentStep = (currentClock == 0) ? band[currentBand].starStepIndex : 0;
     clearDisplay = true;
     elapsedButton = millis();
-  }
+  } // end button control
 
   // Check if mobile device sent something 
-  if (bleavailable())
+  if (ble.available())
   {
-    char c = bleread(); // Get message from mobile device (Smartphone)
+    char c = ble.read(); // Get message from mobile device (Smartphone)
     switch (c)
     {
     case '+':
@@ -417,7 +417,7 @@ void loop()
     default:
       break;
     }
-  }
+  } // end bluetooth control
 
   // Check if it is necessary to refresh the display
   if (clearDisplay)
@@ -426,4 +426,5 @@ void loop()
     displayDial();
     clearDisplay = false;
   }
-}
+
+} // end loop
