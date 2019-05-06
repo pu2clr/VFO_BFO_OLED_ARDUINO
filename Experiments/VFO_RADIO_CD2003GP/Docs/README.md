@@ -25,7 +25,12 @@ April, 2019
    4. [Explicando o uso de sizeof](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-o-uso-de-sizeof)
    5. [Explicando as estruturas Band e Step](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-as-estruturas-band-e-step)
    6. [Explicando como o Encoder está codificado](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#explicando-como-o-encoder-está-codificado)
-7.  [Vídeos](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#v%C3%ADdeos)
+7. [Source folder](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/source)
+   1. [Arduino sketch para Atmega328 - si5351_vfoCD2003GP_atmega328.ino](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/source/si5351_vfoCD2003GP_atmega328)
+   2. [Arduino sketch para Atmega32U4 - si5351_vfoCD2003GP_atmega32u4.ino](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/source/si5351_vfoCD2003GP_atmega32u4) 
+   3. [Arduino sketch Atmega328 e Bluetooth BLE-HM10 - si5351_vfo_ble_atmega328.ino](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/source/si5351_vfo_ble_atmega328)
+   4. [Aplicativo para Celular Android e iOS para controlar o VFO](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/source/vfoMobileApplication)
+8.  [Vídeos](https://github.com/pu2clr/VFO_BFO_OLED_ARDUINO/tree/master/Experiments/VFO_RADIO_CD2003GP/Docs#v%C3%ADdeos)
 
 
 
