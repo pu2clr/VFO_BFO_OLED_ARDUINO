@@ -25,7 +25,7 @@
     <div data-role="page" id="pg_ble_connect" data-theme="d">
 
         <div data-role="header" data-position="fixed">
-            <h4>VFO - By PU2CLR</h4>
+            <h2>Dial</h2>
         </div><!-- /header -->
 
         <div>
@@ -56,31 +56,35 @@
     <div data-role="page" id="pg_radio" data-theme="d">
 
         <div data-role="header" data-position="fixed">
-            <h4>VFO - By PU2CLR</h4>
+            <h2>Dial</h2>
         </div><!-- /header -->
 
-        <div data-role="fieldcontain" style="text-align:center;vertical-align:middle; z-index: 10000;">
-            <label for="freq">Frequência</label>
-            <input type="text" name="freq" id="freq" placeholder="Frequência">
-        </div>
+        <div data-role="main" data-id="persistent_navbar" data-position="fixed" style="text-align:center;vertical-align:middle" >
 
-        <div data-role="main" data-id="persistent_navbar" data-position="fixed">
-            <div data-role="navbar">
+            <div data-role="fieldcontain" style="text-align:center;vertical-align:middle;font-size:40px;">
+                <label for="freq">Frequência</label>
+                <input type="text" name="freq" id="freq" placeholder="">
+            </div>
+
+
+            <div data-role="navbar" style="margin-left: 7%;">
                 <ul data-mini="true">
                     <li>
-                        <h4>VFO</h4>
+                        <label for="tune">Tune</label>
                         <input type="text" id="tune" value="0">
                     </li>
 
                     <li>
-                        <h4>BFO</h4>
+                        <label for="fineTune">Fine Tune</label>
                         <input type="text" id="fineTune" value="0">
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div data-role="fieldcontain" style="text-align:left;vertical-align:middle; z-index: 10000;">
+
+
+        <!-- div data-role="fieldcontain" style="text-align:left;vertical-align:middle;">
             <div style="width: 100%; display: table;" data-mini="true">
                 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                     <legend>Frequency:</legend>
@@ -90,10 +94,11 @@
                     </div>
                 </fieldset>
             </div>
-        </div>
+        </div-->
 
         <!-- correção para wp8 -->
         <div data-role="footer" data-id="persistent_navbar" data-position="fixed">
+            <div style="text-align:center;"> By PU2CLR</divstyle></div>
             <div data-role="navbar">
                 <ul data-mini="true">
                     <li><a href="#pg_AM" data-transition="flip" data-icon="audio">AM</a></li>
