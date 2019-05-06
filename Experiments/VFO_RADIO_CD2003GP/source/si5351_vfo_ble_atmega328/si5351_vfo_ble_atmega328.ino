@@ -4,6 +4,9 @@
   This program control the frequencies of two clocks (CLK) output of the Si5351A
   The CLK 0 can be used as a VFO (535KHz to 160MHz)
   The CLK 1 can be used as a BFO (400KHz to 500KHz)
+
+  Testing Bluetooth BLE connection and control
+  
   See on https://github.com/etherkit/Si5351Arduino  and know how to calibrate your Si5351
   See also the example Etherkit/si5251_calibration
   Author: Ricardo Lima Caratti (PU2CLR) -   April, 2019
@@ -15,8 +18,8 @@
 #include <SSD1306AsciiAvrI2c.h>
 #include <SoftwareSerial.h>
 
-#define BLUETOOTH_TX 11 // Could be D8
-#define BLUETOOTH_RX 10 // Could be D7
+#define BLUETOOTH_TX 11 
+#define BLUETOOTH_RX 10 
 
 // Initiate BLE (HM10) Instance
 SoftwareSerial ble(BLUETOOTH_TX, BLUETOOTH_RX);
@@ -392,23 +395,28 @@ void loop()
   // Check if mobile device sent something 
   if (ble.available())
   {
+    // Just testing. Will be improved 
     char c = ble.read(); // Get message from mobile device (Smartphone)
     switch (c)
     {
     case '+':
       currentClock = 0;
+      currentStep = band[currentBand].starStepIndex;
       changeFreq(+1); // Increment VFO
       break;
     case '-':
       currentClock = 0;
+      currentStep = band[currentBand].starStepIndex;
       changeFreq(-1); // Decrement VFO
       break;
     case '>':
       currentClock = 1;
+      currentStep = 0;
       changeFreq(+1); // Increment BFO
       break;
     case '<':
-      currentClock = 0;
+      currentClock = 1;
+      currentStep = 0;
       changeFreq(-1); // Decrement BFO
       break;
     case 'd': 

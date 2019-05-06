@@ -660,5 +660,7 @@ com isso, após 5 milissegundos, poderei ler os pinos do encoder novamente e ver
 ## Vídeos 
 
 - [VFO and BFO project test with an inexpencive radio based on CD2003GP](https://youtu.be/_KgBc6vYWLg)
+- [Versão preliminar do VFO controlado por Celular via Bluetooth](https://youtu.be/D-7cL-VDCBg)
+
 
 
