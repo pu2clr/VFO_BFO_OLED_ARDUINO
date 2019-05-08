@@ -18,8 +18,8 @@
 #include <SSD1306AsciiAvrI2c.h>
 #include <SoftwareSerial.h>
 
-#define BLUETOOTH_TX 11 
-#define BLUETOOTH_RX 10 
+#define BLUETOOTH_TX 11
+#define BLUETOOTH_RX 10
 
 // Initiate BLE (HM10) Instance
 SoftwareSerial ble(BLUETOOTH_TX, BLUETOOTH_RX);
@@ -33,11 +33,11 @@ SoftwareSerial ble(BLUETOOTH_TX, BLUETOOTH_RX);
 #define RST_PIN -1 // Define proper RST_PIN if required.
 
 // Change this value below  (CORRECTION_FACTOR) to 0 if you do not know the correction factor of your Si5351A.
-#define CORRECTION_FACTOR 0 // See how to calibrate your Si5351A (0 if you do not want).
+#define CORRECTION_FACTOR 70000 // See how to calibrate your Si5351A (0 if you do not want).
 
-#define BUTTON_STEP 4    // Control the frequency increment and decrement
-#define BUTTON_BAND 3    // Controls the band
-#define BUTTON_VFO_BFO 2 // Switch VFO to BFO
+#define BUTTON_STEP    4    // Control the frequency increment and decrement
+#define BUTTON_BAND    3    // Controls the band
+#define BUTTON_VFO_BFO 2    // Switch VFO to BFO
 
 // BFO range for this project is 400KHz to 500KHz. The central frequency is 455KHz.
 #define MAX_BFO 45800000LU    // BFO maximum frequency
@@ -62,8 +62,9 @@ Si5351 si5351;
 // Depending on the selected band, you may want to perform specific actions
 // The functions declared below will do something for AM and FM BAND. See implementation later.
 // You can implement callback function for other bands
-void amBroadcast(); // See implementation later.
-void fmBroadcast(); // See implementation later.
+void amBroadcast();      // See implementation later.
+void fmBroadcast();      // See implementation later.
+void defultFinishBand(); //
 
 // Structure for Bands database
 typedef struct
@@ -78,32 +79,32 @@ typedef struct
   short initialStepIndex; // Index to the initial step of incrementing
   short finalStepIndex;   // Index to the final step of incrementing
   short starStepIndex;    // Default Index for the band
-  void (*f)(void);        // pointer to the function that handles specific things for the band
-} Band;
+  void (*fstart)(void);   // pointer to the function that will handle specific things for the band immediately after the band is selected
+ } Band;
 
 // Band database. You can change the band ranges if you need.
 // The unit of frequency here is 0.01Hz (1/100 Hz). See Etherkit Library at https://github.com/etherkit/Si5351Arduino
-Band band[] = {
-    {"MW  ", 50000000LLU, 170000000LLU, 45500000LU, "KHz", 100000.0f, 0, 3, 6, 5, amBroadcast},
-    {"SW1 ", 170000000LLU, 1000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
-    {"SW2 ", 1000000000LLU, 2000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
-    {"SW3 ", 2000000000LLU, 3000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
-    {"VHF1", 3000000000LLU, 7600000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 7, 3, NULL},
-    {"FM  ", 7600000000LLU, 10800000000LLU, 1075000000LLU, "MHz", 100000000.0f, 2, 6, 8, 7, fmBroadcast},
-    {"AIR ", 10800000000LLU, 13700000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
-    {"VHF2", 13700000000LLU, 14400000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
-    {"2M  ", 14400000000LLU, 15000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL},
-    {"VFH3", 15000000000LLU, 16000000000LLU, 1075000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, NULL}};
+ Band band[] = {
+     {"MW  ", 50000000LLU, 170000000LLU, 45500000LU, "KHz", 100000.0f, 0, 3, 6, 5, amBroadcast},
+     {"SW1 ", 170000000LLU, 1000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+     {"SW2 ", 1000000000LLU, 2000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+     {"SW3 ", 2000000000LLU, 3000000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 6, 3, amBroadcast},
+     {"VHF1", 3000000000LLU, 7600000000LLU, 45500000LU, "KHz", 100000.0f, 2, 1, 7, 3, defultFinishBand},
+     {"FM  ", 7600000000LLU, 10800000000LLU, 1070000000LLU, "MHz", 100000000.0f, 2, 6, 8, 7, fmBroadcast},
+     {"FM1 ", 8600000000LLU, 10800000000LLU, 1075000000LLU, "MHz", 100000000.0f, 2, 5, 8, 7, fmBroadcast},
+     {"AIR ", 10800000000LLU, 13700000000LLU, 1070000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, defultFinishBand},
+     {"VHF2", 13700000000LLU, 14400000000LLU, 1070000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, defultFinishBand},
+     {"2M  ", 14400000000LLU, 15000000000LLU, 1070000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, defultFinishBand},
+     {"VFH3", 15000000000LLU, 16000000000LLU, 1070000000LLU, "MHz", 100000000.0f, 3, 2, 8, 5, defultFinishBand}};
+ // Calculate the last element position (index) of the array band
+ const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
+ short currentBand = 0;                                 // First band. For this case, AM is the current band.
 
-// Calculate the last element position (index) of the array band
-const int lastBand = (sizeof band / sizeof(Band)) - 1; // For this case will be 26.
-short currentBand = 0;                                 // First band. For this case, AM is the current band.
-
-// Struct for step database
-typedef struct
-{
-  char *name; // step label: 50Hz, 100Hz, 500Hz, 1KHz, 5KHz, 10KHz and 500KHz
-  long value; // Frequency value (unit 0.01Hz See documentation) to increment or decrement
+ // Struct for step database
+ typedef struct
+ {
+   char *name; // step label: 50Hz, 100Hz, 500Hz, 1KHz, 5KHz, 10KHz and 500KHz
+   long value; // Frequency value (unit 0.01Hz See documentation) to increment or decrement
 } Step;
 
 // Steps database. You can change the Steps and numbers of steps here if you need.
@@ -161,6 +162,7 @@ void setup()
   pinMode(BUTTON_VFO_BFO, INPUT);
 
   // Start bluetooth serial at 9600 bps.
+  Serial.begin(9600);
   ble.begin(9600);
 
   // The sistem is alive
@@ -190,13 +192,8 @@ void setup()
   si5351.update_status();
   // Show the initial system information
 
-  // Set defult Band
-  currentBand = 0;
-  vfoFreq = band[currentBand].minFreq;
-  currentStep = band[currentBand].starStepIndex;
-  if (band[currentBand].f != NULL) // Call callback function if exist something to do for the specific for the band
-    (band[currentBand].f)();
-  isFreqChanged = true;
+  // Set defult Band (go to MW)
+  changeBand(0);
 
   delay(100);
 }
@@ -242,14 +239,16 @@ void displayDial()
     dinamicFreq = "BFO";
   }
 
-  ble.print(mainFreq + "\n");
-
   // Show Band information
   display.setCursor(0, 0);
   display.set1X();
   strAux = String(band[currentBand].name);
   display.print(strAux);
+  
   strAux = band[currentBand].unitFreq;
+
+  ble.print(mainFreq + " " + strAux + "\n");
+  
   display.setCursor(29, 0);
   display.print(strAux);
   display.setCursor(55, 0);
@@ -304,16 +303,30 @@ void changeFreq(int direction)
   isFreqChanged = true;
 }
 
+// It is executed when a new band is selected.
+void changeBand(short idxBand)
+{
+
+  vfoFreq = band[idxBand].minFreq;
+  currentStep = band[idxBand].starStepIndex;
+
+  // Call callback function if exist something to do for the specific band (current band)
+  if (band[idxBand].fstart != NULL)
+    (band[idxBand].fstart)();
+
+  currentBand = idxBand;
+  isFreqChanged = true;
+}
+
 // Callback implementation
 
-// Doing something spefict for AM
+// Doing something spefict for MW band
 // Example: set Pin 14 of the CD2003GP to LOW; switch filter, turn AM LED on etc
 void amBroadcast()
 {
   // TO DO
   digitalWrite(CD2003GP_SWITCH_AM_FM, LOW); // The CD2003GP is seted to AM
   digitalWrite(CD2003GP_AM_LED, HIGH);      // Turn ON the AM LED
-  digitalWrite(CD2003GP_FM_LED, LOW);       // Turn OFF the FM LED
 }
 
 // Doing something spefict for FM
@@ -322,14 +335,55 @@ void fmBroadcast()
 {
   // TO DO
   digitalWrite(CD2003GP_SWITCH_AM_FM, HIGH); // The CD2003GP is seted to AM
-  digitalWrite(CD2003GP_AM_LED, LOW);        // Turn OFF the AM LED
   digitalWrite(CD2003GP_FM_LED, HIGH);       // Turn ON the FM LED
 }
 
+// Defaul action 
+// It is another callback function that can be called when a specific band is selected 
+void defultFinishBand()
+{
+  digitalWrite(CD2003GP_FM_LED, LOW); // Turno the FM LED OFF
+  digitalWrite(CD2003GP_AM_LED, LOW); // Turn the AM LED OFF
+}
+
+
+// Bluetooth communication
+
 // Send VFO/BFO database to mobile device
-void sendDatabase() {
+void sendDatabase()
+{
+  
+  // Building  JSON string  =>  {"band":["MW  ", "SW2  "...]}
+  String jsonBand = "#J{\"dial\":[";  // #J Means that a Json information will be processed by the SmartPhone
+  short i;
+  // Building Json string
+  for (i = 0; i < lastBand; i++)
+  {
+    jsonBand.concat("{\"band\":\"");
+    jsonBand.concat(band[i].name);
+    jsonBand.concat("\", \"unit\":\"");
+    jsonBand.concat(band[i].unitFreq);
+    jsonBand.concat("\"},");
+  }
+
+  jsonBand.concat("{\"band\":\"");
+  jsonBand.concat(band[i].name);
+  jsonBand.concat("\", \"unit\":\"");
+  jsonBand.concat(band[i].unitFreq);
+  jsonBand.concat("\"}]}\n");  // '\n' means the and of the message 
+
+  Serial.println(jsonBand);
+  ble.print(jsonBand);
+}
+
+// Process a long message sent by the Smartphone (message started with '#')
+void processMessage()
+{
+  String buffer = ble.readString();
+  Serial.println(buffer);
   // TO DO
 }
+
 
 // main loop
 void loop()
@@ -364,15 +418,7 @@ void loop()
   // check if some button is pressed
   if (digitalRead(BUTTON_BAND) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
   {
-    currentBand = (currentBand < lastBand) ? (currentBand + 1) : 0; // Is the last band? If so, go to the first band (AM). Else. Else, next band.
-    vfoFreq = band[currentBand].minFreq;
-    currentStep = band[currentBand].starStepIndex;
-
-    // Call callback function if exist something to do for the specific band
-    if (band[currentBand].f != NULL)
-      (band[currentBand].f)();
-
-    isFreqChanged = true;
+    changeBand( (currentBand < lastBand)? (currentBand + 1) : 0 ); 
     elapsedButton = millis();
   }
   else if (digitalRead(BUTTON_STEP) == HIGH && (millis() - elapsedButton) > MIN_ELAPSED_TIME)
@@ -392,10 +438,10 @@ void loop()
     elapsedButton = millis();
   } // end button control
 
-  // Check if mobile device sent something 
+  // Check if mobile device sent something
   if (ble.available())
   {
-    // Just testing. Will be improved 
+    // Just testing. Will be improved
     char c = ble.read(); // Get message from mobile device (Smartphone)
     switch (c)
     {
@@ -419,9 +465,19 @@ void loop()
       currentStep = 0;
       changeFreq(-1); // Decrement BFO
       break;
-    case 'd': 
-      sendDatabase();  // Send VFO/BFO information (Bands, Steps and current status) to mobile device
-      break;  
+    case 'd':
+      sendDatabase(); // Send VFO/BFO information (Bands, Steps and current status) to mobile device
+      break;
+    case 'm':
+      changeBand(0);   // Band MW (AM)
+      break;
+    case 'f':
+      changeBand(6);  // Band FM
+      break;
+    case '#':
+      // Follow the protocol
+      processMessage();
+      break;
     default:
       break;
     }

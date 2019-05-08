@@ -2,6 +2,8 @@
 /* global cordova, console, $, bluetoothSerial, _, refreshButton, deviceList, previewColor, red, green, blue, disconnectButton, connectionScreen, colorScreen, rgbText, messageDiv */
 'use strict';
 
+var objJson;
+
 var app = {
     initialize: function () {
         this.bind();
@@ -15,10 +17,6 @@ var app = {
         refreshButton.ontouchstart = app.list;
         sendFreq.ontouchstart = app.sendData;
         disconnectButton.ontouchstart = app.disconnect;
-
-        // throttle changes
-        var throttledOnColorChange = _.throttle(app.onColorChange, 200);
-        $('input').on('change', throttledOnColorChange);
 
         app.list();
     },
@@ -36,7 +34,7 @@ var app = {
         if (!deviceId) { // try the parent
             deviceId = e.target.parentNode.dataset.deviceId;
         }
-        bluetoothSerial.subscribe('\n', app.onData, app.generateFailureFunction);
+        bluetoothSerial.subscribe('\n', app.ondata, app.generateFailureFunction);
         bluetoothSerial.connect(device, app.onconnect, app.ondisconnect);
       },
     disconnect: function (event) {
@@ -47,34 +45,31 @@ var app = {
         bluetoothSerial.disconnect(app.ondisconnect);
     },
     onconnect: function () {
-        connectionScreen.hidden = true;
-        colorScreen.hidden = false;
+
         app.setStatus("Connected.");
+        connectionScreen.hidden = true;
+        // Solicita informações ao VFO (Arduino)   
+        app.sendToArduino('d');  // See Arduino sketch si5351_vfo_ble_atemega328.ino
+
     },
     ondisconnect: function () {
         connectionScreen.hidden = false;
         colorScreen.hidden = true;
         app.setStatus("Disconnected.");
     },
-    onColorChange: function (evt) {
-        var c = app.getColor();
-        rgbText.innerText = c;
-        previewColor.style.backgroundColor = "rgb(" + c + ")";
-        app.sendToArduino(c);
-    },
-    getColor: function () {
-        var color = [];
-        color.push(red.value);
-        color.push(green.value);
-        color.push(blue.value);
-        return color.join(',');
-    },
     sendToArduino: function (c) {
         bluetoothSerial.write(c);
     },
-    onData: function (data) { // data received from Arduino
+    ondata: function (data) { // data received from Arduino
         console.log("Recebido" + data);
-        $("#freq").val(data);
+        if ( data.substring(0,1) == "#") {
+            var strJson = data.substring(2, data.length);
+            alert("String JSON: " + strJson);
+            objJson = JSON.parse(strJson);
+            bluetoothSerial.clear();
+        } else {
+            $("#freq").val(data);
+        }
     },
     timeoutId: 0,
     setStatus: function (status) {

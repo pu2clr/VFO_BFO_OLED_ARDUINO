@@ -2,10 +2,8 @@
 <html>
 
 <head>
-
     <title>PU2CLR VFO</title>
     <meta charset="utf-8">
-
     <!-- Resolve o problema de Scroll no Windows 8.1 -->
     <!--meta http-equiv="X-UA-Compatible" content="IE=10"-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,27 +14,19 @@
     <link rel="stylesheet" href="css/jquery-ui.min.css" />
     <link href="css/euopino-theme.min.css" rel="stylesheet" type="text/css" />
     <link href="css/jquery.rotaryswitch.css" rel="stylesheet" type="text/css">
-
 </head>
 
 <body>
-
-
     <div data-role="page" id="pg_ble_connect" data-theme="d">
 
         <div data-role="header" data-position="fixed">
             <h2>Dial</h2>
         </div><!-- /header -->
-
-        <div>
-            Click on Button <b>Refresh</b> to select the Bluetooth
-        </div>
-
         <div id="connectionScreen">
             <ul id="deviceList" class="topcoat-list">
             </ul>
             <div style="margin: 10px">
-                <button class="topcoat-button" id="refreshButton">Refresh</button>
+                <button class="topcoat-button" id="refreshButton">Connect to a Bluetooth</button>
             </div>
         </div>
 
@@ -53,57 +43,39 @@
 
     </div>
 
-    <div data-role="page" id="pg_radio" data-theme="d">
+    <div data-role="page" id="pg_radio">
 
         <div data-role="header" data-position="fixed">
             <h2>Dial</h2>
         </div><!-- /header -->
 
-        <div data-role="main" data-id="persistent_navbar" data-position="fixed" style="text-align:center;vertical-align:middle" >
+        <div data-role="main" data-id="persistent_navbar" data-position="fixed"
+            style="text-align:center;vertical-align:middle; border: none;">
 
             <div data-role="fieldcontain" style="text-align:center;vertical-align:middle;font-size:40px;">
                 <label for="freq">Frequência</label>
                 <input type="text" name="freq" id="freq" placeholder="">
             </div>
 
-
-            <div data-role="navbar" style="margin-left: 7%;">
-                <ul data-mini="true">
-                    <li>
-                        <label for="tune">Tune</label>
-                        <input type="text" id="tune" value="0">
-                    </li>
-
-                    <li>
-                        <label for="fineTune">Fine Tune</label>
-                        <input type="text" id="fineTune" value="0">
-                    </li>
-                </ul>
+            <div style="margin-left: 25%; border: none;">
+                <input type="text" id="tune" value="0">
+            </div>
+            <div class="" style="margin-left: 0%;"><br>
+                <h4>Tune</h4>
             </div>
         </div>
 
-
-
-        <!-- div data-role="fieldcontain" style="text-align:left;vertical-align:middle;">
-            <div style="width: 100%; display: table;" data-mini="true">
-                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                    <legend>Frequency:</legend>
-                    <div data-role="content">
-                        <input type="number" id="messageInput" value="" />
-                        <button id="sendFreq">Enter</button>
-                    </div>
-                </fieldset>
-            </div>
-        </div-->
-
         <!-- correção para wp8 -->
         <div data-role="footer" data-id="persistent_navbar" data-position="fixed">
-            <div style="text-align:center;"> By PU2CLR</divstyle></div>
+            <div style="text-align:center;"> By PU2CLR</divstyle>
+            </div>
             <div data-role="navbar">
                 <ul data-mini="true">
-                    <li><a href="#pg_AM" data-transition="flip" data-icon="audio">AM</a></li>
+                    <li><a href="#" data-transition="flip" data-icon="audio" onclick="app.sendToArduino('m');">AM</a>
+                    </li>
                     <li><a href="#pg_SW" data-transition="flip" data-icon="location">SW</a></li>
-                    <li><a href="#pg_FM" data-transition="flip" data-icon="audio">FM</a></li>
+                    <li><a href="#" data-transition="flip" data-icon="audio" onclick="app.sendToArduino('f');">FM</a>
+                    </li>
                     <li><a href="#pg_VHF" data-transition="flip" data-icon="location">VHF</a></li>
                 </ul>
             </div>
@@ -167,7 +139,6 @@
             // Frequency will be get from Arduino VFO
 
             $('#tune').rotaryswitch({ themeClass: 'big' });
-            $('#fineTune').rotaryswitch({ themeClass: 'big' });
 
             var tune = $('#tune').rotaryswitch();
 
@@ -186,28 +157,6 @@
                     c = "+";
                 }
                 lastPos = parseInt($('#tune').val());
-                app.sendToArduino(c);
-            });
-
-            var fineTune = $('#fineTune').rotaryswitch();
-            // It is executed whenever you rotate the fineTune knob
-            fineTune.on('change', function () {
-                var c;
-                var currentPos = parseInt($('#tune').val());
-                if (currentPos == 0 && lastPosFineTune == 29) {
-                    freq += 10;
-                    c = ">";
-                } else if (currentPos == 29 && lastPosFineTune == 0) {
-                    freq -= 10;
-                    c = "<";
-                } else if (currentPos < lastPosFineTune) {
-                    freq -= 10;
-                    c = "<";
-                } else if (currentPos > lastPosFineTune) {
-                    freq += 10;
-                    c = ">";
-                }
-                lastPosFineTune = parseInt($('#fineTune').val());
                 app.sendToArduino(c);
             });
 
