@@ -2,7 +2,8 @@
 /* global cordova, console, $, bluetoothSerial, _, refreshButton, deviceList, previewColor, red, green, blue, disconnectButton, connectionScreen, colorScreen, rgbText, messageDiv */
 'use strict';
 
-var objJson;
+var objBand;
+var objStep;
 
 var app = {
     initialize: function () {
@@ -36,7 +37,7 @@ var app = {
         }
         bluetoothSerial.subscribe('\n', app.ondata, app.generateFailureFunction);
         bluetoothSerial.connect(device, app.onconnect, app.ondisconnect);
-      },
+    },
     disconnect: function (event) {
         if (event) {
             event.preventDefault();
@@ -61,12 +62,20 @@ var app = {
         bluetoothSerial.write(c);
     },
     ondata: function (data) { // data received from Arduino
-        console.log("Recebido" + data);
-        if ( data.substring(0,1) == "#") {
-            var strJson = data.substring(2, data.length);
-            alert("String JSON: " + strJson);
-            objJson = JSON.parse(strJson);
-            bluetoothSerial.clear();
+        var protocol = data.substring(0, 1);
+        var cmd
+        if (protocol == "#") {
+            cmd = data.substring(1, 2); // Check the command
+            if (cmd == "B") { // is Band table? 
+                var strJson = data.substring(2, data.length);
+                objBand = JSON.parse(strJson);
+                // TO DO
+            } else if (cmd == "S") { // Is Step table? 
+                var strJson = data.substring(2, data.length);
+                alert("String Step: " + strJson);
+                objStep = JSON.parse(strJson);
+                alert(objStep.steps[0].name + " --- " + objBand.bands[0].name);
+            }
         } else {
             $("#freq").val(data);
         }

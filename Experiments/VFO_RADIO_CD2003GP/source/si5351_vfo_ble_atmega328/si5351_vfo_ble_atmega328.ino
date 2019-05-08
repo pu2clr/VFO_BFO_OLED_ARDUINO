@@ -352,25 +352,43 @@ void defultFinishBand()
 // Send VFO/BFO database to mobile device
 void sendDatabase()
 {
-  
   // Building  JSON string  =>  {"band":["MW  ", "SW2  "...]}
-  String jsonBand = "#J{\"dial\":[";  // #J Means that a Json information will be processed by the SmartPhone
+  String jsonBand = "#B{\"bands\":[";  // #J Means that a Json information will be processed by the SmartPhone
   short i;
+
   // Building Json string
+
+  // Bands table
   for (i = 0; i < lastBand; i++)
   {
-    jsonBand.concat("{\"band\":\"");
+    jsonBand.concat("{\"name\":\"");
     jsonBand.concat(band[i].name);
-    jsonBand.concat("\", \"unit\":\"");
+    jsonBand.concat("\", \"unt\":\"");
     jsonBand.concat(band[i].unitFreq);
     jsonBand.concat("\"},");
   }
-
-  jsonBand.concat("{\"band\":\"");
+  jsonBand.concat("{\"name\":\"");
   jsonBand.concat(band[i].name);
-  jsonBand.concat("\", \"unit\":\"");
+  jsonBand.concat("\", \"unt\":\"");
   jsonBand.concat(band[i].unitFreq);
-  jsonBand.concat("\"}]}\n");  // '\n' means the and of the message 
+  jsonBand.concat("\"}]}\n"); // '\n' means the and of the message
+  ble.print(jsonBand);
+  Serial.println(jsonBand);
+
+  // Steps table
+  jsonBand = "#S{\"steps\":[";;
+  for (i = 0; i < lastStepVFO; i++) {
+    jsonBand.concat("{\"name\":\"");
+    jsonBand.concat(step[i].name);
+    jsonBand.concat("\",\"value\":");
+    jsonBand.concat(step[i].value);
+    jsonBand.concat("},");
+  }
+  jsonBand.concat("{\"name\":\"");
+  jsonBand.concat(step[i].name);
+  jsonBand.concat("\",\"value\":");
+  jsonBand.concat(step[i].value);
+  jsonBand.concat("}]}\n");
 
   Serial.println(jsonBand);
   ble.print(jsonBand);
