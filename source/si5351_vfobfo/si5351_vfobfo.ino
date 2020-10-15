@@ -47,7 +47,7 @@ Si5351 si5351;
 // Structure for Bands database
 typedef struct
 {
-  char *name;
+  const char *name;
   uint64_t minFreq; // Min. frequency value for the band (unit 0.01Hz)
   uint64_t maxFreq; // Max. frequency value for the band (unit 0.01Hz)
 } Band;
@@ -90,7 +90,7 @@ volatile int currentBand = 0;                          // First band. For this c
 // Struct for step database
 typedef struct
 {
-  char *name; // step label: 50Hz, 100Hz, 500Hz, 1KHz, 5KHz, 10KHz and 500KHz
+  const char *name; // step label: 50Hz, 100Hz, 500Hz, 1KHz, 5KHz, 10KHz and 500KHz
   long value; // Frequency value (unit 0.01Hz See documentation) to increment or decrement
 } Step;
 
@@ -141,7 +141,7 @@ void setup()
   pinMode(BUTTON_STEP, INPUT);
   pinMode(BUTTON_VFO_BFO, INPUT);
   // The sistem is alive
-  blinkLed(STATUS_LED, 100);
+  blinkLed(100);
   STATUSLED(LOW);
   // Initiating the OLED Display
   display.begin(&Adafruit128x64, I2C_ADDRESS);
@@ -172,7 +172,7 @@ void setup()
 }
 
 // Blink the STATUS LED
-void blinkLed(int pinLed, int blinkDelay)
+void blinkLed(int blinkDelay)
 {
   for (int i = 0; i < 5; i++)
   {
@@ -246,12 +246,12 @@ void changeFreq(int direction)
     if (vfoFreq > band[currentBand].maxFreq) // Max. VFO frequency for the current band
     {
       vfoFreq = band[currentBand].minFreq; // Go to min. frequency of the range
-      blinkLed(STATUS_LED, 50);            // Alert the user that the range is over
+      blinkLed(50);            // Alert the user that the range is over
     }
     else if (vfoFreq < band[currentBand].minFreq) // Min. VFO frequency for the band
     {
       vfoFreq = band[currentBand].maxFreq; // Go to max. frequency of the range
-      blinkLed(STATUS_LED, 50);            // Alert the user that the range is over
+      blinkLed(50);            // Alert the user that the range is over
     }
   }
   else
@@ -261,7 +261,7 @@ void changeFreq(int direction)
     if (bfoFreq > MAX_BFO || bfoFreq < MIN_BFO) // BFO goes to center if it is out of the limits
     {
       bfoFreq = CENTER_BFO;     // Go to center
-      blinkLed(STATUS_LED, 50); // Alert the user that the range is over
+      blinkLed(50); // Alert the user that the range is over
     }
   }
   isFreqChanged = true;
